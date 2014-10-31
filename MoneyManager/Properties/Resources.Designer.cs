@@ -63,6 +63,7 @@ namespace MoneyManager.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die This project is licensed under GPLv3. View LICENSE for more information.
         ///This project uses icons (Money Glowing Icon) from Mihaiciuc Bogdan licensed under CC-by-4.0. See http://bogo-d.deviantart.com/ for more information.
+        ///
         ///Copyright 2014 Jöran &quot;AliveDevil&quot; Malek (https://github.com/AliveDevil/MoneyManager). ähnelt.
         /// </summary>
         public static string AboutLicense {
