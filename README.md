@@ -30,8 +30,11 @@ expression {
 	* `MethodName(param1, param2, param3)`
 	* `new Type()`
 	* `new Type(param1, param2, param3)`
-	* `param1 [operator] param2`
+	* `param1 operator param2`
 	* `param == param`
+	* `type[]`
+	* `new type[count] { content, content }`
+	* `target = value`
 
 If I missed some point ask me or create a pull request.
 
