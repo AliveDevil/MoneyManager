@@ -71,7 +71,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\Exporter\Exportable.cs" />
+    <Compile Include="Model\Exporter\MoneyManagerExporter.cs" />
+    <Compile Include="Model\MoneyRecord.cs" />
+    <Compile Include="Model\Validators\DecimalValidator.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\MoneyRecordViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Page Include="AboutWindow.xaml">
       <SubType>Designer</SubType>
@@ -123,6 +128,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Bogo-D-Project-Money-Glowing.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Model\Importer\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

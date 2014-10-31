@@ -82,11 +82,38 @@ namespace MoneyManager.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Input is no valid number. ähnelt.
+        /// </summary>
+        public static string EditNotNumeric {
+            get {
+                return ResourceManager.GetString("EditNotNumeric", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die MoneyManager (json) ähnelt.
         /// </summary>
         public static string ImportFromOldMM {
             get {
                 return ResourceManager.GetString("ImportFromOldMM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Input should not be empty. ähnelt.
+        /// </summary>
+        public static string InputNotEmpty {
+            get {
+                return ResourceManager.GetString("InputNotEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Input no valid decimal number. ähnelt.
+        /// </summary>
+        public static string InputNotNumeric {
+            get {
+                return ResourceManager.GetString("InputNotNumeric", resourceCulture);
             }
         }
         

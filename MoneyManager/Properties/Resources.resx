@@ -126,8 +126,17 @@ Copyright 2014 Jöran "AliveDevil" Malek (https://github.com/AliveDevil/MoneyMan
   <data name="AboutTitle" xml:space="preserve">
     <value>About MoneyManager</value>
   </data>
+  <data name="EditNotNumeric" xml:space="preserve">
+    <value>Input is no valid number.</value>
+  </data>
   <data name="ImportFromOldMM" xml:space="preserve">
     <value>MoneyManager (json)</value>
+  </data>
+  <data name="InputNotEmpty" xml:space="preserve">
+    <value>Input should not be empty.</value>
+  </data>
+  <data name="InputNotNumeric" xml:space="preserve">
+    <value>Input no valid decimal number.</value>
   </data>
   <data name="MenuAbout" xml:space="preserve">
     <value>About</value>
