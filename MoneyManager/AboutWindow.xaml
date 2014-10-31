@@ -1,8 +1,11 @@
 ﻿<Window x:Class="MoneyManager.AboutWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="{Binding Source={StaticResource Resources}, Path=AboutTitle}" Height="300" Width="300">
-    <Grid>
-        
-    </Grid>
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		Title="{Binding Source={StaticResource Resources}, Path=AboutTitle}"
+		Height="300"
+		Width="300"
+		Icon="Bogo-D-Project-Money-Glowing.ico">
+	<Grid>
+
+	</Grid>
 </Window>
