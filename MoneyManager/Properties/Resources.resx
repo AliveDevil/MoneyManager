@@ -125,7 +125,7 @@ This project uses icons (Money Glowing Icon) from Mihaiciuc Bogdan licensed unde
     <value>About MoneyManager</value>
   </data>
   <data name="MenuFile" xml:space="preserve">
-    <value />
+    <value>File</value>
   </data>
   <data name="Title" xml:space="preserve">
     <value>MoneyManager</value>
