@@ -119,13 +119,35 @@
   </resheader>
   <data name="AboutLicense" xml:space="preserve">
     <value>This project is licensed under GPLv3. View LICENSE for more information.
-This project uses icons (Money Glowing Icon) from Mihaiciuc Bogdan licensed under CC-by-4.0. See http://bogo-d.deviantart.com/ for more information.</value>
+This project uses icons (Money Glowing Icon) from Mihaiciuc Bogdan licensed under CC-by-4.0. See http://bogo-d.deviantart.com/ for more information.
+Copyright 2014 Jöran "AliveDevil" Malek (https://github.com/AliveDevil/MoneyManager).</value>
   </data>
   <data name="AboutTitle" xml:space="preserve">
     <value>About MoneyManager</value>
   </data>
+  <data name="ImportFromOldMM" xml:space="preserve">
+    <value>MoneyManager (json)</value>
+  </data>
+  <data name="MenuAbout" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="MenuExit" xml:space="preserve">
+    <value>Exit</value>
+  </data>
   <data name="MenuFile" xml:space="preserve">
     <value>File</value>
+  </data>
+  <data name="MenuImport" xml:space="preserve">
+    <value>Import</value>
+  </data>
+  <data name="MenuOpen" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="MenuSave" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="MenuSaveAs" xml:space="preserve">
+    <value>Save as</value>
   </data>
   <data name="Title" xml:space="preserve">
     <value>MoneyManager</value>

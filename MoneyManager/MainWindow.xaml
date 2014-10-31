@@ -12,7 +12,20 @@
 			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
 		<Menu Grid.Row="0">
-			<MenuItem Header="{Binding Source={StaticResource Resources}, Path=MenuFile}" />
+			<MenuItem Header="{Binding Source={StaticResource Resources}, Path=MenuFile}">
+				<MenuItem Header="{Binding Source={StaticResource Resources}, Path=MenuSave}" />
+				<MenuItem Header="{Binding Source={StaticResource Resources}, Path=MenuSaveAs}" />
+				<MenuItem Header="{Binding Source={StaticResource Resources}, Path=MenuOpen}" />
+				<Separator />
+				<MenuItem Header="{Binding Source={StaticResource Resources}, Path=MenuImport}">
+					<MenuItem Header="{Binding Source={StaticResource Resources}, Path=ImportFromOldMM}" />
+				</MenuItem>
+				<Separator />
+				<MenuItem Header="{Binding Source={StaticResource Resources}, Path=MenuExit}"
+						  Click="MenuExit_Click" />
+			</MenuItem>
+			<MenuItem Header="{Binding Source={StaticResource Resources}, Path=MenuAbout}"
+					  Click="MenuAbout_Click" />
 		</Menu>
 	</Grid>
 </Window>

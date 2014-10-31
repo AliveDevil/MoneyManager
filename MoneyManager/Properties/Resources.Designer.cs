@@ -62,7 +62,8 @@ namespace MoneyManager.Properties {
         
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die This project is licensed under GPLv3. View LICENSE for more information.
-        ///This project uses icons (Money Glowing Icon) from Mihaiciuc Bogdan licensed under CC-by-4.0. See http://bogo-d.deviantart.com/ for more information. ähnelt.
+        ///This project uses icons (Money Glowing Icon) from Mihaiciuc Bogdan licensed under CC-by-4.0. See http://bogo-d.deviantart.com/ for more information.
+        ///Copyright 2014 Jöran &quot;AliveDevil&quot; Malek (https://github.com/AliveDevil/MoneyManager). ähnelt.
         /// </summary>
         public static string AboutLicense {
             get {
@@ -80,11 +81,74 @@ namespace MoneyManager.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die MoneyManager (json) ähnelt.
+        /// </summary>
+        public static string ImportFromOldMM {
+            get {
+                return ResourceManager.GetString("ImportFromOldMM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die About ähnelt.
+        /// </summary>
+        public static string MenuAbout {
+            get {
+                return ResourceManager.GetString("MenuAbout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Exit ähnelt.
+        /// </summary>
+        public static string MenuExit {
+            get {
+                return ResourceManager.GetString("MenuExit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die File ähnelt.
         /// </summary>
         public static string MenuFile {
             get {
                 return ResourceManager.GetString("MenuFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Import ähnelt.
+        /// </summary>
+        public static string MenuImport {
+            get {
+                return ResourceManager.GetString("MenuImport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Open ähnelt.
+        /// </summary>
+        public static string MenuOpen {
+            get {
+                return ResourceManager.GetString("MenuOpen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Save ähnelt.
+        /// </summary>
+        public static string MenuSave {
+            get {
+                return ResourceManager.GetString("MenuSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Save as ähnelt.
+        /// </summary>
+        public static string MenuSaveAs {
+            get {
+                return ResourceManager.GetString("MenuSaveAs", resourceCulture);
             }
         }
         
