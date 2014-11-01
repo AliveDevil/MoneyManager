@@ -1,12 +1,23 @@
-﻿<Window x:Class="MoneyManager.MainWindow"
-		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:v="clr-namespace:MoneyManager.Model.Validators"
+		xmlns:b="http://schemas.microsoft.com/expression/2010/interactivity"
+		xmlns:Converter="clr-namespace:MoneyManager.ViewModel.Converter"
+		x:Class="MoneyManager.MainWindow"
 		Height="350"
 		Width="525"
-		Title="{Binding Source={StaticResource Resources}, Path=Title}"
-		DataContext="{Binding Source={StaticResource Locator}, Path=Main}"
 		Icon="Bogo-D-Project-Money-Glowing.ico">
+	<Window.Resources>
+		<Converter:LowerZeroConverter x:Key="LowerZeroConverter" />
+	</Window.Resources>
+	<Window.Title>
+		<Binding Path="Title"
+				 Source="{StaticResource Resources}" />
+	</Window.Title>
+	<Window.DataContext>
+		<Binding Path="Main"
+				 Source="{StaticResource Locator}" />
+	</Window.DataContext>
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto" />
@@ -15,19 +26,19 @@
 		</Grid.RowDefinitions>
 		<Menu Grid.Row="0"
 			  IsTabStop="False">
-			<MenuItem Header="{Binding Source={StaticResource Resources}, Path=MenuFile}">
-				<MenuItem Header="{Binding Source={StaticResource Resources}, Path=MenuSave}" />
-				<MenuItem Header="{Binding Source={StaticResource Resources}, Path=MenuSaveAs}" />
-				<MenuItem Header="{Binding Source={StaticResource Resources}, Path=MenuOpen}" />
+			<MenuItem Header="{Binding MenuFile, Source={StaticResource Resources}}">
+				<MenuItem Header="{Binding MenuSave, Source={StaticResource Resources}}" />
+				<MenuItem Header="{Binding MenuSaveAs, Source={StaticResource Resources}}" />
+				<MenuItem Header="{Binding MenuOpen, Source={StaticResource Resources}}" />
 				<Separator />
-				<MenuItem Header="{Binding Source={StaticResource Resources}, Path=MenuImport}">
-					<MenuItem Header="{Binding Source={StaticResource Resources}, Path=ImportFromOldMM}" />
+				<MenuItem Header="{Binding MenuImport, Source={StaticResource Resources}}">
+					<MenuItem Header="{Binding ImportFromOldMM, Source={StaticResource Resources}}" />
 				</MenuItem>
 				<Separator />
-				<MenuItem Header="{Binding Source={StaticResource Resources}, Path=MenuExit}"
+				<MenuItem Header="{Binding MenuExit, Source={StaticResource Resources}}"
 						  Click="MenuExit_Click" />
 			</MenuItem>
-			<MenuItem Header="{Binding Source={StaticResource Resources}, Path=MenuAbout}"
+			<MenuItem Header="{Binding MenuAbout, Source={StaticResource Resources}}"
 					  Click="MenuAbout_Click" />
 		</Menu>
 
@@ -35,7 +46,7 @@
 			  Margin="5">
 			<Grid.InputBindings>
 				<KeyBinding Key="Enter"
-							Command="{Binding Path=ApplyCommand}" />
+							Command="{Binding ApplyCommand}" />
 			</Grid.InputBindings>
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="Auto" />
@@ -53,28 +64,53 @@
 						Margin="5"
 						IsTodayHighlighted="True"
 						TabIndex="0"
-						SelectedDate="{Binding Path=Record.Date}" />
+						SelectedDate="{Binding Record.Date, UpdateSourceTrigger=PropertyChanged}" />
 			<TextBox x:Name="descriptionText"
 					 Grid.Row="0"
 					 Grid.Column="1"
 					 Margin="5"
 					 TabIndex="1"
-					 Text="{Binding Path=Record.Description}" />
+					 Text="{Binding Record.Description, UpdateSourceTrigger=PropertyChanged}" />
 			<TextBox x:Name="amountInput"
 					 Grid.Row="0"
 					 Grid.Column="2"
 					 Margin="5"
 					 TabIndex="2"
 					 TextAlignment="Right">
-				<TextBox.Text>
-					<Binding Path="Record.Amount">
-						<Binding.ValidationRules>
-							<v:DecimalValidator />
-							<ExceptionValidationRule />
-						</Binding.ValidationRules>
-					</Binding>
-				</TextBox.Text>
+				<Binding Path="Record.Amount"
+						 Delay="100"
+						 UpdateSourceTrigger="PropertyChanged">
+					<Binding.ValidationRules>
+						<v:DecimalValidator />
+						<ExceptionValidationRule />
+					</Binding.ValidationRules>
+				</Binding>
 			</TextBox>
+
+			<DataGrid ItemsSource="{Binding View}"
+					  Grid.Row="1"
+					  Grid.ColumnSpan="3"
+					  AutoGenerateColumns="False"
+					  CanUserAddRows="False"
+					  CanUserDeleteRows="False"
+					  CanUserReorderColumns="False"
+					  CanUserResizeColumns="False"
+					  CanUserResizeRows="False"
+					  CanUserSortColumns="False"
+					  EnableColumnVirtualization="True"
+					  EnableRowVirtualization="True">
+				<DataGrid.Columns>
+					<DataGridTextColumn Header="{Binding Source={StaticResource Resources}, Path=ListViewDate}"
+										Width="Auto"
+										Binding="{Binding Path=Date, StringFormat={}{0:d}}" />
+					<DataGridTextColumn Header="{Binding Source={StaticResource Resources}, Path=ListViewDescription}"
+										Width="*"
+										Binding="{Binding Path=Description}" />
+					<DataGridTextColumn Header="{Binding Source={StaticResource Resources}, Path=ListViewAmount}"
+										Width="Auto"
+										Binding="{Binding Path=Amount}" />
+				</DataGrid.Columns>
+			</DataGrid>
 		</Grid>
 	</Grid>
 </Window>

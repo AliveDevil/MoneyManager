@@ -75,6 +75,7 @@
     <Compile Include="Model\Exporter\MoneyManagerExporter.cs" />
     <Compile Include="Model\MoneyRecord.cs" />
     <Compile Include="Model\Validators\DecimalValidator.cs" />
+    <Compile Include="ViewModel\Converter\LowerZeroConverter.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\MoneyRecordViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />

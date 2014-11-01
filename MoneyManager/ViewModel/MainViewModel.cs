@@ -1,50 +1,42 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Windows.Data;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using MoneyManager.Model;
 
 namespace MoneyManager.ViewModel
 {
-	/// <summary>
-	/// This class contains properties that the main View can data bind to.
-	/// <para>
-	/// Use the <strong>mvvminpc</strong> snippet to add bindable properties to this ViewModel.
-	/// </para>
-	/// <para>
-	/// You can also use Blend to data bind with the tool's support.
-	/// </para>
-	/// <para>
-	/// See http://www.galasoft.ch/mvvm
-	/// </para>
-	/// </summary>
 	public class MainViewModel : ViewModelBase
 	{
-		private List<MoneyRecordViewModel> collection;
+		public CollectionView View { get; set; }
 
+		private ObservableCollection<MoneyRecordViewModel> collection;
 		private MoneyRecordViewModel record;
 
 		public MoneyRecordViewModel Record
 		{
 			get { return record; }
-			set { record = value; }
+			set
+			{
+				record = value;
+				RaisePropertyChanged("Record");
+			}
 		}
 
-
-		/// <summary>
-		/// Initializes a new instance of the MainViewModel class.
-		/// </summary>
 		public MainViewModel()
 		{
-			collection = new List<MoneyRecordViewModel>();
-			Record = new MoneyRecordViewModel(new MoneyRecord());
+			collection = new ObservableCollection<MoneyRecordViewModel>();
+			Record = new MoneyRecordViewModel();
+			View = new CollectionView(collection);
+
 			if (IsInDesignMode)
 			{
-				// Code runs in Blend --> create design time data.
+				collection.Add(new MoneyRecordViewModel(new MoneyRecord() { Date = DateTime.Now.Date, Description = "Test", Amount = 500 }));
 			}
 			else
 			{
-				// Code runs "for real"
 			}
 		}
 
@@ -56,7 +48,7 @@ namespace MoneyManager.ViewModel
 				return applyCommand ?? (applyCommand = new RelayCommand(() =>
 					{
 						collection.Add(Record);
-						Record.Reset();
+						Record = new MoneyRecordViewModel();
 					}));
 			}
 		}

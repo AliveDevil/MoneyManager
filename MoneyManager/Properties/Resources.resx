@@ -138,6 +138,15 @@ Copyright 2014 Jöran "AliveDevil" Malek (https://github.com/AliveDevil/MoneyMan
   <data name="InputNotNumeric" xml:space="preserve">
     <value>Input no valid decimal number.</value>
   </data>
+  <data name="ListViewAmount" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="ListViewDate" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="ListViewDescription" xml:space="preserve">
+    <value>Description</value>
+  </data>
   <data name="MenuAbout" xml:space="preserve">
     <value>About</value>
   </data>

@@ -22,12 +22,7 @@ namespace MoneyManager.ViewModel
 			get { return moneyRecord.Amount.ToString(); }
 			set
 			{
-				Decimal amount;
-				if (!Decimal.TryParse(value, out amount))
-				{
-					throw new Exception(Resources.InputNotNumeric);
-				}
-				moneyRecord.Amount = amount;
+				moneyRecord.Amount = Decimal.Parse(value);
 				OnPropertyChanged("Amount");
 			}
 		}
@@ -52,6 +47,7 @@ namespace MoneyManager.ViewModel
 			}
 		}
 
+		public MoneyRecordViewModel() : this(new MoneyRecord()) { }
 		public MoneyRecordViewModel(MoneyRecord record)
 		{
 			moneyRecord = record;
