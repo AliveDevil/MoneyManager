@@ -24,6 +24,7 @@
 			<RowDefinition Height="*" />
 			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
+
 		<Menu Grid.Row="0"
 			  IsTabStop="False">
 			<MenuItem Header="{Binding MenuFile, Source={StaticResource Resources}}">
@@ -112,5 +113,8 @@
 				</DataGrid.Columns>
 			</DataGrid>
 		</Grid>
+		<Menu Grid.Row="2">
+			<ComboBox />
+		</Menu>
 	</Grid>
 </Window>
