@@ -14,7 +14,7 @@ namespace MoneyManager.ViewModel
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		private MoneyRecord moneyRecord;
+		private Money.RecordRow moneyRecord;
 
 		[DebuggerNonUserCode]
 		public string Amount
@@ -27,7 +27,7 @@ namespace MoneyManager.ViewModel
 			}
 		}
 
-		public DateTime Date
+		public DateTimeOffset Date
 		{
 			get { return moneyRecord.Date; }
 			set
@@ -37,18 +37,18 @@ namespace MoneyManager.ViewModel
 			}
 		}
 
-		public string Description
+		public string Header
 		{
-			get { return moneyRecord.Description; }
+			get { return moneyRecord.Header; }
 			set
 			{
-				moneyRecord.Description = value;
+				moneyRecord.Header = value;
 				OnPropertyChanged("Description");
 			}
 		}
 
-		public MoneyRecordViewModel() : this(new MoneyRecord()) { }
-		public MoneyRecordViewModel(MoneyRecord record)
+		public MoneyRecordViewModel() : this(null) { }
+		public MoneyRecordViewModel(Money.RecordRow record)
 		{
 			moneyRecord = record;
 		}
@@ -56,7 +56,7 @@ namespace MoneyManager.ViewModel
 		public void Reset()
 		{
 			moneyRecord.Amount = 0;
-			moneyRecord.Description = "";
+			moneyRecord.Header = "";
 			OnPropertyChanged("Amount");
 			OnPropertyChanged("Description");
 		}

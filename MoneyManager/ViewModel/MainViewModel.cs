@@ -10,7 +10,7 @@ namespace MoneyManager.ViewModel
 {
 	public class MainViewModel : ViewModelBase
 	{
-		public CollectionView View { get; set; }
+		public CollectionViewSource View { get; set; }
 
 		private ObservableCollection<MoneyRecordViewModel> collection;
 		private MoneyRecordViewModel record;
@@ -29,7 +29,6 @@ namespace MoneyManager.ViewModel
 		{
 			collection = new ObservableCollection<MoneyRecordViewModel>();
 			Record = new MoneyRecordViewModel();
-			View = new CollectionView(collection);
 
 			if (IsInDesignMode)
 			{
@@ -37,7 +36,10 @@ namespace MoneyManager.ViewModel
 			}
 			else
 			{
+				
 			}
+
+			View.Source = collection;
 		}
 
 		RelayCommand applyCommand;

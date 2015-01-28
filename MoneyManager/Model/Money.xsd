@@ -12,7 +12,7 @@
   <xs:element name="Money" msdata:IsDataSet="true" msdata:Locale="" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="Money" msprop:Generator_UserDSName="Money">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="Account" msdata:Locale="" msprop:Generator_TableClassName="AccountDataTable" msprop:Generator_TableVarName="tableAccount" msprop:Generator_TablePropName="Account" msprop:Generator_RowDeletingName="AccountRowDeleting" msprop:Generator_RowChangingName="AccountRowChanging" msprop:Generator_RowEvHandlerName="AccountRowChangeEventHandler" msprop:Generator_RowDeletedName="AccountRowDeleted" msprop:Generator_UserTableName="Account" msprop:Generator_RowChangedName="AccountRowChanged" msprop:Generator_RowEvArgName="AccountRowChangeEvent" msprop:Generator_RowClassName="AccountRow">
+        <xs:element name="Account" msdata:Locale="" msprop:Generator_TableClassName="AccountDataTable" msprop:Generator_TableVarName="tableAccount" msprop:Generator_RowChangedName="AccountRowChanged" msprop:Generator_TablePropName="Account" msprop:Generator_RowDeletingName="AccountRowDeleting" msprop:Generator_RowChangingName="AccountRowChanging" msprop:Generator_RowEvHandlerName="AccountRowChangeEventHandler" msprop:Generator_RowDeletedName="AccountRowDeleted" msprop:Generator_RowClassName="AccountRow" msprop:Generator_UserTableName="Account" msprop:Generator_RowEvArgName="AccountRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Id" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:int" />
@@ -20,7 +20,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Record" msdata:Locale="" msprop:Generator_TableClassName="RecordDataTable" msprop:Generator_TableVarName="tableRecord" msprop:Generator_TablePropName="Record" msprop:Generator_RowDeletingName="RecordRowDeleting" msprop:Generator_RowChangingName="RecordRowChanging" msprop:Generator_RowEvHandlerName="RecordRowChangeEventHandler" msprop:Generator_RowDeletedName="RecordRowDeleted" msprop:Generator_UserTableName="Record" msprop:Generator_RowChangedName="RecordRowChanged" msprop:Generator_RowEvArgName="RecordRowChangeEvent" msprop:Generator_RowClassName="RecordRow">
+        <xs:element name="Record" msdata:Locale="" msprop:Generator_TableClassName="RecordDataTable" msprop:Generator_TableVarName="tableRecord" msprop:Generator_RowChangedName="RecordRowChanged" msprop:Generator_TablePropName="Record" msprop:Generator_RowDeletingName="RecordRowDeleting" msprop:Generator_RowChangingName="RecordRowChanging" msprop:Generator_RowEvHandlerName="RecordRowChangeEventHandler" msprop:Generator_RowDeletedName="RecordRowDeleted" msprop:Generator_RowClassName="RecordRow" msprop:Generator_UserTableName="Record" msprop:Generator_RowEvArgName="RecordRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Id" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:int" />
@@ -43,7 +43,7 @@
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
-      <msdata:Relationship name="Account_Record" msdata:parent="Account" msdata:child="Record" msdata:parentkey="Id" msdata:childkey="Id" msprop:Generator_UserChildTable="Record" msprop:Generator_ChildPropName="GetRecordRows" msprop:Generator_UserRelationName="Account_Record" msprop:Generator_ParentPropName="AccountRow" msprop:Generator_RelationVarName="relationAccount_Record" msprop:Generator_UserParentTable="Account" />
+      <msdata:Relationship name="Account_Record" msdata:parent="Account" msdata:child="Record" msdata:parentkey="Id" msdata:childkey="Id" msprop:Generator_UserChildTable="Record" msprop:Generator_ChildPropName="GetRecordRows" msprop:Generator_UserRelationName="Account_Record" msprop:Generator_RelationVarName="relationAccount_Record" msprop:Generator_UserParentTable="Account" msprop:Generator_ParentPropName="AccountRow" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>
