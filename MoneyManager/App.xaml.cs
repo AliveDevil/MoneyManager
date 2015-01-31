@@ -1,7 +1,12 @@
-﻿using MoneyManager.Model;
+﻿using MoneyManager.Migrations;
+using MoneyManager.Model;
 using System;
+using System.Configuration;
+using System.Data.Entity;
 using System.IO;
+using System.Reflection;
 using System.Windows;
+using System.Linq;
 
 namespace MoneyManager
 {
@@ -10,34 +15,58 @@ namespace MoneyManager
 	/// </summary>
 	public partial class App : Application
 	{
-		private static Money database;
-		private static string UserDocumentPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "MoneyManager");
-		private static string UserDataPath = Path.Combine(UserDocumentPath, "data.xml");
+		private static readonly System.Configuration.Configuration Configuration;
+		private static readonly KeyValueConfigurationElement PathElement;
 
-		public static Money Database
+		private string initialPath;
+
+		static App()
 		{
-			get { return database; }
+			Configuration = ConfigurationManager.OpenExeConfiguration(Assembly.GetExecutingAssembly().Location);
+			if (!Configuration.AppSettings.Settings.AllKeys.Contains("Path"))
+			{
+				Configuration.AppSettings.Settings.Add("Path", "");
+			}
+			PathElement = Configuration.AppSettings.Settings["Path"];
+			if (string.IsNullOrEmpty(PathElement.Value))
+			{
+				SetPath(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "MoneyManager"));
+			}
 		}
 
-		protected override void OnStartup(StartupEventArgs e)
+		public static void SetPath(string path)
 		{
-			database = new Money();
-
-			if (!Directory.Exists(UserDocumentPath))
-			{
-				Directory.CreateDirectory(UserDocumentPath);
-			}
-
-			database.ReadXml(UserDataPath);
-
-			base.OnStartup(e);
+			PathElement.Value = path;
+			Configuration.Save();
 		}
 
 		protected override void OnExit(ExitEventArgs e)
 		{
-			database.WriteXml(UserDataPath);
+			if (DatabaseContext.IsCreated)
+			{
+				DatabaseContext.Instance.SaveChanges();
+			}
+
+			if (initialPath.Equals(PathElement.Value))
+			{
+				File.Move(Path.Combine(initialPath, "MoneyManager.sdf"), Path.Combine(PathElement.Value, "MoneyManager.sdf"));
+			}
 
 			base.OnExit(e);
+		}
+
+		protected override void OnStartup(StartupEventArgs e)
+		{
+			string path = PathElement.Value;
+			if (!Directory.Exists(path))
+			{
+				Directory.CreateDirectory(path);
+			}
+			initialPath = path;
+			AppDomain.CurrentDomain.SetData("DataDirectory", path);
+			Database.SetInitializer<DatabaseContext>(new MigrateDatabaseToLatestVersion<DatabaseContext, MoneyManager.Migrations.Configuration>());
+
+			base.OnStartup(e);
 		}
 	}
 }

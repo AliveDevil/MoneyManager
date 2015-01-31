@@ -1,57 +1,74 @@
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Windows.Data;
 using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.CommandWpf;
 using MoneyManager.Model;
+using ReactiveUI;
+using System.Data.Entity;
+using System.Windows;
 
 namespace MoneyManager.ViewModel
 {
 	public class MainViewModel : ViewModelBase
 	{
-		public CollectionViewSource View { get; set; }
+		private AccountViewModel account;
 
-		private ObservableCollection<MoneyRecordViewModel> collection;
-		private MoneyRecordViewModel record;
+		private RelayCommand addCommand;
 
-		public MoneyRecordViewModel Record
-		{
-			get { return record; }
-			set
-			{
-				record = value;
-				RaisePropertyChanged("Record");
-			}
-		}
+		private RelayCommand deleteCommand;
 
-		public MainViewModel()
-		{
-			collection = new ObservableCollection<MoneyRecordViewModel>();
-			Record = new MoneyRecordViewModel();
-
-			if (IsInDesignMode)
-			{
-				collection.Add(new MoneyRecordViewModel(new MoneyRecord() { Date = DateTime.Now.Date, Description = "Test", Amount = 500 }));
-			}
-			else
-			{
-				
-			}
-
-			View.Source = collection;
-		}
-
-		RelayCommand applyCommand;
-		public RelayCommand ApplyCommand
+		public AccountViewModel Account
 		{
 			get
 			{
-				return applyCommand ?? (applyCommand = new RelayCommand(() =>
+				return account;
+			}
+			set
+			{
+				account = value;
+				RaisePropertyChanged("Account");
+			}
+		}
+
+		public RelayCommand AddCommand
+		{
+			get
+			{
+				return addCommand ?? (addCommand = new RelayCommand(() =>
+				{
+					var account = DatabaseContext.Instance.AccountSet.Create();
+					account.Name = "Account";
+					DatabaseContext.Instance.AccountSet.Add(account);
+					DatabaseContext.Instance.SaveChanges();
+				}));
+			}
+		}
+
+		public RelayCommand DeleteCommand
+		{
+			get
+			{
+				return deleteCommand ?? (deleteCommand = new RelayCommand(() =>
+				{
+					if (MessageBox.Show("If you delete this account, every record is deleted aswell.", "Warning", MessageBoxButton.OKCancel, MessageBoxImage.Warning) == MessageBoxResult.OK)
 					{
-						collection.Add(Record);
-						Record = new MoneyRecordViewModel();
-					}));
+						foreach (var item in Account.Records)
+						{
+						}
+					}
+				}));
+			}
+		}
+
+		public IReactiveDerivedList<AccountViewModel> View { get; set; }
+
+		public MainViewModel()
+		{
+			if (IsInDesignMode)
+			{
+			}
+			else
+			{
+				DatabaseContext.Instance.AccountSet.Load();
+				View = DatabaseContext.Instance.AccountSet.Local.CreateDerivedCollection(account => new AccountViewModel(account));
 			}
 		}
 	}

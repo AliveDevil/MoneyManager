@@ -1,0 +1,85 @@
+﻿<UserControl x:Class="MoneyManager.Views.AccountView"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:v="clr-namespace:MoneyManager.Model.Validators"
+			 xmlns:view="clr-namespace:MoneyManager.Views"
+			 xmlns:vm="clr-namespace:MoneyManager.ViewModel"
+			 mc:Ignorable="d"
+			 d:DesignHeight="300"
+			 d:DesignWidth="300"
+			 d:DataContext="{d:DesignInstance vm:AccountViewModel}">
+	<UserControl.InputBindings>
+		<KeyBinding Key="Enter"
+					Command="{Binding ApplyCommand}" />
+	</UserControl.InputBindings>
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="Auto" />
+			<ColumnDefinition Width="*" />
+			<ColumnDefinition Width="Auto"
+							  MinWidth="75" />
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+
+		<DatePicker x:Name="selectedDate"
+					Grid.Row="1"
+					Grid.Column="0"
+					Margin="5"
+					IsTodayHighlighted="True"
+					TabIndex="0"
+					SelectedDate="{Binding Record.Timestamp}" />
+		<TextBox x:Name="descriptionText"
+				 Grid.Row="1"
+				 Grid.Column="1"
+				 Margin="5"
+				 TabIndex="1"
+				 Text="{Binding Record.Description}" />
+		<TextBox x:Name="amountInput"
+				 Grid.Row="1"
+				 Grid.Column="2"
+				 Margin="5"
+				 TabIndex="2"
+				 TextAlignment="Right">
+			<Binding Path="Record.Value"
+					 Delay="100">
+				<Binding.ValidationRules>
+					<v:DecimalValidator />
+					<ExceptionValidationRule />
+				</Binding.ValidationRules>
+			</Binding>
+		</TextBox>
+
+		<DataGrid ItemsSource="{Binding Records}"
+				  Grid.Row="2"
+				  Grid.ColumnSpan="3"
+				  IsSynchronizedWithCurrentItem="True"
+				  SelectedItem="{Binding Record}"
+				  AutoGenerateColumns="False"
+				  CanUserReorderColumns="False"
+				  CanUserResizeColumns="False"
+				  CanUserResizeRows="False"
+				  CanUserSortColumns="False"
+				  EnableColumnVirtualization="True"
+				  IsReadOnly="True"
+				  IsTextSearchEnabled="True"
+				  SelectionMode="Single">
+			<DataGrid.Columns>
+				<DataGridTextColumn Header="{Binding Source={StaticResource Resources}, Path=ListViewDate}"
+									Binding="{Binding Timestamp, StringFormat={}{0:d}}"
+									Width="Auto" />
+				<DataGridTextColumn Header="{Binding Source={StaticResource Resources}, Path=ListViewDescription}"
+									Binding="{Binding Description}"
+									Width="*" />
+				<DataGridTextColumn Header="{Binding Source={StaticResource Resources}, Path=ListViewAmount}"
+									Binding="{Binding Value}"
+									Width="Auto" />
+			</DataGrid.Columns>
+		</DataGrid>
+	</Grid>
+</UserControl>
