@@ -6,6 +6,7 @@
 			 xmlns:v="clr-namespace:MoneyManager.Model.Validators"
 			 xmlns:view="clr-namespace:MoneyManager.Views"
 			 xmlns:vm="clr-namespace:MoneyManager.ViewModel"
+			 xmlns:tk="http://schemas.xceed.com/wpf/xaml/toolkit"
 			 mc:Ignorable="d"
 			 d:DesignHeight="300"
 			 d:DesignWidth="300"
@@ -13,6 +14,8 @@
 	<UserControl.InputBindings>
 		<KeyBinding Key="Enter"
 					Command="{Binding ApplyCommand}" />
+		<KeyBinding Key="Escape"
+					Command="{Binding ResetCommand}" />
 	</UserControl.InputBindings>
 	<Grid>
 		<Grid.ColumnDefinitions>
@@ -40,20 +43,11 @@
 				 Margin="5"
 				 TabIndex="1"
 				 Text="{Binding Record.Description}" />
-		<TextBox x:Name="amountInput"
-				 Grid.Row="1"
-				 Grid.Column="2"
-				 Margin="5"
-				 TabIndex="2"
-				 TextAlignment="Right">
-			<Binding Path="Record.Value"
-					 Delay="100">
-				<Binding.ValidationRules>
-					<v:DecimalValidator />
-					<ExceptionValidationRule />
-				</Binding.ValidationRules>
-			</Binding>
-		</TextBox>
+		<tk:SingleUpDown Grid.Row="1"
+						 Grid.Column="2"
+						 Margin="5"
+						 TabIndex="2"
+						 Value="{Binding Path=Record.Value}" />
 
 		<DataGrid ItemsSource="{Binding Records}"
 				  Grid.Row="2"

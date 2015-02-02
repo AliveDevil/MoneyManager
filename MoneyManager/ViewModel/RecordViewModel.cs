@@ -35,7 +35,18 @@ namespace MoneyManager.ViewModel
 			}
 		}
 
-		[DebuggerNonUserCode]
+		public string Tag
+		{
+			get
+			{
+				return record.Tag.Key;
+			}
+			set
+			{
+
+			}
+		}
+
 		public string Value
 		{
 			get

@@ -23,11 +23,12 @@ namespace MoneyManager.ViewModel
 			{
 				return applyCommand ?? (applyCommand = new RelayCommand(() =>
 				{
-					if (DatabaseContext.Instance.Entry((Record)record).State == EntityState.Detached)
+					if (DatabaseContext.Instance.Entry((Record)Record).State == EntityState.Detached)
 					{
-						DatabaseContext.Instance.RecordSet.Add((Record)record);
+						DatabaseContext.Instance.RecordSet.Add((Record)Record);
 					}
 					DatabaseContext.Instance.SaveChanges();
+					NewRecord();
 				}));
 			}
 		}
@@ -77,7 +78,7 @@ namespace MoneyManager.ViewModel
 			{
 				return resetCommand ?? (resetCommand = new RelayCommand(async () =>
 				{
-					await DatabaseContext.Instance.Entry(record).ReloadAsync();
+					await DatabaseContext.Instance.Entry((Record)Record).ReloadAsync();
 					NewRecord();
 				}));
 			}
@@ -93,7 +94,7 @@ namespace MoneyManager.ViewModel
 		{
 			Record = new RecordViewModel(DatabaseContext.Instance.RecordSet.Create());
 			Record.Timestamp = DateTime.Today;
-			((Record)record).Account = account;
+			((Record)Record).Account = account;
 		}
 	}
 }

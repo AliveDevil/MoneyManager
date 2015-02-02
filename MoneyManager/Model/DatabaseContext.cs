@@ -36,6 +36,8 @@ namespace MoneyManager.Model
 
 		public virtual DbSet<Record> RecordSet { get; set; }
 
+		public virtual DbSet<Tag> TagSet { get; set; }
+
 		public DatabaseContext()
 			: base("name=Money")
 		{
@@ -51,8 +53,19 @@ namespace MoneyManager.Model
 
 		public int Id { get; set; }
 
+		public Tag Tag { get; set; }
+
 		public DateTime Timestamp { get; set; }
 
 		public float Value { get; set; }
+	}
+
+	public class Tag
+	{
+		public int Id { get; set; }
+
+		public string Key { get; set; }
+
+		public virtual ObservableCollection<Record> Records { get; set; }
 	}
 }
