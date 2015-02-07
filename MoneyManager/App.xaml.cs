@@ -1,6 +1,6 @@
-﻿using MoneyManager.Migrations;
+﻿using FUpdate;
+using MoneyManager.Migrations;
 using MoneyManager.Model;
-using nUpdate.Internal;
 using System;
 using System.Configuration;
 using System.Data.Entity;
@@ -66,26 +66,23 @@ namespace MoneyManager
 			AppDomain.CurrentDomain.SetData("DataDirectory", path);
 			Database.SetInitializer<DatabaseContext>(new MigrateDatabaseToLatestVersion<DatabaseContext, MoneyManager.Migrations.Configuration>());
 
+#if !DEBUG
 			Task.Factory.StartNew(SearchUpdate);
+#endif
 
 			base.OnStartup(e);
 		}
 
 		private void SearchUpdate()
 		{
-			using (UpdateManager updateManager = new UpdateManager(
-				new Uri("http://alivedevil.de/update/MoneyManager/updates.json"),
-				"<RSAKeyValue><Modulus>uhFZnzwVsqKeawvW6Zssoo/wmc72tzbW9IQyjoFy9NWkJGlA73XM//IqGwRdbYigI9j/WoGrFEy7F7N/usyp+eAGzOTHen6BnaPrIzy2x8KKNPHxD5U+LBiWh8Pd9nl97o1Pqcu/wYyttX64qs7zKCuL5rj6+MeB1mIQbiE+YmzWJpciy2Io6r06PJb8E/1uVBynDdPKoYyZvDw4eG0oGBzF7flA1/WHd1Fj6sJGH5+XmO48hj2kCCb99kh06sSNUvIvREPEZB1MWtS609n9+ie4uizdi/9mF+3M8InQVBZOPp8XzDN2eqVgLZcZ2N33qv0YegPUCW37ewRMyo826ALupZJZdZdfrAZG2ejsXKCwlrmz6msRcakl+5wXKr/SuN1g3zRYVUvt/t43y/gwkzx6MiMy+YQEv7jHIVWxrxalLDTRV8ghP0eb5+4H/Dv0E3egYwn4SZJ1nVAHuS1R6cw3cMsy6Fdbc6MOkhpzJzYZIiaeIRqdJfJ3mpthBPUxh4L423ROFHM1vuhOed8IOCiLybjD2fVw/mvdTm5di5pIYafxhIk4akoXgRDuatP2KQ0pkFZRz5DSMyvxuJaCTz+t/7B8GrkDiE/0zr5aRAoWvDuxTncF8bFrYhVmsHoityMxrAbNjhQH32jwrsfrBwNiq7ghbnqfNPGxUsPC836frUsdiKWVdcBa5yDx3upiD0I15HcI8aT8cZ+m7cVjwn80b58LuVhI6NbvqVqwo8Oi4lkj6ixTaGVqdMSkdlRRH6LCq8ZWrTB78N6LfnCq3umfcLiV+k0nB5Tu/5pNRLilHIXFixrgQRtOQ+i5vy3WxGGybPfaBeHkV3uBOhGmQXvKnasNu6iuwcxME5w+qDqNszwhraf3AmO9r3AgATvXJxufcvgoOBjQPDOpLmgY70LqzLK0LThLd+sBxHK7joVIxZDSXnwNihD5e/MqxtytvP8amyBhM3sNzVjkJ4pRe27HWj6e/PUbfTQMsmudx3ljuthhkSW2JfVupOd3runGNaIEhCI363DrQ4JFUme0ynzYa5f0soRGDJlZgRsXg8jygubcn5zJdk0p8Ob1/PpMcMB+jMhi9igkmsXOaxMvGWhO04pU4NNZhXqqNdfaAgas9up5euLjgifuGeXLwvhB9708KFl1q2SfXMYZkLppnI4ulGeWoXSPyVP7xpYP2Qk9CspoqxDuAPgkYIsF0Cg7a9aO3ni7+sgwBGK2pSvz5MOn9jJGvyxb4LVLt5g2trlll7nKTncNDhVwyPqmouAZ0PlJxFtxrFxaiWbHUH5brFwSO1c064GdLRJPvE0iH0tnvg2t3tbfUcUdJPv8F55xcbxjYy2w9hbI4xQxamN3qQ==</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>",
-				new UpdateVersion("0.0.0.1a1"),
-				new CultureInfo("en")))
+			Update update = new Update(
+				@"<RSAKeyValue><Modulus>lY/rdgOvgn+IJwuobE0LvCTg3dzL3dLHCuoTY7oxi6ny7XqPMOWW83Vda/rA15LKJGL3Sf3TSFM5x+y4X/97To5rmY8DKsanhc/ta36jhbgURfjHdyJtz0wFvsS5d9RbkFujN6NTZf/KYTIOg30XfJwwq1MOZZrRbOQoG7RnOemaBV9ccdXgVrArn+SMB76McBcDhrtha4gixSz7+EnBkErBek5sWindoUurQU+pzxhRlx/qM70KuwtO9jEuQ1AE0VC8MpJTMLSbCJNj3JtQGS6Gff5ezJF979lG1TWVBKkWXNpp4QOBMs49nQwEAiN/QWtn85L7z399kisMh3m1CjuUuJ8KcU1hd1yYAui2Xa4def4LUVWePu++71vvwz58fVVQ5WPb63d3a5/z8FRC7anSSQMkEdyKrEiumvswqluXoNB4ujbEvCm9e2jrSEuu58/To4+8YZq0DXwQBQw0BqhjR3J8bsVerX2aAlhG+z+ht3qdUPDgSMaMrej/9F9sl4dIz5sZPrKvKGOPc+rnChcQyZrO/UJ2Jl7m/MFzjV5naAtVkIKBt9m7s6Z1qFm6HK4KtS2OyJysHFbnorcsbcGYQnAi/CfKG8iWxBn3kcmCfYe+WeG1iqvvZ3sU8EXvolue1Rs+kdkwPOA8VleD42IbtMzSA8I1FsXcFZp1mlc=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>",
+				new Uri("http://alivedevil.de/update/MoneyManager/update.info"),
+				true);
+			if (update.Check())
 			{
-				updateManager.SearchForUpdates();
-				if (updateManager.UpdatesFound)
-				{
-					updateManager.DownloadPackage();
-					updateManager.CheckPackageValidity();
-					updateManager.InstallPackage();
-				}
+				update.Apply(false, true);
+				Application.Current.Dispatcher.Invoke(Application.Current.Shutdown);
 			}
 		}
 	}

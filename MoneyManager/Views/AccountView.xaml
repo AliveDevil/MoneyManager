@@ -43,6 +43,7 @@
 				  Margin="5"
 				  IsEditable="True"
 				  ItemsSource="{Binding Tags}"
+				  DisplayMemberPath="Key"
 				  SelectedItem="{Binding Record.Tag}"
 				  IsSynchronizedWithCurrentItem="True" />
 		<TextBox x:Name="descriptionText"
@@ -76,7 +77,7 @@
 									Binding="{Binding Timestamp, StringFormat={}{0:d}}"
 									Width="Auto" />
 				<DataGridTextColumn Header="{Binding Source={StaticResource Resources}, Path=ListViewDescription}"
-									Binding="{Binding Tag}"
+									Binding="{Binding Tag.Key}"
 									Width="Auto" />
 				<DataGridTextColumn Header="{Binding Source={StaticResource Resources}, Path=ListViewDescription}"
 									Binding="{Binding Description}"
