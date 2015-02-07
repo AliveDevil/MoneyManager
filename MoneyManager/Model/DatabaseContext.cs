@@ -1,5 +1,6 @@
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 
 namespace MoneyManager.Model
@@ -64,6 +65,7 @@ namespace MoneyManager.Model
 	{
 		public int Id { get; set; }
 
+		[Index(IsUnique = true)]
 		public string Key { get; set; }
 
 		public virtual ObservableCollection<Record> Records { get; set; }

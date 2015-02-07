@@ -1,7 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using MoneyManager.Model;
 using System;
-using System.Diagnostics;
 
 namespace MoneyManager.ViewModel
 {
@@ -22,6 +21,19 @@ namespace MoneyManager.ViewModel
 			}
 		}
 
+		public Tag Tag
+		{
+			get
+			{
+				return record.Tag;
+			}
+			set
+			{
+				record.Tag = value;
+				RaisePropertyChanged("Tag");
+			}
+		}
+
 		public DateTime Timestamp
 		{
 			get
@@ -32,18 +44,6 @@ namespace MoneyManager.ViewModel
 			{
 				record.Timestamp = value;
 				RaisePropertyChanged("Timestamp");
-			}
-		}
-
-		public string Tag
-		{
-			get
-			{
-				return record.Tag.Key;
-			}
-			set
-			{
-
 			}
 		}
 

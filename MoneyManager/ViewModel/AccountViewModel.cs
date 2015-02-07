@@ -1,9 +1,10 @@
-﻿using System;
-using GalaSoft.MvvmLight;
+﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using MoneyManager.Model;
 using ReactiveUI;
+using System;
 using System.Data.Entity;
+using System.Linq;
 
 namespace MoneyManager.ViewModel
 {
@@ -16,6 +17,7 @@ namespace MoneyManager.ViewModel
 		private IReactiveDerivedList<RecordViewModel> records;
 
 		private RelayCommand resetCommand;
+		private IReactiveDerivedList<TagViewModel> tags;
 
 		public RelayCommand ApplyCommand
 		{
@@ -84,6 +86,11 @@ namespace MoneyManager.ViewModel
 			}
 		}
 
+		public IReactiveDerivedList<TagViewModel> Tags
+		{
+			get { return tags ?? (tags = DatabaseContext.Instance.TagSet.CreateDerivedCollection(tag => new TagViewModel(tag))); }
+		}
+
 		public AccountViewModel(Account account)
 		{
 			this.account = account;
@@ -94,6 +101,7 @@ namespace MoneyManager.ViewModel
 		{
 			Record = new RecordViewModel(DatabaseContext.Instance.RecordSet.Create());
 			Record.Timestamp = DateTime.Today;
+			Record.Tag = DatabaseContext.Instance.TagSet.First();
 			((Record)Record).Account = account;
 		}
 	}

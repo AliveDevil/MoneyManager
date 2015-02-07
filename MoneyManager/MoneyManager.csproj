@@ -143,11 +143,11 @@
     <Compile Include="ViewModel\Converter\LowerZeroConverter.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\RecordViewModel.cs" />
+    <Compile Include="ViewModel\TagViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="Views\AccountView.xaml.cs">
       <DependentUpon>AccountView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\GridViewColumnResize.cs" />
     <Page Include="AboutWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

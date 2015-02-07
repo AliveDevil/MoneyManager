@@ -20,38 +20,46 @@
 	<Grid>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="Auto" />
+			<ColumnDefinition Width="Auto"
+							  MinWidth="75" />
 			<ColumnDefinition Width="*" />
 			<ColumnDefinition Width="Auto"
 							  MinWidth="75" />
 		</Grid.ColumnDefinitions>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto" />
-			<RowDefinition Height="Auto" />
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
 
 		<DatePicker x:Name="selectedDate"
-					Grid.Row="1"
+					Grid.Row="0"
 					Grid.Column="0"
 					Margin="5"
 					IsTodayHighlighted="True"
 					TabIndex="0"
 					SelectedDate="{Binding Record.Timestamp}" />
+		<ComboBox Grid.Row="0"
+				  Grid.Column="1"
+				  Margin="5"
+				  IsEditable="True"
+				  ItemsSource="{Binding Tags}"
+				  SelectedItem="{Binding Record.Tag}"
+				  IsSynchronizedWithCurrentItem="True" />
 		<TextBox x:Name="descriptionText"
-				 Grid.Row="1"
-				 Grid.Column="1"
+				 Grid.Row="0"
+				 Grid.Column="2"
 				 Margin="5"
 				 TabIndex="1"
 				 Text="{Binding Record.Description}" />
-		<tk:SingleUpDown Grid.Row="1"
-						 Grid.Column="2"
+		<tk:SingleUpDown Grid.Row="0"
+						 Grid.Column="3"
 						 Margin="5"
 						 TabIndex="2"
 						 Value="{Binding Path=Record.Value}" />
 
 		<DataGrid ItemsSource="{Binding Records}"
-				  Grid.Row="2"
-				  Grid.ColumnSpan="3"
+				  Grid.Row="1"
+				  Grid.ColumnSpan="4"
 				  IsSynchronizedWithCurrentItem="True"
 				  SelectedItem="{Binding Record}"
 				  AutoGenerateColumns="False"
@@ -66,6 +74,9 @@
 			<DataGrid.Columns>
 				<DataGridTextColumn Header="{Binding Source={StaticResource Resources}, Path=ListViewDate}"
 									Binding="{Binding Timestamp, StringFormat={}{0:d}}"
+									Width="Auto" />
+				<DataGridTextColumn Header="{Binding Source={StaticResource Resources}, Path=ListViewDescription}"
+									Binding="{Binding Tag}"
 									Width="Auto" />
 				<DataGridTextColumn Header="{Binding Source={StaticResource Resources}, Path=ListViewDescription}"
 									Binding="{Binding Description}"

@@ -19,19 +19,12 @@
 				 Source="{StaticResource Locator}" />
 	</Window.DataContext>
 	<Grid>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="Auto"
-							  MinWidth="120" />
-			<ColumnDefinition Width="*" />
-		</Grid.ColumnDefinitions>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="*" />
-			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
 
 		<Menu Grid.Row="0"
-			  Grid.ColumnSpan="2"
 			  IsTabStop="False">
 			<MenuItem Header="{Binding MenuFile, Source={StaticResource Resources}}">
 				<MenuItem Header="{Binding MenuSave, Source={StaticResource Resources}}" />
@@ -49,24 +42,39 @@
 			<MenuItem Header="{Binding MenuAbout, Source={StaticResource Resources}}"
 					  Click="MenuAbout_Click" />
 		</Menu>
+		
+		<TabControl Grid.Row="1">
+			<TabItem Header="Accounts">
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto"
+										  MinWidth="120" />
+						<ColumnDefinition Width="*" />
+					</Grid.ColumnDefinitions>
 
-		<ListBox Grid.Row="1"
-				 Grid.Column="0"
-				 ItemsSource="{Binding View}"
-				 DisplayMemberPath="Name"
-				 SelectedItem="{Binding Account}"
-				 IsSynchronizedWithCurrentItem="True">
-			<ListBox.InputBindings>
-				<KeyBinding Key="Add"
-							Command="{Binding AddCommand}" />
-				<KeyBinding Key="OemPlus"
-							Command="{Binding AddCommand}" />
-				<KeyBinding Key="Delete" />
-			</ListBox.InputBindings>
-		</ListBox>
+					<ListBox Grid.Row="1"
+							 Grid.Column="0"
+							 ItemsSource="{Binding View}"
+							 DisplayMemberPath="Name"
+							 SelectedItem="{Binding Account}"
+							 IsSynchronizedWithCurrentItem="True">
+						<ListBox.InputBindings>
+							<KeyBinding Key="Add"
+										Command="{Binding AddCommand}" />
+							<KeyBinding Key="OemPlus"
+										Command="{Binding AddCommand}" />
+							<KeyBinding Key="Delete" />
+						</ListBox.InputBindings>
+					</ListBox>
 
-		<Views:AccountView Grid.Row="1"
-						   Grid.Column="1"
-						   DataContext="{Binding Account, Mode=OneWay}" />
+					<Views:AccountView Grid.Row="1"
+									   Grid.Column="1"
+									   DataContext="{Binding Account, Mode=OneWay}" />
+				</Grid>
+			</TabItem>
+			<TabItem Header="Tags">
+				
+			</TabItem>
+		</TabControl>
 	</Grid>
 </Window>
