@@ -47,15 +47,15 @@ namespace MoneyManager.ViewModel
 			}
 		}
 
-		public string Value
+		public float Value
 		{
 			get
 			{
-				return record.Value.ToString();
+				return record.Value;
 			}
 			set
 			{
-				record.Value = float.Parse(value);
+				record.Value = value;
 				RaisePropertyChanged("Value");
 			}
 		}
