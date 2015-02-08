@@ -32,9 +32,14 @@
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
 
-		<Label Content="Account Name" />
-		<TextBox Grid.Column="1" Grid.ColumnSpan="3" Text="{Binding Name}" />
-		
+		<Label Content="Account Name"
+			   Margin="5" />
+		<TextBox Grid.Column="1"
+				 Grid.ColumnSpan="3"
+				 Text="{Binding Name}"
+				 Margin="5"
+				 VerticalContentAlignment="Center" />
+
 		<DatePicker x:Name="selectedDate"
 					Grid.Row="1"
 					Grid.Column="0"
@@ -45,7 +50,6 @@
 		<ComboBox Grid.Row="1"
 				  Grid.Column="1"
 				  Margin="5"
-				  IsEditable="True"
 				  ItemsSource="{Binding Tags}"
 				  DisplayMemberPath="Key"
 				  SelectedItem="{Binding Record.Tag}"
