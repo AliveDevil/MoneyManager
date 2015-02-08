@@ -21,15 +21,15 @@ namespace MoneyManager.ViewModel
 			}
 		}
 
-		public Tag Tag
+		public TagViewModel Tag
 		{
 			get
 			{
-				return record.Tag;
+				return new TagViewModel(record.Tag);
 			}
 			set
 			{
-				record.Tag = value;
+				record.Tag = (Tag)value;
 				RaisePropertyChanged("Tag");
 			}
 		}

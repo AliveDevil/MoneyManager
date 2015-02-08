@@ -33,5 +33,10 @@ namespace MoneyManager.ViewModel
 		{
 			this.tag = tag;
 		}
+
+		public static explicit operator Tag(TagViewModel viewModel)
+		{
+			return viewModel.tag;
+		}
 	}
 }
