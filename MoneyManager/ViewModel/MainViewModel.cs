@@ -2,6 +2,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using Microsoft.Win32;
 using MoneyManager.Model;
+using MoneyManager.Properties;
 using ReactiveUI;
 using System;
 using System.Data.Entity;
@@ -63,7 +64,7 @@ namespace MoneyManager.ViewModel
 
 					if (folderBrowser.ShowDialog() == DialogResult.OK)
 					{
-						if (System.Windows.MessageBox.Show(Properties.Resources.EditNotNumeric, "", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+						if (System.Windows.MessageBox.Show(Resources.ChangeLocation, Resources.ChangeLocationTitle, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
 						{
 							App.SetPath(folderBrowser.SelectedPath);
 #if !DEBUG

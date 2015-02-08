@@ -91,6 +91,15 @@ namespace MoneyManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Change databse path.
+        /// </summary>
+        public static string ChangeLocationTitle {
+            get {
+                return ResourceManager.GetString("ChangeLocationTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Input is no valid number..
         /// </summary>
         public static string EditNotNumeric {
