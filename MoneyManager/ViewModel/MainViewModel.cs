@@ -1,12 +1,10 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
-using Microsoft.Win32;
 using MoneyManager.Model;
 using MoneyManager.Properties;
 using ReactiveUI;
 using System;
 using System.Data.Entity;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Forms;
 
@@ -76,7 +74,6 @@ namespace MoneyManager.ViewModel
 				}));
 			}
 		}
-
 
 		public RelayCommand DeleteCommand
 		{
