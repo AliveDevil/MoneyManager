@@ -4,6 +4,7 @@ using MoneyManager.Model;
 using System;
 using System.Configuration;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -19,10 +20,13 @@ namespace MoneyManager
 		private static readonly KeyValueConfigurationElement PathElement;
 
 		private string initialPath;
+		private static bool restart = false;
+
+		public string InitialPath { get { return initialPath; } }
 
 		static App()
 		{
-			Configuration = ConfigurationManager.OpenExeConfiguration(Assembly.GetExecutingAssembly().Location);
+			Configuration = ConfigurationManager.OpenExeConfiguration(Application.ResourceAssembly.Location);
 			if (!Configuration.AppSettings.Settings.AllKeys.Contains("Path"))
 			{
 				Configuration.AppSettings.Settings.Add("Path", "");
@@ -30,7 +34,11 @@ namespace MoneyManager
 			PathElement = Configuration.AppSettings.Settings["Path"];
 			if (string.IsNullOrEmpty(PathElement.Value))
 			{
+#if DEBUG
+				SetPath(Path.GetFullPath("MoneyManager"));
+#else
 				SetPath(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "MoneyManager"));
+#endif
 			}
 		}
 
@@ -38,6 +46,7 @@ namespace MoneyManager
 		{
 			PathElement.Value = path;
 			Configuration.Save();
+			restart = true;
 		}
 
 		protected override void OnExit(ExitEventArgs e)
@@ -47,9 +56,13 @@ namespace MoneyManager
 				DatabaseContext.Instance.SaveChanges();
 			}
 
-			if (initialPath.Equals(PathElement.Value))
+			if (!initialPath.Equals(PathElement.Value))
 			{
 				File.Move(Path.Combine(initialPath, "MoneyManager.sdf"), Path.Combine(PathElement.Value, "MoneyManager.sdf"));
+				if (restart)
+				{
+					Process.Start(ResourceAssembly.Location);
+				}
 			}
 
 			base.OnExit(e);
@@ -73,6 +86,7 @@ namespace MoneyManager
 			base.OnStartup(e);
 		}
 
+#if !DEBUG
 		private void SearchUpdate()
 		{
 			Update update = new Update(
@@ -85,5 +99,6 @@ namespace MoneyManager
 				Application.Current.Dispatcher.Invoke(Application.Current.Shutdown);
 			}
 		}
+#endif
 	}
 }

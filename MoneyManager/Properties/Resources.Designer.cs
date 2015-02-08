@@ -82,6 +82,15 @@ namespace MoneyManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to If you change the database location you have to restart this application. Do you want to continue and automatically restart the application?.
+        /// </summary>
+        public static string ChangeLocation {
+            get {
+                return ResourceManager.GetString("ChangeLocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Input is no valid number..
         /// </summary>
         public static string EditNotNumeric {
@@ -150,6 +159,15 @@ namespace MoneyManager.Properties {
         public static string MenuAbout {
             get {
                 return ResourceManager.GetString("MenuAbout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change database location.
+        /// </summary>
+        public static string MenuChangeSource {
+            get {
+                return ResourceManager.GetString("MenuChangeSource", resourceCulture);
             }
         }
         

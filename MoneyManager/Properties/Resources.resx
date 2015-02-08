@@ -126,6 +126,9 @@ Copyright 2014 Jöran "AliveDevil" Malek (https://github.com/AliveDevil/MoneyMan
   <data name="AboutTitle" xml:space="preserve">
     <value>About MoneyManager</value>
   </data>
+  <data name="ChangeLocation" xml:space="preserve">
+    <value>If you change the database location you have to restart this application. Do you want to continue and automatically restart the application?</value>
+  </data>
   <data name="EditNotNumeric" xml:space="preserve">
     <value>Input is no valid number.</value>
   </data>
@@ -149,6 +152,9 @@ Copyright 2014 Jöran "AliveDevil" Malek (https://github.com/AliveDevil/MoneyMan
   </data>
   <data name="MenuAbout" xml:space="preserve">
     <value>About</value>
+  </data>
+  <data name="MenuChangeSource" xml:space="preserve">
+    <value>Change database location</value>
   </data>
   <data name="MenuExit" xml:space="preserve">
     <value>Exit</value>

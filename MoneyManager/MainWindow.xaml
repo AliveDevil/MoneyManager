@@ -27,7 +27,8 @@
 		<Menu Grid.Row="0"
 			  IsTabStop="False">
 			<MenuItem Header="{Binding MenuFile, Source={StaticResource Resources}}">
-				<MenuItem Header="{Binding MenuSave, Source={StaticResource Resources}}" />
+				<MenuItem Header="{Binding MenuChangeSource, Source={StaticResource Resources}}"
+						  Command="{Binding ChangeLocation}" />
 				<MenuItem Header="{Binding MenuImport, Source={StaticResource Resources}}">
 					<MenuItem Header="{Binding ImportFromOldMM, Source={StaticResource Resources}}" />
 				</MenuItem>
@@ -42,7 +43,7 @@
 			<MenuItem Header="{Binding MenuAbout, Source={StaticResource Resources}}"
 					  Click="MenuAbout_Click" />
 		</Menu>
-		
+
 		<TabControl Grid.Row="1">
 			<TabItem Header="Accounts">
 				<Grid>
@@ -73,7 +74,7 @@
 				</Grid>
 			</TabItem>
 			<TabItem Header="Tags">
-				
+
 			</TabItem>
 		</TabControl>
 	</Grid>
