@@ -5,6 +5,11 @@ using MoneyManager.Properties;
 using ReactiveUI;
 using System;
 using System.Data.Entity;
+
+#if !DEBUG
+using System.Diagnostics;
+#endif
+
 using System.Windows;
 using System.Windows.Forms;
 
@@ -66,7 +71,7 @@ namespace MoneyManager.ViewModel
 						{
 							App.SetPath(folderBrowser.SelectedPath);
 #if !DEBUG
-							Process.Start(Application.ResourceAssembly.Location);
+							Process.Start(System.Windows.Application.ResourceAssembly.Location);
 #endif
 							System.Windows.Application.Current.Shutdown();
 						}
