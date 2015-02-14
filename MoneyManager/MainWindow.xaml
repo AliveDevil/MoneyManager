@@ -37,7 +37,7 @@
 
 		<TabControl Grid.Row="1">
 			<TabItem Header="Accounts"
-					 DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
+					 DataContext="{Binding Source={StaticResource Locator}, Path=Accounts}">
 				<Grid>
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="Auto"
