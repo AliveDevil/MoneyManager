@@ -45,7 +45,7 @@ namespace MoneyManager.ViewModel
 						return;
 					}
 
-					foreach (var item in DatabaseContext.Instance.RecordSet.Where(item => item.Tag == (Tag)tag))
+					foreach (var item in DatabaseContext.Instance.RecordSet.AsEnumerable().Where(item => item.Tag == (Tag)tag))
 					{
 						item.Tag = DatabaseContext.Instance.DefaultTag;
 					}
