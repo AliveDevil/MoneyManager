@@ -3,13 +3,14 @@
 		xmlns:b="http://schemas.microsoft.com/expression/2010/interactivity"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:p="clr-namespace:MoneyManager.Properties"
 		xmlns:Views="clr-namespace:MoneyManager.Views"
 		xmlns:vm="clr-namespace:MoneyManager.ViewModel"
 		x:Class="MoneyManager.MainWindow"
 		Height="350"
 		Width="525"
 		Icon="Bogo-D-Project-Money-Glowing.ico"
-		Title="{Binding Source={StaticResource Resources}, Path=Title}"
+		Title="{x:Static p:Resources.Title}"
 		DataContext="{Binding Source={StaticResource Locator}, Path=Main}"
 		mc:Ignorable="d"
 		d:DataContext="{d:DesignInstance vm:MainViewModel}">
@@ -21,23 +22,24 @@
 
 		<Menu Grid.Row="0"
 			  IsTabStop="False">
-			<MenuItem Header="{Binding Path=MenuFile, Source={StaticResource Resources}}">
-				<MenuItem Header="{Binding Path=MenuChangeSource, Source={StaticResource Resources}}"
+			<MenuItem Header="{x:Static p:Resources.MenuFile}">
+				<MenuItem Header="{x:Static p:Resources.ChangeLocation}"
 						  Command="{Binding Path=ChangeLocation}" />
-				<MenuItem Header="{Binding Path=MenuImport, Source={StaticResource Resources}}">
-					<MenuItem Header="{Binding Path=ImportFromOldMM, Source={StaticResource Resources}}" />
+				<MenuItem Header="{x:Static p:Resources.MenuImport}">
+					<MenuItem Header="{x:Static p:Resources.ImportFromOldMM}" />
 				</MenuItem>
 				<Separator />
-				<MenuItem Header="{Binding Path=MenuExit, Source={StaticResource Resources}}"
+				<MenuItem Header="{x:Static p:Resources.MenuExit}"
 						  Click="MenuExit_Click" />
 			</MenuItem>
-			<MenuItem Header="{Binding Path=MenuAbout, Source={StaticResource Resources}}"
+			<MenuItem Header="{x:Static p:Resources.MenuAbout}"
 					  Click="MenuAbout_Click" />
 		</Menu>
 
 		<TabControl Grid.Row="1">
 			<TabItem Header="Accounts"
-					 DataContext="{Binding Source={StaticResource Locator}, Path=Accounts}">
+					 DataContext="{Binding Source={StaticResource Locator}, Path=Accounts}"
+					 d:DataContext="{d:DesignInstance vm:AccountListViewModel}">
 				<Grid>
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="Auto"
@@ -47,8 +49,8 @@
 
 					<ListBox Grid.Row="1"
 							 Grid.Column="0"
-							 ItemsSource="{Binding View}"
 							 DisplayMemberPath="Name"
+							 ItemsSource="{Binding Accounts}"
 							 SelectedItem="{Binding Account}"
 							 IsSynchronizedWithCurrentItem="True">
 						<ListBox.InputBindings>

@@ -4,15 +4,45 @@
 			 xmlns:properties="clr-namespace:MoneyManager.Properties"
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vm="clr-namespace:MoneyManager.ViewModel"
 			 xmlns:Converter="clr-namespace:MoneyManager.ViewModel.Converter"
 			 StartupUri="MainWindow.xaml"
 			 ShutdownMode="OnMainWindowClose"
 			 mc:Ignorable="d">
 	<Application.Resources>
-		<properties:Resources x:Key="Resources" />
 		<vm:ViewModelLocator x:Key="Locator"
 							 d:IsDataSource="True"
 							 xmlns:vm="clr-namespace:MoneyManager.ViewModel" />
 		<Converter:LowerZeroConverter x:Key="LowerZeroConverter" />
+		<Style TargetType="ListView"
+			   x:Key="ListViewRecordStyle">
+			<Setter Property="Grid.IsSharedSizeScope"
+					Value="True" />
+			<Setter Property="HorizontalContentAlignment"
+					Value="Stretch" />
+			<Setter Property="ItemTemplate">
+				<Setter.Value>
+					<DataTemplate DataType="vm:RecordViewModel">
+						<Grid d:DataContext="{d:DesignInstance vm:RecordViewModel}">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition SharedSizeGroup="DateColumn" />
+								<ColumnDefinition SharedSizeGroup="TagColumn" />
+								<ColumnDefinition />
+								<ColumnDefinition SharedSizeGroup="AmountColumn" />
+							</Grid.ColumnDefinitions>
+							<Label Grid.Column="0"
+								   Content="{Binding Path=Timestamp, StringFormat={}{0:d}}" />
+							<Label Grid.Column="1"
+								   Content="{Binding Path=Tag.Key}" />
+							<Label Grid.Column="2"
+								   Content="{Binding Path=Description}" />
+							<Label Grid.Column="3"
+								   Content="{Binding Path=Value}"
+								   HorizontalContentAlignment="Right" />
+						</Grid>
+					</DataTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
 	</Application.Resources>
 </Application>

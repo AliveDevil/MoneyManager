@@ -3,6 +3,7 @@
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:p="clr-namespace:MoneyManager.Properties"
 			 xmlns:v="clr-namespace:MoneyManager.Model.Validators"
 			 xmlns:view="clr-namespace:MoneyManager.Views"
 			 xmlns:vm="clr-namespace:MoneyManager.ViewModel"
@@ -35,7 +36,7 @@
 
 		<Label Grid.Column="0"
 			   Grid.ColumnSpan="2"
-			Content="Account Name"
+			   Content="Account Name"
 			   Margin="5" />
 		<TextBox Grid.Column="2"
 				 Grid.ColumnSpan="3"
@@ -69,34 +70,11 @@
 						 TabIndex="2"
 						 Value="{Binding Path=Record.Value}" />
 
-		<DataGrid ItemsSource="{Binding Records}"
-				  Grid.Row="2"
+		<ListView Grid.Row="2"
 				  Grid.ColumnSpan="5"
+				  ItemsSource="{Binding Path=Records}"
 				  IsSynchronizedWithCurrentItem="True"
-				  SelectedItem="{Binding Record}"
-				  AutoGenerateColumns="False"
-				  CanUserReorderColumns="False"
-				  CanUserResizeColumns="False"
-				  CanUserResizeRows="False"
-				  CanUserSortColumns="False"
-				  EnableColumnVirtualization="True"
-				  IsReadOnly="True"
-				  IsTextSearchEnabled="True"
-				  SelectionMode="Single">
-			<DataGrid.Columns>
-				<DataGridTextColumn Header="{Binding Source={StaticResource Resources}, Path=ListViewDate}"
-									Binding="{Binding Timestamp, StringFormat={}{0:d}}"
-									Width="Auto" />
-				<DataGridTextColumn Header="{Binding Source={StaticResource Resources}, Path=ListViewDescription}"
-									Binding="{Binding Tag.Key}"
-									Width="Auto" />
-				<DataGridTextColumn Header="{Binding Source={StaticResource Resources}, Path=ListViewDescription}"
-									Binding="{Binding Description}"
-									Width="*" />
-				<DataGridTextColumn Header="{Binding Source={StaticResource Resources}, Path=ListViewAmount}"
-									Binding="{Binding Value}"
-									Width="Auto" />
-			</DataGrid.Columns>
-		</DataGrid>
+				  SelectedItem="{Binding Path=Record}"
+				  Style="{StaticResource ListViewRecordStyle}" />
 	</Grid>
 </UserControl>

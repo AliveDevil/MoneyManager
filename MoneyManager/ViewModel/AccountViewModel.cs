@@ -105,10 +105,11 @@ namespace MoneyManager.ViewModel
 
 		private void NewRecord()
 		{
-			Record = new RecordViewModel(DatabaseContext.Instance.RecordSet.Create());
-			((Record)Record).Timestamp = DateTime.Today;
-			((Record)Record).Tag = DatabaseContext.Instance.TagSet.First();
-			((Record)Record).Account = account;
+			RecordViewModel record = new RecordViewModel(DatabaseContext.Instance.RecordSet.Create());
+			((Record)record).Timestamp = DateTime.Today;
+			((Record)record).Tag = DatabaseContext.Instance.TagSet.First();
+			((Record)record).Account = account;
+			Record = record;
 		}
 	}
 }

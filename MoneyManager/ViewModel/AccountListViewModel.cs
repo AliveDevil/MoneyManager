@@ -96,7 +96,7 @@ namespace MoneyManager.ViewModel
 			}
 		}
 
-		public IReactiveDerivedList<AccountViewModel> View { get; set; }
+		public IReactiveDerivedList<AccountViewModel> Accounts { get; set; }
 
 		public AccountListViewModel()
 		{
@@ -106,7 +106,7 @@ namespace MoneyManager.ViewModel
 			else
 			{
 				DatabaseContext.Instance.AccountSet.Load();
-				View = DatabaseContext.Instance.AccountSet.Local.CreateDerivedCollection(account => new AccountViewModel(account));
+				Accounts = DatabaseContext.Instance.AccountSet.Local.CreateDerivedCollection(account => new AccountViewModel(account));
 			}
 		}
 	}

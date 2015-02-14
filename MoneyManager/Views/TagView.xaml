@@ -45,22 +45,9 @@
 			</TextBox.Text>
 		</TextBox>
 
-		<ListView ItemsSource="{Binding Path=Records}"
+		<ListView Style="{StaticResource ListViewRecordStyle}"
 				  Grid.Row="1"
 				  Grid.ColumnSpan="2"
-				  HorizontalContentAlignment="Stretch">
-			<ListView.ItemTemplate>
-				<DataTemplate DataType="vm:RecordViewModel">
-					<DockPanel d:DataContext="{d:DesignInstance vm:RecordViewModel}"
-							   LastChildFill="True">
-						<Label Content="{Binding Path=Timestamp, StringFormat={}{0:d}}"
-							   DockPanel.Dock="Left" />
-						<Label Content="{Binding Path=Value}"
-							   DockPanel.Dock="Right" />
-						<Label Content="{Binding Path=Description}" />
-					</DockPanel>
-				</DataTemplate>
-			</ListView.ItemTemplate>
-		</ListView>
+				  ItemsSource="{Binding Path=Records}" />
 	</Grid>
 </UserControl>

@@ -44,7 +44,7 @@ namespace MoneyManager.ViewModel
 						MessageBox.Show(Resources.TagDeleteErrorMessage, Resources.ErrorMessageTitle, MessageBoxButton.OK, MessageBoxImage.Error);
 						return;
 					}
-					
+
 					foreach (var item in DatabaseContext.Instance.RecordSet.Where(item => item.Tag == (Tag)tag))
 					{
 						item.Tag = DatabaseContext.Instance.DefaultTag;
@@ -68,13 +68,17 @@ namespace MoneyManager.ViewModel
 			}
 		}
 
-		public IReactiveDerivedList<TagViewModel> Tags
-		{
-			get { return tags ?? (tags = DatabaseContext.Instance.TagSet.CreateDerivedCollection(tag => new TagViewModel(tag))); }
-		}
+		public IReactiveDerivedList<TagViewModel> Tags { get; set; }
 
 		public TagListViewModel()
 		{
+			if (IsInDesignMode)
+			{
+			}
+			else
+			{
+				Tags = DatabaseContext.Instance.TagSet.Local.CreateDerivedCollection(tag => new TagViewModel(tag));
+			}
 		}
 	}
 }
