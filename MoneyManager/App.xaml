@@ -4,6 +4,7 @@
 			 xmlns:properties="clr-namespace:MoneyManager.Properties"
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			 xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:Converter="clr-namespace:MoneyManager.ViewModel.Converter"
 			 StartupUri="MainWindow.xaml"
 			 ShutdownMode="OnMainWindowClose"
 			 d1p1:Ignorable="d">
@@ -12,6 +13,7 @@
 		<vm:ViewModelLocator x:Key="Locator"
 							 d:IsDataSource="True"
 							 xmlns:vm="clr-namespace:MoneyManager.ViewModel" />
+		<Converter:LowerZeroConverter x:Key="LowerZeroConverter" />
 		<!--<Style x:Key="ValidationBox"
 			   TargetType="TextBox">
 			<Style.Triggers>

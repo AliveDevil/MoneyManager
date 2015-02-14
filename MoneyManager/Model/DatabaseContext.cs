@@ -2,6 +2,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
+using System.Linq;
 
 namespace MoneyManager.Model
 {
@@ -32,6 +33,8 @@ namespace MoneyManager.Model
 		{
 			get { return instance.IsValueCreated; }
 		}
+
+		public Tag DefaultTag { get { return TagSet.Where(tag => tag.Default).Single(); } }
 
 		public virtual DbSet<Account> AccountSet { get; set; }
 
@@ -67,6 +70,8 @@ namespace MoneyManager.Model
 
 		[Index(IsUnique = true)]
 		public string Key { get; set; }
+
+		public bool Default { get; set; }
 
 		public virtual ObservableCollection<Record> Records { get; set; }
 	}

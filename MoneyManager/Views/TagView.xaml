@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="MoneyManager.Views.TagView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			 xmlns:VM="clr-namespace:MoneyManager.ViewModel"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300"
+			 d:DataContext="{d:DesignInstance Type=VM:TagViewModel}">
+    <Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="Auto"
+							  MinWidth="75" />
+			<ColumnDefinition Width="*" />
+			<ColumnDefinition Width="Auto" />
+		</Grid.ColumnDefinitions> 
+		
+		<ListBox Grid.Column="0" />
+    </Grid>
+</UserControl>

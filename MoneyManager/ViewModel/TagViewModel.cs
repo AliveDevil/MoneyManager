@@ -24,7 +24,7 @@ namespace MoneyManager.ViewModel
 			}
 		}
 
-		public IReactiveDerivedList<RecordViewModel> MyProperty
+		public IReactiveDerivedList<RecordViewModel> Records
 		{
 			get { return records ?? (records = tag.Records.CreateDerivedCollection(record => new RecordViewModel(record))); }
 		}

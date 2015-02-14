@@ -143,12 +143,17 @@
     <Compile Include="Model\Validators\DecimalValidator.cs" />
     <Compile Include="ViewModel\AccountViewModel.cs" />
     <Compile Include="ViewModel\Converter\LowerZeroConverter.cs" />
+    <Compile Include="ViewModel\AccountListViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\RecordViewModel.cs" />
+    <Compile Include="ViewModel\TagListViewModel.cs" />
     <Compile Include="ViewModel\TagViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="Views\AccountView.xaml.cs">
       <DependentUpon>AccountView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TagView.xaml.cs">
+      <DependentUpon>TagView.xaml</DependentUpon>
     </Compile>
     <Page Include="AboutWindow.xaml">
       <SubType>Designer</SubType>
@@ -170,6 +175,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\AccountView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TagView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

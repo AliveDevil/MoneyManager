@@ -13,7 +13,7 @@ namespace MoneyManager.Migrations
 
 		protected override void Seed(DatabaseContext context)
 		{
-			context.TagSet.AddOrUpdate(p => p.Key, new Tag() { Key = "Default" });
+			context.TagSet.AddOrUpdate(p => p.Key, new Tag() { Key = "Default", Default = true });
 		}
 	}
 }
