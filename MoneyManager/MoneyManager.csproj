@@ -141,6 +141,7 @@
     <Compile Include="Model\Exporter\MoneyManagerExporter.cs" />
     <Compile Include="Model\DatabaseContext.cs" />
     <Compile Include="Model\Validators\DecimalValidator.cs" />
+    <Compile Include="Model\Validators\UniqueKeyValidator.cs" />
     <Compile Include="ViewModel\AccountViewModel.cs" />
     <Compile Include="ViewModel\Converter\LowerZeroConverter.cs" />
     <Compile Include="ViewModel\AccountListViewModel.cs" />

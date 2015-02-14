@@ -21,21 +21,17 @@
 
 		<Menu Grid.Row="0"
 			  IsTabStop="False">
-			<MenuItem Header="{Binding MenuFile, Source={StaticResource Resources}}">
-				<MenuItem Header="{Binding MenuChangeSource, Source={StaticResource Resources}}"
-						  Command="{Binding ChangeLocation}" />
-				<MenuItem Header="{Binding MenuImport, Source={StaticResource Resources}}">
-					<MenuItem Header="{Binding ImportFromOldMM, Source={StaticResource Resources}}" />
+			<MenuItem Header="{Binding Path=MenuFile, Source={StaticResource Resources}}">
+				<MenuItem Header="{Binding Path=MenuChangeSource, Source={StaticResource Resources}}"
+						  Command="{Binding Path=ChangeLocation}" />
+				<MenuItem Header="{Binding Path=MenuImport, Source={StaticResource Resources}}">
+					<MenuItem Header="{Binding Path=ImportFromOldMM, Source={StaticResource Resources}}" />
 				</MenuItem>
 				<Separator />
-				<MenuItem Header="{Binding MenuExit, Source={StaticResource Resources}}"
+				<MenuItem Header="{Binding Path=MenuExit, Source={StaticResource Resources}}"
 						  Click="MenuExit_Click" />
 			</MenuItem>
-			<MenuItem Header="Accounts">
-				<MenuItem Header="Add Account"
-						  Command="{Binding AddCommand}" />
-			</MenuItem>
-			<MenuItem Header="{Binding MenuAbout, Source={StaticResource Resources}}"
+			<MenuItem Header="{Binding Path=MenuAbout, Source={StaticResource Resources}}"
 					  Click="MenuAbout_Click" />
 		</Menu>
 
@@ -66,10 +62,39 @@
 
 					<Views:AccountView Grid.Row="1"
 									   Grid.Column="1"
-									   DataContext="{Binding Account, Mode=OneWay}" />
+									   DataContext="{Binding Path=Account, Mode=OneWay}" />
 				</Grid>
 			</TabItem>
-			<TabItem Header="Tags">
+			<TabItem Header="Tags"
+					 DataContext="{Binding Source={StaticResource Locator}, Path=Tags}"
+					 d:DataContext="{d:DesignInstance vm:TagListViewModel}">
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto"
+										  MinWidth="120" />
+						<ColumnDefinition Width="*" />
+					</Grid.ColumnDefinitions>
+
+					<ListBox Grid.Row="1"
+							 Grid.Column="0"
+							 DisplayMemberPath="Key"
+							 ItemsSource="{Binding Path=Tags}"
+							 SelectedItem="{Binding Path=Tag}"
+							 IsSynchronizedWithCurrentItem="True">
+						<ListBox.InputBindings>
+							<KeyBinding Key="Add"
+										Command="{Binding Path=AddTag}" />
+							<KeyBinding Key="OemPlus"
+										Command="{Binding Path=AddTag}" />
+							<KeyBinding Key="Delete"
+										Command="{Binding Path=DeleteTag}" />
+						</ListBox.InputBindings>
+					</ListBox>
+
+					<Views:TagView Grid.Row="1"
+								   Grid.Column="1"
+								   DataContext="{Binding Path=Tag, Mode=OneWay}" />
+				</Grid>
 			</TabItem>
 		</TabControl>
 	</Grid>

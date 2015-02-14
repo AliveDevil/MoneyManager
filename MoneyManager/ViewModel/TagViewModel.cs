@@ -21,6 +21,7 @@ namespace MoneyManager.ViewModel
 			{
 				tag.Key = value;
 				RaisePropertyChanged("Key");
+				DatabaseContext.Instance.SaveChanges();
 			}
 		}
 

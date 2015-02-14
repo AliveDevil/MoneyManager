@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using MoneyManager.Model;
+using MoneyManager.Properties;
 using ReactiveUI;
 using System.Linq;
 using System.Windows;
@@ -9,16 +10,16 @@ namespace MoneyManager.ViewModel
 {
 	public class TagListViewModel : ViewModelBase
 	{
-		private RelayCommand addCommand;
-		private RelayCommand deleteCommand;
+		private RelayCommand addTag;
+		private RelayCommand deleteTag;
 		private TagViewModel tag;
 		private IReactiveDerivedList<TagViewModel> tags;
 
-		public RelayCommand AddCommand
+		public RelayCommand AddTag
 		{
 			get
 			{
-				return addCommand ?? (addCommand = new RelayCommand(() =>
+				return addTag ?? (addTag = new RelayCommand(() =>
 				{
 					var tag = DatabaseContext.Instance.TagSet.Create();
 					tag.Key = "New Tag";
@@ -28,17 +29,22 @@ namespace MoneyManager.ViewModel
 			}
 		}
 
-		public RelayCommand DeleteCommand
+		public RelayCommand DeleteTag
 		{
 			get
 			{
-				return deleteCommand ?? (deleteCommand = new RelayCommand(() =>
+				return deleteTag ?? (deleteTag = new RelayCommand(() =>
 				{
-					if (DatabaseContext.Instance.TagSet.Count() <= 1)
+					if (MessageBox.Show(Resources.TagDelete, "", MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes)
 					{
-						MessageBox.Show("", "", MessageBoxButton.OK, MessageBoxImage.Error);
 						return;
 					}
+					if (((Tag)Tag).Default)
+					{
+						MessageBox.Show(Resources.TagDeleteErrorMessage, Resources.ErrorMessageTitle, MessageBoxButton.OK, MessageBoxImage.Error);
+						return;
+					}
+					
 					foreach (var item in DatabaseContext.Instance.RecordSet.Where(item => item.Tag == (Tag)tag))
 					{
 						item.Tag = DatabaseContext.Instance.DefaultTag;

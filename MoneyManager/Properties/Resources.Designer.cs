@@ -109,6 +109,15 @@ namespace MoneyManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string ErrorMessageTitle {
+            get {
+                return ResourceManager.GetString("ErrorMessageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to MoneyManager (json).
         /// </summary>
         public static string ImportFromOldMM {
@@ -231,6 +240,24 @@ namespace MoneyManager.Properties {
         public static string MenuSaveAs {
             get {
                 return ResourceManager.GetString("MenuSaveAs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are going to delete this tag and reset every record pointing to it to the default tag. Do you want to continue?.
+        /// </summary>
+        public static string TagDelete {
+            get {
+                return ResourceManager.GetString("TagDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You tried to delete the default tag. This is not allowed. Please rename it or delete another tag..
+        /// </summary>
+        public static string TagDeleteErrorMessage {
+            get {
+                return ResourceManager.GetString("TagDeleteErrorMessage", resourceCulture);
             }
         }
         

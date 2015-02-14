@@ -3,29 +3,16 @@
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:properties="clr-namespace:MoneyManager.Properties"
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-			 xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:Converter="clr-namespace:MoneyManager.ViewModel.Converter"
 			 StartupUri="MainWindow.xaml"
 			 ShutdownMode="OnMainWindowClose"
-			 d1p1:Ignorable="d">
+			 mc:Ignorable="d">
 	<Application.Resources>
 		<properties:Resources x:Key="Resources" />
 		<vm:ViewModelLocator x:Key="Locator"
 							 d:IsDataSource="True"
 							 xmlns:vm="clr-namespace:MoneyManager.ViewModel" />
 		<Converter:LowerZeroConverter x:Key="LowerZeroConverter" />
-		<!--<Style x:Key="ValidationBox"
-			   TargetType="TextBox">
-			<Style.Triggers>
-				<Trigger Property="Validation.HasError"
-						 Value="True">
-					<Setter Property="BorderBrush"
-							Value="Red" />
-					--><!--<Setter Property="ToolTip"
-							Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}" />--><!--
-				</Trigger>
-			</Style.Triggers>
-		</Style>-->
 	</Application.Resources>
 </Application>
-	
