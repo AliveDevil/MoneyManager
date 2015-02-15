@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
@@ -46,6 +47,9 @@ namespace MoneyManager.Model
 			: base("name=Money")
 		{
 			Database.Initialize(false);
+			AccountSet.Load();
+			TagSet.Load();
+			RecordSet.Load();
 		}
 	}
 
@@ -74,5 +78,10 @@ namespace MoneyManager.Model
 		public bool Default { get; set; }
 
 		public virtual ObservableCollection<Record> Records { get; set; }
+
+		public Tag()
+		{
+			Records = new ObservableCollection<Record>();
+		}
 	}
 }

@@ -33,12 +33,26 @@
 							<Label Grid.Column="0"
 								   Content="{Binding Path=Timestamp, StringFormat={}{0:d}}" />
 							<Label Grid.Column="1"
-								   Content="{Binding Path=Tag.Key}" />
+								   Content="{Binding Path=Tag}" />
 							<Label Grid.Column="2"
 								   Content="{Binding Path=Description}" />
 							<Label Grid.Column="3"
 								   Content="{Binding Path=Value}"
-								   HorizontalContentAlignment="Right" />
+								   HorizontalContentAlignment="Right">
+								<Label.Style>
+									<Style TargetType="Label">
+										<Style.Triggers>
+											<DataTrigger Binding="{Binding Path=Value, Converter={StaticResource LowerZeroConverter}}"
+														 Value="True">
+												<Setter Property="BorderBrush">
+													<Setter.Value>
+														<SolidColorBrush Color="Red" />
+													</Setter.Value></Setter>
+											</DataTrigger>
+										</Style.Triggers>
+									</Style>
+								</Label.Style>
+							</Label>
 						</Grid>
 					</DataTemplate>
 				</Setter.Value>

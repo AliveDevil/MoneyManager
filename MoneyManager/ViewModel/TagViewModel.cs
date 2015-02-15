@@ -4,9 +4,8 @@ using ReactiveUI;
 
 namespace MoneyManager.ViewModel
 {
-	public sealed class TagViewModel : ViewModelBase
+	public sealed class TagViewModel : MyViewModelBase
 	{
-		private IReactiveDerivedList<RecordViewModel> records;
 		private Tag tag;
 
 		public int Id { get { return tag.Id; } }
@@ -15,24 +14,22 @@ namespace MoneyManager.ViewModel
 		{
 			get
 			{
+				if (tag == null) { return ""; }
 				return tag.Key;
 			}
 			set
 			{
 				tag.Key = value;
-				RaisePropertyChanged("Key");
-				DatabaseContext.Instance.SaveChanges();
+				RaiseAndSave("Key");
 			}
 		}
 
-		public IReactiveDerivedList<RecordViewModel> Records
-		{
-			get { return records ?? (records = tag.Records.CreateDerivedCollection(record => new RecordViewModel(record))); }
-		}
-
+		public IReactiveDerivedList<RecordViewModel> Records { get; set; }
+		
 		public TagViewModel(Tag tag)
 		{
 			this.tag = tag;
+			this.Records = this.tag.Records.CreateDerivedCollection(record => new RecordViewModel(record));
 		}
 
 		public static explicit operator Tag(TagViewModel viewModel)

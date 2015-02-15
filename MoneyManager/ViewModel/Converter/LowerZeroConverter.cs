@@ -11,9 +11,9 @@ namespace MoneyManager.ViewModel.Converter
 	{
 		public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
 		{
-			if (value is Decimal)
+			if (value is float)
 			{
-				return (Decimal)value < 0;
+				return (float)value < 0;
 			}
 			return false;
 		}

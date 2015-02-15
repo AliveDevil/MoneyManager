@@ -146,6 +146,7 @@
     <Compile Include="ViewModel\Converter\LowerZeroConverter.cs" />
     <Compile Include="ViewModel\AccountListViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\MyViewModelBase.cs" />
     <Compile Include="ViewModel\RecordViewModel.cs" />
     <Compile Include="ViewModel\TagListViewModel.cs" />
     <Compile Include="ViewModel\TagViewModel.cs" />

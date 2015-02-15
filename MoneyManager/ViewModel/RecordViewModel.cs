@@ -1,10 +1,10 @@
 ﻿using GalaSoft.MvvmLight;
 using MoneyManager.Model;
 using System;
-
+using System.Linq;
 namespace MoneyManager.ViewModel
 {
-	public class RecordViewModel : ViewModelBase
+	public class RecordViewModel : MyViewModelBase
 	{
 		private Record record;
 
@@ -17,20 +17,21 @@ namespace MoneyManager.ViewModel
 			set
 			{
 				record.Description = value;
-				RaisePropertyChanged("Description");
+				RaiseAndSave("Description");
 			}
 		}
 
-		public TagViewModel Tag
+		public string Tag
 		{
 			get
 			{
-				return new TagViewModel(record.Tag);
+				return record.Tag.Key;
 			}
 			set
 			{
-				record.Tag = (Tag)value;
-				RaisePropertyChanged("Tag");
+				Tag foundTag = DatabaseContext.Instance.TagSet.SingleOrDefault(tag => tag.Key == value);
+				record.Tag = foundTag ?? DatabaseContext.Instance.DefaultTag;
+				RaiseAndSave("Tag");
 			}
 		}
 
@@ -43,7 +44,7 @@ namespace MoneyManager.ViewModel
 			set
 			{
 				record.Timestamp = value;
-				RaisePropertyChanged("Timestamp");
+				RaiseAndSave("Timestamp");
 			}
 		}
 
@@ -56,7 +57,7 @@ namespace MoneyManager.ViewModel
 			set
 			{
 				record.Value = value;
-				RaisePropertyChanged("Value");
+				RaiseAndSave("Value");
 			}
 		}
 

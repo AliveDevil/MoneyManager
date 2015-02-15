@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight.CommandWpf;
 using MoneyManager.Model;
 using MoneyManager.Properties;
 using ReactiveUI;
+using System.Data.Entity;
 using System.Linq;
 using System.Windows;
 
@@ -13,7 +14,6 @@ namespace MoneyManager.ViewModel
 		private RelayCommand addTag;
 		private RelayCommand deleteTag;
 		private TagViewModel tag;
-		private IReactiveDerivedList<TagViewModel> tags;
 
 		public RelayCommand AddTag
 		{

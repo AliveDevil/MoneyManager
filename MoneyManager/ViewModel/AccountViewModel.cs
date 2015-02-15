@@ -1,5 +1,4 @@
-﻿using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.CommandWpf;
+﻿using GalaSoft.MvvmLight.CommandWpf;
 using MoneyManager.Model;
 using ReactiveUI;
 using System;
@@ -8,16 +7,13 @@ using System.Linq;
 
 namespace MoneyManager.ViewModel
 {
-	public sealed class AccountViewModel : ViewModelBase
+	public sealed class AccountViewModel : MyViewModelBase
 	{
 		private Account account;
 
 		private RelayCommand applyCommand;
 		private RecordViewModel record;
-		private IReactiveDerivedList<RecordViewModel> records;
-
 		private RelayCommand resetCommand;
-		private IReactiveDerivedList<TagViewModel> tags;
 
 		public RelayCommand ApplyCommand
 		{
@@ -52,7 +48,7 @@ namespace MoneyManager.ViewModel
 			set
 			{
 				account.Name = value;
-				RaisePropertyChanged("Name");
+				RaiseAndSave("Name");
 			}
 		}
 
@@ -69,16 +65,7 @@ namespace MoneyManager.ViewModel
 			}
 		}
 
-		public IReactiveDerivedList<RecordViewModel> Records
-		{
-			get
-			{
-				return records ?? (records = this.account.Records.CreateDerivedCollection(
-				record => new RecordViewModel(record),
-				null,
-				(l, r) => l.Timestamp > r.Timestamp ? 1 : r.Timestamp < l.Timestamp ? -1 : 0));
-			}
-		}
+		public IReactiveDerivedList<RecordViewModel> Records { get; set; }
 
 		public RelayCommand ResetCommand
 		{
@@ -86,20 +73,23 @@ namespace MoneyManager.ViewModel
 			{
 				return resetCommand ?? (resetCommand = new RelayCommand(async () =>
 				{
-					await DatabaseContext.Instance.Entry((Record)Record).ReloadAsync();
+					EntityState state = DatabaseContext.Instance.Entry((Record)Record).State;
+					if (state == EntityState.Modified)
+					{
+						await DatabaseContext.Instance.Entry((Record)Record).ReloadAsync();
+					}
 					NewRecord();
 				}));
 			}
 		}
 
-		public IReactiveDerivedList<TagViewModel> Tags
-		{
-			get { return tags ?? (tags = DatabaseContext.Instance.TagSet.CreateDerivedCollection(tag => new TagViewModel(tag))); }
-		}
-
 		public AccountViewModel(Account account)
 		{
 			this.account = account;
+			this.Records = this.account.Records.CreateDerivedCollection(
+				record => new RecordViewModel(record),
+				null,
+				(l, r) => l.Timestamp > r.Timestamp ? 1 : r.Timestamp < l.Timestamp ? -1 : 0);
 			NewRecord();
 		}
 

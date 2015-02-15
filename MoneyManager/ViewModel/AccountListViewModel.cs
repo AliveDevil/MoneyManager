@@ -105,7 +105,6 @@ namespace MoneyManager.ViewModel
 			}
 			else
 			{
-				DatabaseContext.Instance.AccountSet.Load();
 				Accounts = DatabaseContext.Instance.AccountSet.Local.CreateDerivedCollection(account => new AccountViewModel(account));
 			}
 		}

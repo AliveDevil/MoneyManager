@@ -54,9 +54,10 @@
 		<ComboBox Grid.Row="1"
 				  Grid.Column="2"
 				  Margin="5"
-				  ItemsSource="{Binding Tags}"
+				  ItemsSource="{Binding Source={StaticResource Locator}, Path=Tags.Tags}"
 				  DisplayMemberPath="Key"
-				  SelectedItem="{Binding Record.Tag}"
+				  SelectedValuePath="Key"
+				  SelectedValue="{Binding Path=Record.Tag}"
 				  IsSynchronizedWithCurrentItem="True" />
 		<TextBox x:Name="descriptionText"
 				 Grid.Row="1"
