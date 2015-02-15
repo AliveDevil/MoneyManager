@@ -140,6 +140,7 @@
     <Compile Include="Model\Exporter\Exportable.cs" />
     <Compile Include="Model\Exporter\MoneyManagerExporter.cs" />
     <Compile Include="Model\DatabaseContext.cs" />
+    <Compile Include="Model\Importer\LegacyImporter.cs" />
     <Compile Include="Model\Validators\DecimalValidator.cs" />
     <Compile Include="Model\Validators\UniqueKeyValidator.cs" />
     <Compile Include="ViewModel\AccountViewModel.cs" />
@@ -209,9 +210,7 @@
   <ItemGroup>
     <Resource Include="Bogo-D-Project-Money-Glowing.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Model\Importer\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>

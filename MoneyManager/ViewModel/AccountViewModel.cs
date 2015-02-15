@@ -101,5 +101,10 @@ namespace MoneyManager.ViewModel
 			((Record)record).Account = account;
 			Record = record;
 		}
+
+		public static explicit operator Account(AccountViewModel vm)
+		{
+			return vm.account;
+		}
 	}
 }
