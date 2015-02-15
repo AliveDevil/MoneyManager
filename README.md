@@ -1,4 +1,5 @@
 # MoneyManager Readme
+Follow development status here: https://trello.com/b/qlylAeVA/moneymanager
 
 # Contributing
 You are allowed to contribute but you have to follow following guidelines:
