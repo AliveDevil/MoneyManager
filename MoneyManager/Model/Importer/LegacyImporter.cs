@@ -22,21 +22,42 @@ namespace MoneyManager.Model.Importer
 			{
 				return importCommand ?? (importCommand = new RelayCommand(() =>
 				{
-					OpenFileDialog openFileDialog = new OpenFileDialog()._(@_ =>
+					Account account = Account;
+					if (account == null)
 					{
-						@_.CheckFileExists = true;
-						@_.CheckPathExists = true;
-						@_.Filter = "MoneyManager Legacy File|*.mmgr";
-						@_.InitialDirectory = Path.GetDirectoryName(Application.ResourceAssembly.Location);
-						@_.Multiselect = false;
-						@_.ValidateNames = true;
+						MessageBox.Show("No account selected", "", MessageBoxButton.OK, MessageBoxImage.Error);
+						return;
+					}
+
+					OpenFileDialog openFileDialog = new OpenFileDialog()._(_ =>
+					{
+						_.CheckFileExists = true;
+						_.CheckPathExists = true;
+						_.Filter = "MoneyManager Legacy File|*.mmgr";
+						_.InitialDirectory = Path.GetDirectoryName(Application.ResourceAssembly.Location);
+						_.Multiselect = false;
+						_.ValidateNames = true;
 					});
 					bool? result = openFileDialog.ShowDialog();
 					if (result.HasValue && result.Value)
 					{
-						Account account = (Account)ServiceLocator.Current.GetInstance<AccountListViewModel>().Account;
+						
 					}
 				}));
+			}
+		}
+
+		private static Account Account
+		{
+			get
+			{
+				var listModel = ServiceLocator.Current.GetInstance<AccountListViewModel>();
+				if (listModel == null)
+					return null;
+				var viewModel = listModel.Account;
+				if (viewModel == null)
+					return null;
+				return (Account)viewModel;
 			}
 		}
 	}
