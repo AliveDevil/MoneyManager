@@ -27,7 +27,11 @@ namespace MoneyManager.Model
 
 		public static DatabaseContext Instance
 		{
-			get { return instance.Value; }
+			get
+			{
+				instance.Value.Initialize();
+				return instance.Value;
+			}
 		}
 
 		public static bool IsCreated
@@ -47,6 +51,10 @@ namespace MoneyManager.Model
 			: base("name=Money")
 		{
 			Database.Initialize(false);
+		}
+
+		private void Initialize()
+		{
 			AccountSet.Load();
 			TagSet.Load();
 			RecordSet.Load();

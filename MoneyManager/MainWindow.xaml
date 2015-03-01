@@ -6,6 +6,7 @@
 		xmlns:p="clr-namespace:MoneyManager.Properties"
 		xmlns:Views="clr-namespace:MoneyManager.Views"
 		xmlns:vm="clr-namespace:MoneyManager.ViewModel"
+		xmlns:i="clr-namespace:MoneyManager.Model.Importer"
 		x:Class="MoneyManager.MainWindow"
 		Height="350"
 		Width="525"
@@ -23,10 +24,11 @@
 		<Menu Grid.Row="0"
 			  IsTabStop="False">
 			<MenuItem Header="{x:Static p:Resources.MenuFile}">
-				<MenuItem Header="{x:Static p:Resources.ChangeLocation}"
+				<MenuItem Header="{x:Static p:Resources.MenuChangeSource}"
 						  Command="{Binding Path=ChangeLocation}" />
 				<MenuItem Header="{x:Static p:Resources.MenuImport}">
-					<MenuItem Header="{x:Static p:Resources.ImportFromOldMM}" />
+					<MenuItem Header="{x:Static p:Resources.ImportFromOldMM}"
+							  Command="{x:Static i:LegacyImporter.ImportCommand}" />
 				</MenuItem>
 				<Separator />
 				<MenuItem Header="{x:Static p:Resources.MenuExit}"
