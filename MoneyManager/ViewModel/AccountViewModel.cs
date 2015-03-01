@@ -89,7 +89,7 @@ namespace MoneyManager.ViewModel
 			this.Records = this.account.Records.CreateDerivedCollection(
 				record => new RecordViewModel(record),
 				null,
-				(l, r) => l.Timestamp > r.Timestamp ? 1 : r.Timestamp < l.Timestamp ? -1 : 0);
+				(l, r) => -DateTime.Compare(l.Timestamp, r.Timestamp));
 			NewRecord();
 		}
 

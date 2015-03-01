@@ -65,23 +65,32 @@ namespace MoneyManager.Model.Importer
 							XmlSerializer serializer = new XmlSerializer(typeof(MoneyData));
 							data = (MoneyData)serializer.Deserialize(gzipStream);
 						}
-						foreach (var item in data.Records)
-						{
-							Record record = DatabaseContext.Instance.RecordSet.Create();
-							record.Account = account;
-							record.Tag = DatabaseContext.Instance.DefaultTag;
-							record.Description = item.Description;
-							if (item.Date < SqlDateTime.MinValue.Value)
-								record.Timestamp = SqlDateTime.MinValue.Value;
-							else
-								record.Timestamp = item.Date;
-							record.Value = (float)item.Amount;
-							DatabaseContext.Instance.RecordSet.Add(record);
-						}
+						await LoadRecords(account, data);
+						data.Records = null;
+						data = null;
 					}
-					await DatabaseContext.Instance.SaveChangesAsync();
 				}));
 			}
+		}
+
+		private static async Task LoadRecords(Account account, MoneyData data)
+		{
+			foreach (var item in data.Records)
+			{
+				await Task.Yield();
+
+				Record record = DatabaseContext.Instance.RecordSet.Create();
+				record.Account = account;
+				record.Tag = DatabaseContext.Instance.DefaultTag;
+				record.Description = item.Description;
+				if (item.Date < SqlDateTime.MinValue.Value)
+					record.Timestamp = SqlDateTime.MinValue.Value;
+				else
+					record.Timestamp = item.Date;
+				record.Value = (float)item.Amount;
+				DatabaseContext.Instance.RecordSet.Add(record);
+			}
+			await DatabaseContext.Instance.SaveChangesAsync();
 		}
 
 		private static Account Account
