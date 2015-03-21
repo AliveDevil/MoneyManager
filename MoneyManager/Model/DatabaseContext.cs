@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MoneyManager.Model
 {
@@ -29,7 +30,6 @@ namespace MoneyManager.Model
 		{
 			get
 			{
-				instance.Value.Initialize();
 				return instance.Value;
 			}
 		}
@@ -39,9 +39,9 @@ namespace MoneyManager.Model
 			get { return instance.IsValueCreated; }
 		}
 
-		public Tag DefaultTag { get { return TagSet.Where(tag => tag.Default).Single(); } }
-
 		public virtual DbSet<Account> AccountSet { get; set; }
+
+		public Tag DefaultTag { get { return TagSet.Where(tag => tag.Default).Single(); } }
 
 		public virtual DbSet<Record> RecordSet { get; set; }
 
@@ -50,14 +50,14 @@ namespace MoneyManager.Model
 		public DatabaseContext()
 			: base("name=Money")
 		{
-			Database.Initialize(false);
+			Load();
 		}
 
-		private void Initialize()
+		private async Task Load()
 		{
-			AccountSet.Load();
-			TagSet.Load();
-			RecordSet.Load();
+			await AccountSet.LoadAsync();
+			await RecordSet.LoadAsync();
+			await TagSet.LoadAsync();
 		}
 	}
 
@@ -78,12 +78,12 @@ namespace MoneyManager.Model
 
 	public class Tag
 	{
+		public bool Default { get; set; }
+
 		public int Id { get; set; }
 
 		[Index(IsUnique = true)]
 		public string Key { get; set; }
-
-		public bool Default { get; set; }
 
 		public virtual ObservableCollection<Record> Records { get; set; }
 

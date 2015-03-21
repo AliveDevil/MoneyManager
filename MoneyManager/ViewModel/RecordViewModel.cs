@@ -7,6 +7,7 @@ namespace MoneyManager.ViewModel
 	public class RecordViewModel : MyViewModelBase
 	{
 		private Record record;
+		private bool donotsave;
 
 		public string Description
 		{
@@ -16,8 +17,10 @@ namespace MoneyManager.ViewModel
 			}
 			set
 			{
+				if(!donotsave){
 				record.Description = value;
 				RaiseAndSave("Description");
+				}
 			}
 		}
 
@@ -29,9 +32,12 @@ namespace MoneyManager.ViewModel
 			}
 			set
 			{
-				Tag foundTag = DatabaseContext.Instance.TagSet.SingleOrDefault(tag => tag.Key == value);
-				record.Tag = foundTag ?? DatabaseContext.Instance.DefaultTag;
-				RaiseAndSave("Tag");
+				if (!donotsave)
+				{
+					Tag foundTag = DatabaseContext.Instance.TagSet.SingleOrDefault(tag => tag.Key == value);
+					record.Tag = foundTag ?? DatabaseContext.Instance.DefaultTag;
+					RaiseAndSave("Tag");
+				}
 			}
 		}
 
@@ -43,8 +49,11 @@ namespace MoneyManager.ViewModel
 			}
 			set
 			{
-				record.Timestamp = value;
-				RaiseAndSave("Timestamp");
+				if (!donotsave)
+				{
+					record.Timestamp = value;
+					RaiseAndSave("Timestamp");
+				}
 			}
 		}
 
@@ -56,14 +65,19 @@ namespace MoneyManager.ViewModel
 			}
 			set
 			{
-				record.Value = value;
-				RaiseAndSave("Value");
+				if (!donotsave)
+				{
+					record.Value = value;
+					RaiseAndSave("Value");
+				}
 			}
 		}
 
-		public RecordViewModel(Record record)
+		public RecordViewModel(Record record, bool @readonly)
 		{
 			this.record = record;
+			this.donotsave = @readonly;
+			RaisePropertyChanged();
 		}
 
 		public static explicit operator Record(RecordViewModel viewModel)

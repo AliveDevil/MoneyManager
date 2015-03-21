@@ -29,6 +29,14 @@ namespace MoneyManager.ViewModel
 			}
 		}
 
+		public RecordListViewModel Records
+		{
+			get
+			{
+				return ServiceLocator.Current.GetInstance<RecordListViewModel>();
+			}
+		}
+
 		public ViewModelLocator()
 		{
 			ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
@@ -36,6 +44,7 @@ namespace MoneyManager.ViewModel
 			SimpleIoc.Default.Register<MainViewModel>();
 			SimpleIoc.Default.Register<AccountListViewModel>();
 			SimpleIoc.Default.Register<TagListViewModel>();
+			SimpleIoc.Default.Register<RecordListViewModel>();
 		}
 
 		public static void Cleanup()

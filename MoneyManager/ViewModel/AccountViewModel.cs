@@ -87,7 +87,7 @@ namespace MoneyManager.ViewModel
 		{
 			this.account = account;
 			this.Records = this.account.Records.CreateDerivedCollection(
-				record => new RecordViewModel(record),
+				record => new RecordViewModel(record, false),
 				null,
 				(l, r) => -DateTime.Compare(l.Timestamp, r.Timestamp));
 			NewRecord();
@@ -95,7 +95,7 @@ namespace MoneyManager.ViewModel
 
 		private void NewRecord()
 		{
-			RecordViewModel record = new RecordViewModel(DatabaseContext.Instance.RecordSet.Create());
+			RecordViewModel record = new RecordViewModel(DatabaseContext.Instance.RecordSet.Create(), false);
 			((Record)record).Timestamp = DateTime.Today;
 			((Record)record).Tag = DatabaseContext.Instance.TagSet.First();
 			((Record)record).Account = account;

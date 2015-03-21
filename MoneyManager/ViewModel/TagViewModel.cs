@@ -29,7 +29,7 @@ namespace MoneyManager.ViewModel
 		public TagViewModel(Tag tag)
 		{
 			this.tag = tag;
-			this.Records = this.tag.Records.CreateDerivedCollection(record => new RecordViewModel(record));
+			this.Records = DatabaseContext.Instance.RecordSet.Local.CreateDerivedCollection(record => new RecordViewModel(record, true), record => record.Tag == this.tag);
 		}
 
 		public static explicit operator Tag(TagViewModel viewModel)
