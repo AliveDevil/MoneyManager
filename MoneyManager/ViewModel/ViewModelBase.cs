@@ -17,24 +17,41 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Controls;
+using System.Windows;
 
-namespace MoneyManager.Model.Validators
+namespace MoneyManager.ViewModel
 {
-	public class UniqueKeyValidator : ValidationRule
+	public abstract class ViewModelBase : INotifyPropertyChanged, IDisposable
 	{
-		public override ValidationResult Validate(object value, System.Globalization.CultureInfo cultureInfo)
+		public event PropertyChangedEventHandler PropertyChanged;
+
+		protected App App => (App)App.Current;
+
+		protected void OnPropertyChanged(string propertyName)
 		{
-			string stringValue = value as string;
-			if (string.IsNullOrWhiteSpace(stringValue))
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+		}
+
+		protected static bool InDesignMode => !(Application.Current is App);
+
+		protected bool disposedValue = false; // To detect redundant calls
+
+		protected virtual void Dispose(bool disposing)
+		{
+			if (!disposedValue)
 			{
-				return new ValidationResult(false, null);
+				disposedValue = true;
 			}
-			
-			return ValidationResult.ValidResult;
+		}
+
+		public void Dispose()
+		{
+			Dispose(true);
 		}
 	}
 }

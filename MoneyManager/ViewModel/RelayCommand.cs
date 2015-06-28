@@ -16,28 +16,39 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Data;
+using System.Windows.Input;
 
-namespace MoneyManager.ViewModel.Converter
+namespace MoneyManager.ViewModel
 {
-	public sealed class LowerZeroConverter : IValueConverter
+	public sealed class RelayCommand : ICommand
 	{
-		public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+		public event EventHandler CanExecuteChanged
 		{
-			if (value is float)
-			{
-				return (float)value < 0;
-			}
-			return false;
+			add { CommandManager.RequerySuggested += value; }
+			remove { CommandManager.RequerySuggested -= value; }
 		}
 
-		public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+		private Func<bool> canExecute;
+		private Action execute;
+
+		public RelayCommand(Action executeAction) : this(executeAction, null)
 		{
-			return null;
+		}
+
+		public RelayCommand(Action executeAction, Func<bool> canExecuteFunc)
+		{
+			execute = executeAction;
+			canExecute = canExecuteFunc;
+		}
+
+		public bool CanExecute(object parameter)
+		{
+			return canExecute?.Invoke() ?? true;
+		}
+
+		public void Execute(object parameter)
+		{
+			execute();
 		}
 	}
 }

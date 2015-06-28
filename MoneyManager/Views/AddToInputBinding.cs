@@ -20,21 +20,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Controls;
+using System.Windows;
+using System.Windows.Input;
 
-namespace MoneyManager.Model.Validators
+namespace MoneyManager.Views
 {
-	public class UniqueKeyValidator : ValidationRule
+	public class AddToInputBinding
 	{
-		public override ValidationResult Validate(object value, System.Globalization.CultureInfo cultureInfo)
+		public static InputBinding GetBinding(DependencyObject obj)
 		{
-			string stringValue = value as string;
-			if (string.IsNullOrWhiteSpace(stringValue))
-			{
-				return new ValidationResult(false, null);
-			}
-			
-			return ValidationResult.ValidResult;
+			return (InputBinding)obj.GetValue(BindingProperty);
 		}
+
+		public static void SetBinding(DependencyObject obj, InputBinding value)
+		{
+			obj.SetValue(BindingProperty, value);
+		}
+
+		public static readonly DependencyProperty BindingProperty =
+			DependencyProperty.RegisterAttached("Binding", typeof(InputBinding), typeof(AddToInputBinding), new PropertyMetadata((s, e) =>
+			{
+				((UIElement)s).InputBindings.Add((InputBinding)e.NewValue);
+			}));
 	}
 }

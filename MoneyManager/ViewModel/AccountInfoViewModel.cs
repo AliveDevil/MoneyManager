@@ -15,26 +15,33 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
+using MoneyManager.Model;
 
-namespace MoneyManager.Model.Validators
+namespace MoneyManager.ViewModel
 {
-	public class UniqueKeyValidator : ValidationRule
+	public class AccountInfoViewModel : ViewModelBase
 	{
-		public override ValidationResult Validate(object value, System.Globalization.CultureInfo cultureInfo)
+		private Account account;
+
+		public string Name
 		{
-			string stringValue = value as string;
-			if (string.IsNullOrWhiteSpace(stringValue))
+			get { return account.Name; }
+			set
 			{
-				return new ValidationResult(false, null);
+				if (account.Name == value) return;
+				account.Name = value;
+				OnPropertyChanged(nameof(Name));
 			}
-			
-			return ValidationResult.ValidResult;
+		}
+
+		public AccountInfoViewModel(Account account)
+		{
+			this.account = account;
+		}
+
+		public static explicit operator Account(AccountInfoViewModel viewModel)
+		{
+			return viewModel.account;
 		}
 	}
 }

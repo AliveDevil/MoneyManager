@@ -20,21 +20,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Controls;
 
-namespace MoneyManager.Model.Validators
+namespace MoneyManager.ViewModel
 {
-	public class UniqueKeyValidator : ValidationRule
+	public class AboutViewModel : ViewModelBase
 	{
-		public override ValidationResult Validate(object value, System.Globalization.CultureInfo cultureInfo)
+		private RelayCommand backCommand;
+
+		public RelayCommand BackCommand
 		{
-			string stringValue = value as string;
-			if (string.IsNullOrWhiteSpace(stringValue))
+			get
 			{
-				return new ValidationResult(false, null);
+				return backCommand ?? (backCommand = new RelayCommand(() =>
+				{
+					ViewStateManager.Singleton.Pop();
+				}));
 			}
-			
-			return ValidationResult.ValidResult;
+		}
+
+		protected override void Dispose(bool disposing)
+		{
+			if (!disposedValue && disposing)
+			{
+				backCommand = null;
+			}
+			base.Dispose(disposing);
 		}
 	}
 }

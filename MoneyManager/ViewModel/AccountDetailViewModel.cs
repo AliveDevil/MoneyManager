@@ -20,21 +20,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Controls;
+using MoneyManager.Model;
 
-namespace MoneyManager.Model.Validators
+namespace MoneyManager.ViewModel
 {
-	public class UniqueKeyValidator : ValidationRule
+	public class AccountDetailViewModel : ViewModelBase
 	{
-		public override ValidationResult Validate(object value, System.Globalization.CultureInfo cultureInfo)
+		private Account account;
+
+		public AccountDetailViewModel(Account account)
 		{
-			string stringValue = value as string;
-			if (string.IsNullOrWhiteSpace(stringValue))
-			{
-				return new ValidationResult(false, null);
-			}
-			
-			return ValidationResult.ValidResult;
+			this.account = account;
 		}
 	}
 }

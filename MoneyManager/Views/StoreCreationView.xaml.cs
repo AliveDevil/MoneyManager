@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace MoneyManager.Views
 {
 	/// <summary>
-	/// Interaction logic for TagView.xaml
+	/// Interaction logic for StoreCreationView.xaml
 	/// </summary>
-	public partial class TagView : UserControl
+	public partial class StoreCreationView : UserControl
 	{
-		public TagView()
+		public StoreCreationView()
 		{
 			InitializeComponent();
 		}
