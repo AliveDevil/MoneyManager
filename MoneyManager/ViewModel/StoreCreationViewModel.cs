@@ -37,7 +37,7 @@ namespace MoneyManager.ViewModel
 			{
 				return aboutCommand ?? (aboutCommand = new RelayCommand(() =>
 				{
-					ViewStateManager.Singleton.Push<AboutViewModel>();
+					App.ViewState.Push<AboutViewModel>();
 				}));
 			}
 		}
@@ -48,7 +48,7 @@ namespace MoneyManager.ViewModel
 			{
 				return backCommand ?? (backCommand = new RelayCommand(() =>
 				{
-					ViewStateManager.Singleton.Pop();
+					App.ViewState.Pop();
 				}));
 			}
 		}
@@ -102,7 +102,7 @@ namespace MoneyManager.ViewModel
 				{
 					SettingsDatabaseEntry databaseEntry = App.AppSettings.NewEntry(name, path);
 					DatabaseContext context = new DatabaseContext(databaseEntry.Path, true);
-					StoreViewModel store = ViewStateManager.Singleton.Set<StoreViewModel>();
+					StoreViewModel store = App.ViewState.Set<StoreViewModel>();
 					store.Store = context;
 				}));
 			}

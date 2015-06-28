@@ -83,6 +83,7 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.SqlServer.Compact.4.0.8876.1\lib\net40\System.Data.SqlServerCe.dll</HintPath>
     </Reference>
+    <Reference Include="System.Linq.Expressions" />
     <Reference Include="System.Reactive.Core, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Rx-Core.2.2.5\lib\net45\System.Reactive.Core.dll</HintPath>
       <Private>True</Private>
@@ -103,7 +104,6 @@
       <HintPath>..\packages\Rx-XAML.2.2.5\lib\net45\System.Reactive.Windows.Threading.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
@@ -160,12 +160,15 @@
     <Compile Include="Settings.cs" />
     <Compile Include="ViewModel\AboutViewModel.cs" />
     <Compile Include="ViewModel\AccountDetailViewModel.cs" />
+    <Compile Include="ViewModel\AccountEditViewModel.cs" />
     <Compile Include="ViewModel\AccountInfoViewModel.cs" />
+    <Compile Include="ViewModel\AccountRecordViewModel.cs" />
     <Compile Include="ViewModel\Converter\LowerZeroConverter.cs" />
     <Compile Include="ViewModel\LoadDatabaseViewModel.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
     <Compile Include="ViewModel\RelayCommand`1.cs" />
     <Compile Include="ViewModel\SettingsDatabaseEntryViewModel.cs" />
+    <Compile Include="ViewModel\StateViewModelBase.cs" />
     <Compile Include="ViewModel\StoreCreationViewModel.cs" />
     <Compile Include="ViewModel\StoreViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
@@ -175,6 +178,9 @@
     </Compile>
     <Compile Include="Views\AccountDetailView.xaml.cs">
       <DependentUpon>AccountDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AccountEditView.xaml.cs">
+      <DependentUpon>AccountEditView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\AddToInputBinding.cs" />
     <Compile Include="Views\LoadDatabaseView.xaml.cs">
@@ -210,6 +216,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AccountDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AccountEditView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

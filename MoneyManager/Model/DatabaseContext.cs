@@ -24,6 +24,7 @@ using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Reactive.Bindings;
 using ReactiveUI;
 
 namespace MoneyManager.Model

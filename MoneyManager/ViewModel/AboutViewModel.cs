@@ -33,7 +33,7 @@ namespace MoneyManager.ViewModel
 			{
 				return backCommand ?? (backCommand = new RelayCommand(() =>
 				{
-					ViewStateManager.Singleton.Pop();
+					App.ViewState.Pop();
 				}));
 			}
 		}

@@ -15,27 +15,29 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System;
 using MoneyManager.Model;
-using Reactive.Bindings.Extensions;
 using Reactive.Bindings;
+using Reactive.Bindings.Extensions;
 
 namespace MoneyManager.ViewModel
 {
-	public class AccountInfoViewModel : StateViewModelBase
+	public class AccountRecordViewModel : ViewModelBase
 	{
-		private Account account;
+		private Record record;
 
-		public ReactiveProperty<string> Name { get; }
+		public ReactiveProperty<DateTime> Timestamp { get; }
 
-		public AccountInfoViewModel(Account account, ViewStateManager viewState) : base(viewState)
+		public ReactiveProperty<string> Description { get; }
+
+		public ReactiveProperty<float> Value { get; }
+
+		public AccountRecordViewModel(Record record)
 		{
-			this.account = account;
-			Name = this.account.ToReactivePropertyAsSynchronized(a => a.Name);
-		}
-
-		public static explicit operator Account(AccountInfoViewModel viewModel)
-		{
-			return viewModel.account;
+			this.record = record;
+			Timestamp = this.record.ToReactivePropertyAsSynchronized(r => r.Timestamp);
+			Description = this.record.ToReactivePropertyAsSynchronized(r => r.Description);
+			Value = this.record.ToReactivePropertyAsSynchronized(r => r.Value);
 		}
 	}
 }

@@ -25,11 +25,8 @@ namespace MoneyManager.ViewModel
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		private static Lazy<ViewStateManager> singleton = new Lazy<ViewStateManager>(() => new ViewStateManager());
 		private ViewModelBase view;
 		private Stack<ViewModelBase> viewStack = new Stack<ViewModelBase>();
-
-		public static ViewStateManager Singleton { get { return singleton.Value; } }
 
 		public ViewModelBase View
 		{
@@ -45,9 +42,8 @@ namespace MoneyManager.ViewModel
 			}
 		}
 
-		private ViewStateManager()
+		public ViewStateManager()
 		{
-			Set<LoadDatabaseViewModel>();
 		}
 
 		public void Pop()
@@ -58,28 +54,41 @@ namespace MoneyManager.ViewModel
 			viewModel.Dispose();
 		}
 
-		public T Push<T>() where T : ViewModelBase, new()
+		public T Push<T>(T t) where T : ViewModelBase
 		{
-			T t = new T();
 			viewStack.Push(t);
 			UpdateView();
 			return t;
 		}
 
+		public T Push<T>() where T : ViewModelBase, new()
+		{
+			return Push(new T());
+		}
+
+		public T Set<T>(T t) where T : ViewModelBase
+		{
+			Clear();
+			return Push(t);
+		}
+
 		public T Set<T>() where T : ViewModelBase, new()
 		{
+			return Set(new T());
+		}
+
+		public void Clear()
+		{
 			View = null;
-			while (viewStack.Count > 0)
+			while(viewStack.Count > 0)
 			{
-				ViewModelBase viewModel = viewStack.Pop();
-				viewModel.Dispose();
+				viewStack.Pop().Dispose();
 			}
-			return Push<T>();
 		}
 
 		private void UpdateView()
 		{
-			View = viewStack.Peek();
+			View = viewStack.Count > 0 ? viewStack.Peek() : null;
 		}
 	}
 }

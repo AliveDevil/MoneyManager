@@ -37,6 +37,8 @@ namespace MoneyManager.ViewModel
 		private RelayCommand addAccountCommand;
 		private RelayCommand<AccountInfoViewModel> selectAccountCommand;
 
+		public ViewStateManager ViewState { get; } = new ViewStateManager();
+
 		public DatabaseContext Store
 		{
 			get { return store; }
@@ -46,7 +48,7 @@ namespace MoneyManager.ViewModel
 				if (store == value) return;
 				store = value;
 				OnPropertyChanged(nameof(Store));
-				Accounts = store.AccountSet.Local.CreateDerivedCollection(a => new AccountInfoViewModel(a));
+				Accounts = store.AccountSet.Local.CreateDerivedCollection(a => new AccountInfoViewModel(a, ViewState));
 			}
 		}
 
@@ -68,7 +70,7 @@ namespace MoneyManager.ViewModel
 			{
 				return selectAccountCommand ?? (selectAccountCommand = new RelayCommand<AccountInfoViewModel>(accountInfo =>
 				{
-					View = new AccountDetailViewModel((Account)accountInfo);
+					ViewState.Set(new AccountDetailViewModel((Account)accountInfo, ViewState));
 				}));
 			}
 		}
@@ -97,18 +99,6 @@ namespace MoneyManager.ViewModel
 			}
 		}
 
-		public ViewModelBase View
-		{
-			get { return view; }
-			set
-			{
-				if (view == value) return;
-				view?.Dispose();
-				view = value;
-				OnPropertyChanged(nameof(View));
-			}
-		}
-
 		public RelayCommand<StoreMode> SelectViewMode
 		{
 			get
@@ -134,9 +124,10 @@ namespace MoneyManager.ViewModel
 		{
 			if (!disposedValue && disposing)
 			{
-				Store?.SaveChanges();
-				Store?.Dispose();
-				Store = null;
+				ViewState.Clear();
+				store?.SaveChanges();
+				store?.Dispose();
+				store = null;
 			}
 			base.Dispose(disposing);
 		}

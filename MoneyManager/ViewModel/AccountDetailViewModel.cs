@@ -21,16 +21,38 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MoneyManager.Model;
+using Reactive.Bindings;
+using Reactive.Bindings.Extensions;
+using ReactiveUI;
 
 namespace MoneyManager.ViewModel
 {
-	public class AccountDetailViewModel : ViewModelBase
+	public class AccountDetailViewModel : StateViewModelBase
 	{
 		private Account account;
 
-		public AccountDetailViewModel(Account account)
+		public ReactiveProperty<string> Name { get; }
+
+		public IReactiveDerivedList<AccountRecordViewModel> Records { get; }
+
+		private RelayCommand editCommand;
+
+		public RelayCommand EditCommand
+		{
+			get
+			{
+				return editCommand ?? (editCommand = new RelayCommand(() =>
+				{
+					ViewState.Push(new AccountEditViewModel(account, ViewState));
+				}));
+			}
+		}
+
+		public AccountDetailViewModel(Account account, ViewStateManager viewState) : base(viewState)
 		{
 			this.account = account;
+			Name = this.account.ToReactivePropertyAsSynchronized(a => a.Name);
+			Records = account.Records.CreateDerivedCollection(r => new AccountRecordViewModel(r));
 		}
 	}
 }

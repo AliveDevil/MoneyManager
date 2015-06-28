@@ -27,11 +27,13 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
+using MoneyManager.ViewModel;
 
 namespace MoneyManager
 {
 	public partial class App : Application
 	{
+		public ViewStateManager ViewState { get; private set; }
 		public Settings AppSettings { get; private set; }
 		private FileInfo settingsFile;
 
@@ -43,11 +45,13 @@ namespace MoneyManager
 		protected override void OnExit(ExitEventArgs e)
 		{
 			Settings.Save(AppSettings, settingsFile);
+			ViewState.Clear();
 			base.OnExit(e);
 		}
 
 		protected override void OnStartup(StartupEventArgs e)
 		{
+			ViewState = new ViewStateManager();
 			DirectoryInfo directory = new DirectoryInfo(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "MoneyManager"));
 			if (!directory.Exists) directory.Create();
 			settingsFile = new FileInfo(Path.Combine(directory.FullName, "settings.json"));
@@ -61,6 +65,8 @@ namespace MoneyManager
 				Settings.Save(AppSettings, settingsFile);
 			}
 			Database.SetInitializer(new MigrateDatabaseToLatestVersion<DatabaseContext, Migrations.Configuration>());
+
+			ViewState.Set<LoadDatabaseViewModel>();
 
 			base.OnStartup(e);
 		}
