@@ -35,19 +35,50 @@
 				   Content="About"
 				   FontSize="18" />
 
-			<TextBlock Grid.Row="1"
-					   TextAlignment="Justify"
-					   TextWrapping="Wrap">
-				Thank you for using <Hyperlink NavigateUri="https://github.com/alivedevil/moneymanager"
-											   Click="Hyperlink_Click">MoneyManager</Hyperlink>
-				(by Jöran Malek <Hyperlink NavigateUri="https://github.com/alivedevil"
-										   Click="Hyperlink_Click">Github/AliveDevil</Hyperlink>).<LineBreak />
-				MoneyManager is proudly presented with WPF, .NET 4.5, Entity Framework, SqlCe, JSON.NET, Rx, ReactiveUI and ReactiveProperty. Any component in this application is licensed by its own.<LineBreak />
-				This application is and will ever be Open Source, Non-Commercial, AdFree and driven by Community.<LineBreak />
-				<Hyperlink Foreground="DarkGreen"
-						   NavigateUri="http://donation-tracker.com/u/alivedevil"
-						   Click="Hyperlink_Click">Support MoneyManager by Donating</Hyperlink>
-			</TextBlock>
+			<ScrollViewer Grid.Row="1"
+						  HorizontalScrollBarVisibility="Disabled"
+						  VerticalScrollBarVisibility="Auto">
+				<TextBlock TextAlignment="Justify"
+						   TextWrapping="Wrap">
+					Thank you for using <Hyperlink NavigateUri="https://github.com/alivedevil/moneymanager"
+												   Click="Hyperlink_Click">MoneyManager</Hyperlink>
+					(by Jöran Malek <Hyperlink NavigateUri="https://github.com/alivedevil"
+											   Click="Hyperlink_Click">Github/AliveDevil</Hyperlink>).<LineBreak />
+					MoneyManager is proudly presented with
+					<Hyperlink Foreground="DarkGreen"
+							   NavigateUri="https://msdn.microsoft.com/de-de/library/aa970268"
+							   Click="Hyperlink_Click">WPF</Hyperlink>,
+					<Hyperlink Foreground="DarkGreen"
+							   NavigateUri="https://msdn.microsoft.com/de-de/vstudio/aa496123"
+							   Click="Hyperlink_Click">.NET 4.5</Hyperlink>,
+					<Hyperlink Foreground="DarkGreen"
+							   NavigateUri="https://msdn.microsoft.com/de-de/data/ef.aspx"
+							   Click="Hyperlink_Click">Entity Framework</Hyperlink>,
+					<Hyperlink Foreground="DarkGreen"
+							   NavigateUri="https://msdn.microsoft.com/de-de/data/ff687142.aspx"
+							   Click="Hyperlink_Click">SqlCe</Hyperlink>,
+					<Hyperlink Foreground="DarkGreen"
+							   NavigateUri="http://newtonsoft.com/json"
+							   Click="Hyperlink_Click">JSON.NET</Hyperlink>,
+					<Hyperlink Foreground="DarkGreen"
+							   NavigateUri="https://msdn.microsoft.com/en-us/data/gg577609.aspx"
+							   Click="Hyperlink_Click">Rx</Hyperlink>,
+					<Hyperlink Foreground="DarkGreen"
+							   NavigateUri="http://reactiveui.net/"
+							   Click="Hyperlink_Click">ReactiveUI</Hyperlink> and
+					<Hyperlink Foreground="DarkGreen"
+							   NavigateUri="https://github.com/runceel/ReactiveProperty"
+							   Click="Hyperlink_Click">ReactiveProperty</Hyperlink>. Any component in this application is licensed by its own.<LineBreak />
+					This application is and will ever be Open Source, Non-Commercial, AdFree and driven by Community.<LineBreak />
+					<Hyperlink Foreground="DarkGreen"
+							   NavigateUri="http://donation-tracker.com/u/alivedevil"
+							   Click="Hyperlink_Click">Support MoneyManager by Donating</Hyperlink><LineBreak />
+					MoneyManager uses the following, licensed works:<LineBreak />
+					- Money Glowing Icon by Mihaiciuc Bogdan, see <Hyperlink Foreground="DarkGreen"
+																			 NavigateUri="http://bogo-d.deviantart.com/"
+																			 Click="Hyperlink_Click">deviantart</Hyperlink>
+				</TextBlock>
+			</ScrollViewer>
 		</Grid>
 
 		<Label Grid.Row="2"

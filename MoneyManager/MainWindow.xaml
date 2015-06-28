@@ -9,9 +9,8 @@
 		Height="350"
 		Width="525"
 		Icon="Bogo-D-Project-Money-Glowing.ico"
-		Title="{x:Static p:Resources.Title}"
+		Title="MoneyManager"
 		Content="{Binding View}"
 		DataContext="{x:Static vm:ViewStateManager.Singleton}"
 		TextOptions.TextFormattingMode="Display"
-		mc:Ignorable="d">
-</Window>
+		mc:Ignorable="d" />
