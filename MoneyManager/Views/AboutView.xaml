@@ -1,13 +1,14 @@
 ﻿<UserControl x:Class="MoneyManager.Views.AboutView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			 xmlns:vm="clr-namespace:MoneyManager.ViewModel"
-             xmlns:local="clr-namespace:MoneyManager.Views"
-             mc:Ignorable="d" 
+			 xmlns:local="clr-namespace:MoneyManager.Views"
+			 mc:Ignorable="d"
 			 d:DataContext="{d:DesignInstance Type=vm:AboutViewModel}"
-             d:DesignHeight="300" d:DesignWidth="300">
+			 d:DesignHeight="450"
+			 d:DesignWidth="300">
 	<Grid>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="*" />
@@ -20,7 +21,8 @@
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
 
-		<Grid Grid.Row="1" Grid.Column="1">
+		<Grid Grid.Row="1"
+			  Grid.Column="1">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="Auto" />
 				<RowDefinition Height="*" />
@@ -28,15 +30,81 @@
 				<RowDefinition Height="Auto" />
 			</Grid.RowDefinitions>
 
-			<Label Grid.Row="0" HorizontalContentAlignment="Center" Content="About" FontSize="18" />
+			<Label Grid.Row="0"
+				   HorizontalContentAlignment="Center"
+				   Content="About"
+				   FontSize="18" />
+
+			<ScrollViewer Grid.Row="1"
+						  HorizontalScrollBarVisibility="Disabled"
+						  VerticalScrollBarVisibility="Auto">
+				<TextBlock TextAlignment="Justify"
+						   TextWrapping="Wrap">
+					Thank you for using <Hyperlink NavigateUri="https://github.com/alivedevil/moneymanager"
+												   Click="Hyperlink_Click">MoneyManager</Hyperlink>
+					(by Jöran Malek <Hyperlink NavigateUri="https://github.com/alivedevil"
+											   Click="Hyperlink_Click">Github/AliveDevil</Hyperlink>).<LineBreak />
+					MoneyManager is proudly presented with
+					<Hyperlink Foreground="DarkGreen"
+							   NavigateUri="https://msdn.microsoft.com/de-de/library/aa970268"
+							   Click="Hyperlink_Click">WPF</Hyperlink>,
+					<Hyperlink Foreground="DarkGreen"
+							   NavigateUri="https://msdn.microsoft.com/de-de/vstudio/aa496123"
+							   Click="Hyperlink_Click">.NET 4.5</Hyperlink>,
+					<Hyperlink Foreground="DarkGreen"
+							   NavigateUri="https://msdn.microsoft.com/de-de/data/ef.aspx"
+							   Click="Hyperlink_Click">Entity Framework</Hyperlink>,
+					<Hyperlink Foreground="DarkGreen"
+							   NavigateUri="https://msdn.microsoft.com/de-de/data/ff687142.aspx"
+							   Click="Hyperlink_Click">SqlCe</Hyperlink>,
+					<Hyperlink Foreground="DarkGreen"
+							   NavigateUri="http://newtonsoft.com/json"
+							   Click="Hyperlink_Click">JSON.NET</Hyperlink>,
+					<Hyperlink Foreground="DarkGreen"
+							   NavigateUri="https://msdn.microsoft.com/en-us/data/gg577609.aspx"
+							   Click="Hyperlink_Click">Rx</Hyperlink>,
+					<Hyperlink Foreground="DarkGreen"
+							   NavigateUri="http://reactiveui.net/"
+							   Click="Hyperlink_Click">ReactiveUI</Hyperlink> and
+					<Hyperlink Foreground="DarkGreen"
+							   NavigateUri="https://github.com/runceel/ReactiveProperty"
+							   Click="Hyperlink_Click">ReactiveProperty</Hyperlink>. Any component in this application is licensed by its own.<LineBreak />
+					This application is and will ever be Open Source, Non-Commercial, AdFree and driven by Community.<LineBreak />
+					<Hyperlink Foreground="DarkGreen"
+							   NavigateUri="http://donation-tracker.com/u/alivedevil"
+							   Click="Hyperlink_Click">Support MoneyManager by Donating</Hyperlink><LineBreak />
+					MoneyManager uses the following, licensed works:<LineBreak />
+					- Money Glowing Icon by Mihaiciuc Bogdan, see <Hyperlink Foreground="DarkGreen"
+																			 NavigateUri="http://bogo-d.deviantart.com/"
+																			 Click="Hyperlink_Click">deviantart</Hyperlink>
+				</TextBlock>
+			</ScrollViewer>
 		</Grid>
 
-		<Label Grid.Row="2" Grid.Column="0" VerticalContentAlignment="Bottom" HorizontalAlignment="Left">
-			<Hyperlink Foreground="DarkGreen" Command="{Binding BackCommand}">Back</Hyperlink>
+		<Label Grid.Row="2"
+			   Grid.Column="0"
+			   VerticalContentAlignment="Bottom"
+			   HorizontalAlignment="Left">
+			<Hyperlink Foreground="DarkGreen"
+					   Command="{Binding BackCommand}">Back</Hyperlink>
 		</Label>
 
-		<Label Grid.Row="2" Grid.Column="1" VerticalContentAlignment="Bottom" HorizontalAlignment="Center">
-			<Hyperlink Foreground="DarkGreen" Command="{Binding DonateCommand}">Support me!</Hyperlink>
+		<Label Grid.Row="2"
+			   Grid.Column="1"
+			   VerticalContentAlignment="Bottom"
+			   HorizontalAlignment="Center">
+			<Hyperlink Foreground="DarkGreen"
+					   NavigateUri="http://donation-tracker.com/u/alivedevil"
+					   Click="Hyperlink_Click">Support me!</Hyperlink>
+		</Label>
+
+		<Label Grid.Row="2"
+			   Grid.Column="2"
+			   VerticalContentAlignment="Bottom"
+			   HorizontalAlignment="Right">
+			<Hyperlink Foreground="DarkGray"
+					   NavigateUri="https://github.com/AliveDevil/MoneyManager/blob/master/LICENSE"
+					   Click="Hyperlink_Click">License</Hyperlink>
 		</Label>
 	</Grid>
 </UserControl>
