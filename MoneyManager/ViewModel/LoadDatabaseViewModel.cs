@@ -23,19 +23,11 @@ namespace MoneyManager.ViewModel
 {
 	public class LoadDatabaseViewModel : ViewModelBase
 	{
-		private RelayCommand createNewStoreCommand;
 		private RelayCommand aboutCommand;
+		private RelayCommand createNewStoreCommand;
+		private RelayCommand donateCommand;
 
-		public RelayCommand CreateNewStoreCommand
-		{
-			get
-			{
-				return createNewStoreCommand ?? (createNewStoreCommand = new RelayCommand(() =>
-				{
-					App.ViewState.Push<StoreCreationViewModel>();
-				}));
-			}
-		}
+		private RelayCommand<SettingsDatabaseEntryViewModel> openStoreCommand;
 
 		public RelayCommand AboutCommand
 		{
@@ -48,23 +40,16 @@ namespace MoneyManager.ViewModel
 			}
 		}
 
-		public IReactiveDerivedList<SettingsDatabaseEntryViewModel> Entries { get; set; }
-
-		private RelayCommand<SettingsDatabaseEntryViewModel> openStoreCommand;
-
-		public RelayCommand<SettingsDatabaseEntryViewModel> OpenStoreCommand
+		public RelayCommand CreateNewStoreCommand
 		{
 			get
 			{
-				return openStoreCommand ?? (openStoreCommand = new RelayCommand<SettingsDatabaseEntryViewModel>(databaseEntry =>
+				return createNewStoreCommand ?? (createNewStoreCommand = new RelayCommand(() =>
 				{
-					StoreViewModel storeViewModel = App.ViewState.Set<StoreViewModel>();
-					storeViewModel.Store = new DatabaseContext(databaseEntry.Path, false);
+					App.ViewState.Push<StoreCreationViewModel>();
 				}));
 			}
 		}
-
-		private RelayCommand donateCommand;
 
 		public RelayCommand DonateCommand
 		{
@@ -77,6 +62,19 @@ namespace MoneyManager.ViewModel
 			}
 		}
 
+		public IReactiveDerivedList<SettingsDatabaseEntryViewModel> Entries { get; set; }
+
+		public RelayCommand<SettingsDatabaseEntryViewModel> OpenStoreCommand
+		{
+			get
+			{
+				return openStoreCommand ?? (openStoreCommand = new RelayCommand<SettingsDatabaseEntryViewModel>(databaseEntry =>
+				{
+					StoreViewModel storeViewModel = App.ViewState.Set<StoreViewModel>();
+					storeViewModel.Store = new DatabaseContext(databaseEntry.Path, false);
+				}));
+			}
+		}
 
 		public LoadDatabaseViewModel()
 		{

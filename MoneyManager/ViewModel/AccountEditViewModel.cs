@@ -8,8 +8,6 @@ namespace MoneyManager.ViewModel
 	{
 		private Account account;
 
-		public ReactiveProperty<string> Name { get; }
-
 		private RelayCommand finishCommand;
 
 		public RelayCommand FinishCommand
@@ -23,11 +21,15 @@ namespace MoneyManager.ViewModel
 			}
 		}
 
+		public ReactiveProperty<string> Name { get; }
 
 		public AccountEditViewModel(Account account, ViewStateManager viewState) : base(viewState)
 		{
-			this.account = account;
-			Name = this.account.ToReactivePropertyAsSynchronized(a => a.Name);
+			if (!InDesignMode)
+			{
+				this.account = account;
+				Name = this.account.ToReactivePropertyAsSynchronized(a => a.Name);
+			}
 		}
 	}
 }

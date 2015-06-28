@@ -15,11 +15,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MoneyManager.Model;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
@@ -30,11 +25,6 @@ namespace MoneyManager.ViewModel
 	public class AccountDetailViewModel : StateViewModelBase
 	{
 		private Account account;
-
-		public ReactiveProperty<string> Name { get; }
-
-		public IReactiveDerivedList<AccountRecordViewModel> Records { get; }
-
 		private RelayCommand editCommand;
 
 		public RelayCommand EditCommand
@@ -48,11 +38,18 @@ namespace MoneyManager.ViewModel
 			}
 		}
 
+		public ReactiveProperty<string> Name { get; }
+
+		public IReactiveDerivedList<AccountRecordViewModel> Records { get; }
+
 		public AccountDetailViewModel(Account account, ViewStateManager viewState) : base(viewState)
 		{
-			this.account = account;
-			Name = this.account.ToReactivePropertyAsSynchronized(a => a.Name);
-			Records = account.Records.CreateDerivedCollection(r => new AccountRecordViewModel(r));
+			if (!InDesignMode)
+			{
+				this.account = account;
+				Name = this.account.ToReactivePropertyAsSynchronized(a => a.Name);
+				Records = account.Records.CreateDerivedCollection(r => new AccountRecordViewModel(r));
+			}
 		}
 	}
 }

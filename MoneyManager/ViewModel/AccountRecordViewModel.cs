@@ -26,18 +26,21 @@ namespace MoneyManager.ViewModel
 	{
 		private Record record;
 
-		public ReactiveProperty<DateTime> Timestamp { get; }
-
 		public ReactiveProperty<string> Description { get; }
+
+		public ReactiveProperty<DateTime> Timestamp { get; }
 
 		public ReactiveProperty<float> Value { get; }
 
 		public AccountRecordViewModel(Record record)
 		{
-			this.record = record;
-			Timestamp = this.record.ToReactivePropertyAsSynchronized(r => r.Timestamp);
-			Description = this.record.ToReactivePropertyAsSynchronized(r => r.Description);
-			Value = this.record.ToReactivePropertyAsSynchronized(r => r.Value);
+			if (!InDesignMode)
+			{
+				this.record = record;
+				Timestamp = this.record.ToReactivePropertyAsSynchronized(r => r.Timestamp);
+				Description = this.record.ToReactivePropertyAsSynchronized(r => r.Description);
+				Value = this.record.ToReactivePropertyAsSynchronized(r => r.Value);
+			}
 		}
 	}
 }

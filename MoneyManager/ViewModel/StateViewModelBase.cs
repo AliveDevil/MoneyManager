@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MoneyManager.ViewModel
+﻿namespace MoneyManager.ViewModel
 {
 	public class StateViewModelBase : ViewModelBase
 	{
@@ -12,7 +6,10 @@ namespace MoneyManager.ViewModel
 
 		public StateViewModelBase(ViewStateManager viewState)
 		{
-			ViewState = viewState;
+			if (!InDesignMode)
+			{
+				ViewState = viewState;
+			}
 		}
 	}
 }

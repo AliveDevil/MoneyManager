@@ -16,8 +16,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 using MoneyManager.Model;
-using Reactive.Bindings.Extensions;
 using Reactive.Bindings;
+using Reactive.Bindings.Extensions;
 
 namespace MoneyManager.ViewModel
 {
@@ -29,8 +29,11 @@ namespace MoneyManager.ViewModel
 
 		public AccountInfoViewModel(Account account, ViewStateManager viewState) : base(viewState)
 		{
-			this.account = account;
-			Name = this.account.ToReactivePropertyAsSynchronized(a => a.Name);
+			if (!InDesignMode)
+			{
+				this.account = account;
+				Name = this.account.ToReactivePropertyAsSynchronized(a => a.Name);
+			}
 		}
 
 		public static explicit operator Account(AccountInfoViewModel viewModel)

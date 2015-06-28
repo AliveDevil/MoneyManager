@@ -26,10 +26,11 @@ namespace MoneyManager.ViewModel
 	{
 		private RelayCommand aboutCommand;
 		private RelayCommand backCommand;
+		private RelayCommand createStoreCommand;
+		private RelayCommand donateCommand;
 		private string name;
 		private string path;
 		private RelayCommand selectStoreLocationCommand;
-		private RelayCommand createStoreCommand;
 
 		public RelayCommand AboutCommand
 		{
@@ -49,6 +50,31 @@ namespace MoneyManager.ViewModel
 				return backCommand ?? (backCommand = new RelayCommand(() =>
 				{
 					App.ViewState.Pop();
+				}));
+			}
+		}
+
+		public RelayCommand CreateStoreCommand
+		{
+			get
+			{
+				return createStoreCommand ?? (createStoreCommand = new RelayCommand(() =>
+				{
+					SettingsDatabaseEntry databaseEntry = App.AppSettings.NewEntry(name, path);
+					DatabaseContext context = new DatabaseContext(databaseEntry.Path, true);
+					StoreViewModel store = App.ViewState.Set<StoreViewModel>();
+					store.Store = context;
+				}));
+			}
+		}
+
+		public RelayCommand DonateCommand
+		{
+			get
+			{
+				return donateCommand ?? (donateCommand = new RelayCommand(() =>
+				{
+					Process.Start("http://donation-tracker.com/u/alivedevil");
 				}));
 			}
 		}
@@ -78,33 +104,6 @@ namespace MoneyManager.ViewModel
 				if (path == value) return;
 				path = value;
 				OnPropertyChanged(nameof(Path));
-			}
-		}
-
-		private RelayCommand donateCommand;
-
-		public RelayCommand DonateCommand
-		{
-			get
-			{
-				return donateCommand ?? (donateCommand = new RelayCommand(() =>
-				{
-					Process.Start("http://donation-tracker.com/u/alivedevil");
-				}));
-			}
-		}
-
-		public RelayCommand CreateStoreCommand
-		{
-			get
-			{
-				return createStoreCommand ?? (createStoreCommand = new RelayCommand(() =>
-				{
-					SettingsDatabaseEntry databaseEntry = App.AppSettings.NewEntry(name, path);
-					DatabaseContext context = new DatabaseContext(databaseEntry.Path, true);
-					StoreViewModel store = App.ViewState.Set<StoreViewModel>();
-					store.Store = context;
-				}));
 			}
 		}
 

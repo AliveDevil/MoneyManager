@@ -16,12 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace MoneyManager.ViewModel
@@ -30,16 +25,18 @@ namespace MoneyManager.ViewModel
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
+		protected bool disposedValue = false;
+
+		private static DependencyObject designModeObject;
+
 		protected App App => (App)App.Current;
 
-		protected void OnPropertyChanged(string propertyName)
+		protected static bool InDesignMode => DesignerProperties.GetIsInDesignMode(designModeObject ?? (designModeObject = new DependencyObject()));
+
+		public void Dispose()
 		{
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+			Dispose(true);
 		}
-
-		protected static bool InDesignMode => !(Application.Current is App);
-
-		protected bool disposedValue = false; // To detect redundant calls
 
 		protected virtual void Dispose(bool disposing)
 		{
@@ -49,9 +46,9 @@ namespace MoneyManager.ViewModel
 			}
 		}
 
-		public void Dispose()
+		protected void OnPropertyChanged(string propertyName)
 		{
-			Dispose(true);
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
 	}
 }

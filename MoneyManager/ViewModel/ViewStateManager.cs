@@ -15,7 +15,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
@@ -44,6 +43,15 @@ namespace MoneyManager.ViewModel
 
 		public ViewStateManager()
 		{
+		}
+
+		public void Clear()
+		{
+			View = null;
+			while (viewStack.Count > 0)
+			{
+				viewStack.Pop().Dispose();
+			}
 		}
 
 		public void Pop()
@@ -75,15 +83,6 @@ namespace MoneyManager.ViewModel
 		public T Set<T>() where T : ViewModelBase, new()
 		{
 			return Set(new T());
-		}
-
-		public void Clear()
-		{
-			View = null;
-			while(viewStack.Count > 0)
-			{
-				viewStack.Pop().Dispose();
-			}
 		}
 
 		private void UpdateView()

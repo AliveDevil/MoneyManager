@@ -57,7 +57,10 @@ namespace MoneyManager.ViewModel
 
 		public SettingsDatabaseEntryViewModel(SettingsDatabaseEntry settingsDatabaseEntry)
 		{
-			entry = settingsDatabaseEntry;
+			if (!InDesignMode)
+			{
+				entry = settingsDatabaseEntry;
+			}
 		}
 
 		protected override void Dispose(bool disposing)
