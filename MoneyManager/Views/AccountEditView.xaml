@@ -29,7 +29,7 @@
 			   VerticalContentAlignment="Center" />
 		<Button VerticalAlignment="Top"
 				HorizontalAlignment="Left"
-				Content="Finish" />
+				Content="Finish" Command="{Binding FinishCommand}" />
 		<Label Content="Accountname"
 			   Grid.Row="1"
 			   Grid.Column="0"

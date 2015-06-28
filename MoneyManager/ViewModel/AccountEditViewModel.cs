@@ -10,6 +10,20 @@ namespace MoneyManager.ViewModel
 
 		public ReactiveProperty<string> Name { get; }
 
+		private RelayCommand finishCommand;
+
+		public RelayCommand FinishCommand
+		{
+			get
+			{
+				return finishCommand ?? (finishCommand = new RelayCommand(() =>
+				{
+					ViewState.Pop();
+				}));
+			}
+		}
+
+
 		public AccountEditViewModel(Account account, ViewStateManager viewState) : base(viewState)
 		{
 			this.account = account;
