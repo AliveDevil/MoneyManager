@@ -4,7 +4,7 @@ using Reactive.Bindings.Extensions;
 
 namespace MoneyManager.ViewModel
 {
-	public class AccountEditViewModel : StateViewModelBase
+	public class AccountEditViewModel : StoreViewModelBase
 	{
 		private Account account;
 
@@ -23,7 +23,7 @@ namespace MoneyManager.ViewModel
 
 		public ReactiveProperty<string> Name { get; }
 
-		public AccountEditViewModel(Account account, ViewStateManager viewState) : base(viewState)
+		public AccountEditViewModel(Account account, StoreViewModel viewModel) : base(viewModel)
 		{
 			if (!InDesignMode)
 			{

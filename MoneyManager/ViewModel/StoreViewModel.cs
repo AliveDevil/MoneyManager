@@ -15,12 +15,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
-using System.Collections.Generic;
+using System.Data.Entity;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MoneyManager.Model;
 using ReactiveUI;
 
@@ -30,25 +26,24 @@ namespace MoneyManager.ViewModel
 
 	public class StoreViewModel : ViewModelBase
 	{
-		private DatabaseContext store;
-		private ViewModelBase view;
-		private RelayCommand<StoreMode> selectViewMode;
 		private IReactiveDerivedList<AccountInfoViewModel> accounts;
 		private RelayCommand addAccountCommand;
+		private RelayCommand donateCommand;
 		private RelayCommand<AccountInfoViewModel> selectAccountCommand;
+		private RelayCommand<StoreMode> selectViewMode;
+		private DatabaseContext store;
 
-		public ViewStateManager ViewState { get; } = new ViewStateManager();
-
-		public DatabaseContext Store
+		public IReactiveDerivedList<AccountInfoViewModel> Accounts
 		{
-			get { return store; }
+			get
+			{
+				return accounts;
+			}
 			set
 			{
-				if (InDesignMode) return;
-				if (store == value) return;
-				store = value;
-				OnPropertyChanged(nameof(Store));
-				Accounts = store.AccountSet.Local.CreateDerivedCollection(a => new AccountInfoViewModel(a, ViewState));
+				if (accounts == value) return;
+				accounts = value;
+				OnPropertyChanged(nameof(Accounts));
 			}
 		}
 
@@ -64,19 +59,6 @@ namespace MoneyManager.ViewModel
 			}
 		}
 
-		public RelayCommand<AccountInfoViewModel> SelectAccountCommand
-		{
-			get
-			{
-				return selectAccountCommand ?? (selectAccountCommand = new RelayCommand<AccountInfoViewModel>(accountInfo =>
-				{
-					ViewState.Set(new AccountDetailViewModel((Account)accountInfo, ViewState));
-				}));
-			}
-		}
-
-		private RelayCommand donateCommand;
-
 		public RelayCommand DonateCommand
 		{
 			get
@@ -88,14 +70,14 @@ namespace MoneyManager.ViewModel
 			}
 		}
 
-		public IReactiveDerivedList<AccountInfoViewModel> Accounts
+		public RelayCommand<AccountInfoViewModel> SelectAccountCommand
 		{
-			get { return accounts; }
-			set
+			get
 			{
-				if (accounts == value) return;
-				accounts = value;
-				OnPropertyChanged(nameof(Accounts));
+				return selectAccountCommand ?? (selectAccountCommand = new RelayCommand<AccountInfoViewModel>(accountInfo =>
+				{
+					ViewState.Set(new AccountDetailViewModel((Account)accountInfo, this));
+				}));
 			}
 		}
 
@@ -109,16 +91,38 @@ namespace MoneyManager.ViewModel
 					{
 						case StoreMode.Overview:
 							break;
+
 						case StoreMode.Budget:
 							break;
+
 						case StoreMode.Report:
 							break;
+
 						default:
 							break;
 					}
 				}));
 			}
 		}
+
+		public DatabaseContext Store
+		{
+			get
+			{
+				return store;
+			}
+			set
+			{
+				if (InDesignMode) return;
+				if (store == value) return;
+				store = value;
+				OnPropertyChanged(nameof(Store));
+				Accounts = store.AccountSet.Local.CreateDerivedCollection(a => new AccountInfoViewModel(a, this));
+				Accounts.Reset();
+			}
+		}
+
+		public ViewStateManager ViewState { get; } = new ViewStateManager();
 
 		protected override void Dispose(bool disposing)
 		{

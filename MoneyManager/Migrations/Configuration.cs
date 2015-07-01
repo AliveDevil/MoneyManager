@@ -25,16 +25,11 @@ namespace MoneyManager.Migrations
 		public Configuration()
 		{
 			AutomaticMigrationsEnabled = true;
-			AutomaticMigrationDataLossAllowed = true;
 		}
 
 		protected override void Seed(DatabaseContext context)
 		{
-			if (!context.AccountSet.Any())
-			{
-				context.AccountSet.Add(new Account() { Name = "Default" });
-			}
-			context.TagSet.AddOrUpdate(p => p.Key, new Tag() { Key = "Default", Default = true });
+			base.Seed(context);
 		}
 	}
 }

@@ -37,10 +37,15 @@ namespace MoneyManager.ViewModel
 			if (!InDesignMode)
 			{
 				this.record = record;
-				Timestamp = this.record.ToReactivePropertyAsSynchronized(r => r.Timestamp);
 				Description = this.record.ToReactivePropertyAsSynchronized(r => r.Description);
+				Timestamp = this.record.ToReactivePropertyAsSynchronized(r => r.Timestamp);
 				Value = this.record.ToReactivePropertyAsSynchronized(r => r.Value);
 			}
+		}
+
+		public static explicit operator Record(AccountRecordViewModel recordView)
+		{
+			return recordView.record;
 		}
 	}
 }

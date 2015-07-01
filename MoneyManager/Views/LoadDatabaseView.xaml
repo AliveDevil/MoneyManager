@@ -42,7 +42,7 @@
 				</ListView.ItemContainerStyle>
 			</ListView>
 
-			<Button Grid.Row="2" Content="Open Store" />
+			<Button Grid.Row="2" Content="Open Store" Command="{Binding OpenExistingStoreCommand}" />
 			<Button Grid.Row="3" Content="New Store" Command="{Binding CreateNewStoreCommand}" />
 		</Grid>
 

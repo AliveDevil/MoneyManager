@@ -26,7 +26,7 @@ namespace MoneyManager.ViewModel
 		private RelayCommand aboutCommand;
 		private RelayCommand createNewStoreCommand;
 		private RelayCommand donateCommand;
-
+		private RelayCommand openExistingStoreCommand;
 		private RelayCommand<SettingsDatabaseEntryViewModel> openStoreCommand;
 
 		public RelayCommand AboutCommand
@@ -63,6 +63,17 @@ namespace MoneyManager.ViewModel
 		}
 
 		public IReactiveDerivedList<SettingsDatabaseEntryViewModel> Entries { get; set; }
+
+		public RelayCommand OpenExistingStoreCommand
+		{
+			get
+			{
+				return openExistingStoreCommand ?? (openExistingStoreCommand = new RelayCommand(() =>
+				{
+					App.ViewState.Push<StoreLoadViewModel>();
+				}));
+			}
+		}
 
 		public RelayCommand<SettingsDatabaseEntryViewModel> OpenStoreCommand
 		{

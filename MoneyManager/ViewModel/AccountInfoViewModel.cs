@@ -21,13 +21,13 @@ using Reactive.Bindings.Extensions;
 
 namespace MoneyManager.ViewModel
 {
-	public class AccountInfoViewModel : StateViewModelBase
+	public class AccountInfoViewModel : StoreViewModelBase
 	{
 		private Account account;
 
 		public ReactiveProperty<string> Name { get; }
 
-		public AccountInfoViewModel(Account account, ViewStateManager viewState) : base(viewState)
+		public AccountInfoViewModel(Account account, StoreViewModel viewModel) : base(viewModel)
 		{
 			if (!InDesignMode)
 			{

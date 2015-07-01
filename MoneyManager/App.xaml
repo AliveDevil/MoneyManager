@@ -25,6 +25,10 @@
 					  DataType="{x:Type vm:StoreCreationViewModel}">
 			<v:StoreCreationView />
 		</DataTemplate>
+		<DataTemplate x:Name="storeLoadViewTemplate"
+					  DataType="{x:Type vm:StoreLoadViewModel}">
+			<v:StoreLoadView/>
+		</DataTemplate>
 		<DataTemplate x:Name="storeBaseViewTemplate"
 					  DataType="{x:Type vm:StoreViewModel}">
 			<v:StoreBaseView />

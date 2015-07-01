@@ -169,8 +169,10 @@
     <Compile Include="ViewModel\RelayCommand`1.cs" />
     <Compile Include="ViewModel\SettingsDatabaseEntryViewModel.cs" />
     <Compile Include="ViewModel\StateViewModelBase.cs" />
+    <Compile Include="ViewModel\StoreLoadViewModel.cs" />
     <Compile Include="ViewModel\StoreCreationViewModel.cs" />
     <Compile Include="ViewModel\StoreViewModel.cs" />
+    <Compile Include="ViewModel\StoreViewModelBase.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="ViewModel\ViewStateManager.cs" />
     <Compile Include="Views\AboutView.xaml.cs">
@@ -191,6 +193,9 @@
     </Compile>
     <Compile Include="Views\StoreCreationView.xaml.cs">
       <DependentUpon>StoreCreationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StoreLoadView.xaml.cs">
+      <DependentUpon>StoreLoadView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -225,6 +230,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\StoreCreationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StoreLoadView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

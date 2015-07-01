@@ -51,6 +51,8 @@ namespace MoneyManager
 
 		protected override void OnStartup(StartupEventArgs e)
 		{
+			Database.SetInitializer(new MigrateDatabaseToLatestVersion<DatabaseContext, Migrations.Configuration>());
+
 			ViewState = new ViewStateManager();
 			DirectoryInfo directory = new DirectoryInfo(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "MoneyManager"));
 			if (!directory.Exists) directory.Create();
@@ -64,7 +66,6 @@ namespace MoneyManager
 				AppSettings = new Settings();
 				Settings.Save(AppSettings, settingsFile);
 			}
-			Database.SetInitializer(new MigrateDatabaseToLatestVersion<DatabaseContext, Migrations.Configuration>());
 
 			ViewState.Set<LoadDatabaseViewModel>();
 
