@@ -4,6 +4,8 @@
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:vm="clr-namespace:MoneyManager.ViewModel"
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:validators="clr-namespace:MoneyManager.Model.Validators"
+			 xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
 			 xmlns:base="clr-namespace:MoneyManager"
 			 xmlns:local="clr-namespace:MoneyManager.Views"
 			 mc:Ignorable="d"
@@ -15,7 +17,6 @@
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
-
 		<Label Content="{Binding Name.Value}"
 			   FontSize="18"
 			   FontWeight="Light"
@@ -27,7 +28,6 @@
 							  CommandParameter="{Binding}" />
 			</Label.InputBindings>
 		</Label>
-
 		<Grid Grid.IsSharedSizeScope="True"
 			  Grid.Row="1">
 			<Grid.ColumnDefinitions>
@@ -39,12 +39,10 @@
 				<ColumnDefinition Width="Auto"
 								  SharedSizeGroup="ValueSize" />
 			</Grid.ColumnDefinitions>
-
 			<Grid.RowDefinitions>
 				<RowDefinition Height="Auto" />
 				<RowDefinition Height="*" />
 			</Grid.RowDefinitions>
-
 			<Grid Grid.ColumnSpan="4">
 				<Grid.InputBindings>
 					<KeyBinding Key="Esc"
@@ -61,7 +59,6 @@
 					<ColumnDefinition Width="Auto"
 									  SharedSizeGroup="ValueSize" />
 				</Grid.ColumnDefinitions>
-
 				<DatePicker Grid.Column="0"
 							SelectedDate="{Binding SelectedRecord.Timestamp.Value, UpdateSourceTrigger=PropertyChanged}" />
 				<TextBox Grid.Column="1"
@@ -69,10 +66,10 @@
 				<TextBox Grid.Column="2"
 						 VerticalContentAlignment="Center"
 						 Text="{Binding SelectedRecord.Description.Value, UpdateSourceTrigger=PropertyChanged}" />
-				<TextBox Grid.Column="3"
-						 VerticalContentAlignment="Center"
-						 TextAlignment="Right"
-						 Text="{Binding SelectedRecord.Value.Value, UpdateSourceTrigger=PropertyChanged}" />
+				<toolkit:SingleUpDown Grid.Column="3"
+									  AllowSpin="True"
+									  AllowTextInput="True"
+									  Value="{Binding SelectedRecord.Value.Value, UpdateSourceTrigger=PropertyChanged}" />
 			</Grid>
 			<ListView Grid.ColumnSpan="4"
 					  Grid.Row="1"
@@ -80,6 +77,10 @@
 					  SelectedItem="{Binding SelectedRecord}"
 					  ItemsSource="{Binding Records}"
 					  HorizontalContentAlignment="Stretch">
+				<ListView.InputBindings>
+					<KeyBinding Key="Delete"
+								Command="{Binding DeleteRecordCommand}" />
+				</ListView.InputBindings>
 				<ListView.ItemTemplate>
 					<DataTemplate>
 						<Grid>

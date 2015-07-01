@@ -163,6 +163,7 @@
     <Compile Include="ViewModel\AccountEditViewModel.cs" />
     <Compile Include="ViewModel\AccountInfoViewModel.cs" />
     <Compile Include="ViewModel\AccountRecordViewModel.cs" />
+    <Compile Include="ViewModel\Converter\FloatConverter.cs" />
     <Compile Include="ViewModel\Converter\LowerZeroConverter.cs" />
     <Compile Include="ViewModel\LoadDatabaseViewModel.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />

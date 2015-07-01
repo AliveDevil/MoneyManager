@@ -29,6 +29,7 @@ namespace MoneyManager.ViewModel
 	{
 		private Account account;
 		private RelayCommand applyRecordCommand;
+		private RelayCommand deleteRecordCommand;
 		private RelayCommand discardRecordCommand;
 		private RelayCommand editCommand;
 		private AccountRecordViewModel selectedRecord;
@@ -40,11 +41,29 @@ namespace MoneyManager.ViewModel
 				return applyRecordCommand ?? (applyRecordCommand = new RelayCommand(() =>
 				{
 					Record record = (Record)selectedRecord;
-					DbEntityEntry<Record> recordEntry = Store.Entry((Record)selectedRecord);
+					DbEntityEntry<Record> recordEntry = Store.Entry(record);
 					if (recordEntry.State == EntityState.Detached)
 					{
 						recordEntry.Entity.Account = account;
-						Store.RecordSet.Local.Add(recordEntry.Entity);
+						Store.RecordSet.Local.Add(record);
+					}
+					Store.SaveChanges();
+					AssignNewRecord();
+				}));
+			}
+		}
+
+		public RelayCommand DeleteRecordCommand
+		{
+			get
+			{
+				return deleteRecordCommand ?? (deleteRecordCommand = new RelayCommand(() =>
+				{
+					Record record = (Record)selectedRecord;
+					DbEntityEntry<Record> recordEntry = Store.Entry(record);
+					if (recordEntry.State != EntityState.Detached)
+					{
+						Store.RecordSet.Local.Remove(record);
 					}
 					Store.SaveChanges();
 					AssignNewRecord();
@@ -104,9 +123,8 @@ namespace MoneyManager.ViewModel
 			{
 				this.account = account;
 				Name = this.account.ToReactivePropertyAsSynchronized(a => a.Name);
-				Records = this.account.Records.CreateDerivedCollection(r => new AccountRecordViewModel(r));
+				Records = this.account.Records.CreateDerivedCollection(r => new AccountRecordViewModel(r), null, (l, r) => DateTime.Compare(l.Timestamp.Value, r.Timestamp.Value));
 				AssignNewRecord();
-				Records.Reset();
 			}
 		}
 

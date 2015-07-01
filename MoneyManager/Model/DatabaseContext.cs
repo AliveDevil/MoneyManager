@@ -113,10 +113,10 @@ namespace MoneyManager.Model
 		public event PropertyChangedEventHandler PropertyChanged;
 
 		private Account account;
-		private string description;
+		private string description = "New Description";
 		private int id;
 		private Tag tag;
-		private DateTime timestamp;
+		private DateTime timestamp = DateTime.Today;
 		private float value;
 
 		public virtual Account Account
