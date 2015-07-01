@@ -14,6 +14,7 @@ namespace MoneyManager.ViewModel
 		public TagOverviewViewModel(StoreViewModel viewModel) : base(viewModel)
 		{
 			if (InDesignMode) return;
+			Tags = viewModel.Store.TagSet.Local.CreateDerivedCollection(t => new TagInfoViewModel(t, StoreView));
 		}
 	}
 }
