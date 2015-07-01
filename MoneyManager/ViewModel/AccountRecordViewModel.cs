@@ -34,13 +34,11 @@ namespace MoneyManager.ViewModel
 
 		public AccountRecordViewModel(Record record)
 		{
-			if (!InDesignMode)
-			{
-				this.record = record;
-				Description = this.record.ToReactivePropertyAsSynchronized(r => r.Description);
-				Timestamp = this.record.ToReactivePropertyAsSynchronized(r => r.Timestamp);
-				Value = this.record.ToReactivePropertyAsSynchronized(r => r.Value);
-			}
+			if (InDesignMode) return;
+			this.record = record;
+			Description = this.record.ToReactivePropertyAsSynchronized(r => r.Description);
+			Timestamp = this.record.ToReactivePropertyAsSynchronized(r => r.Timestamp);
+			Value = this.record.ToReactivePropertyAsSynchronized(r => r.Value);
 		}
 
 		public static explicit operator Record(AccountRecordViewModel recordView)

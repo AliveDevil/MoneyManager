@@ -29,11 +29,9 @@ namespace MoneyManager.ViewModel
 
 		public AccountInfoViewModel(Account account, StoreViewModel viewModel) : base(viewModel)
 		{
-			if (!InDesignMode)
-			{
-				this.account = account;
-				Name = this.account.ToReactivePropertyAsSynchronized(a => a.Name);
-			}
+			if (InDesignMode) return;
+			this.account = account;
+			Name = this.account.ToReactivePropertyAsSynchronized(a => a.Name);
 		}
 
 		public static explicit operator Account(AccountInfoViewModel viewModel)

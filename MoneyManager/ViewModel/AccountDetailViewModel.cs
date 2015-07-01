@@ -119,13 +119,11 @@ namespace MoneyManager.ViewModel
 
 		public AccountDetailViewModel(Account account, StoreViewModel viewModel) : base(viewModel)
 		{
-			if (!InDesignMode)
-			{
-				this.account = account;
-				Name = this.account.ToReactivePropertyAsSynchronized(a => a.Name);
-				Records = this.account.Records.CreateDerivedCollection(r => new AccountRecordViewModel(r), null, (l, r) => DateTime.Compare(l.Timestamp.Value, r.Timestamp.Value));
-				AssignNewRecord();
-			}
+			if (InDesignMode) return;
+			this.account = account;
+			Name = this.account.ToReactivePropertyAsSynchronized(a => a.Name);
+			Records = this.account.Records.CreateDerivedCollection(r => new AccountRecordViewModel(r), null, (l, r) => DateTime.Compare(l.Timestamp.Value, r.Timestamp.Value));
+			AssignNewRecord();
 		}
 
 		private void AssignNewRecord()

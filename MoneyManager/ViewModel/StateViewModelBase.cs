@@ -6,10 +6,8 @@
 
 		public StateViewModelBase(ViewStateManager viewState)
 		{
-			if (!InDesignMode)
-			{
-				ViewState = viewState;
-			}
+			if (InDesignMode) return;
+			ViewState = viewState;
 		}
 	}
 }

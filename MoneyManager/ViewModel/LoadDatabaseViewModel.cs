@@ -89,11 +89,9 @@ namespace MoneyManager.ViewModel
 
 		public LoadDatabaseViewModel()
 		{
-			if (!InDesignMode)
-			{
-				Entries = App.AppSettings.Databases.CreateDerivedCollection(r => new SettingsDatabaseEntryViewModel(r));
-				Entries.ChangeTrackingEnabled = true;
-			}
+			if (InDesignMode) return;
+			Entries = App.AppSettings.Databases.CreateDerivedCollection(r => new SettingsDatabaseEntryViewModel(r));
+			Entries.ChangeTrackingEnabled = true;
 		}
 
 		protected override void Dispose(bool disposing)
