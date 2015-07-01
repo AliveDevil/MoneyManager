@@ -28,7 +28,6 @@ namespace MoneyManager.ViewModel.Converter
 	[ValueConversion(typeof(float), typeof(string))]
 	public class FloatToStringConverter : IValueConverter
 	{
-		// Convert from double to string
 		public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
 		{
 			if (value == null)
@@ -38,7 +37,6 @@ namespace MoneyManager.ViewModel.Converter
 			return ((float)value).ToString("0.00");
 		}
 
-		// Convert from string to double
 		public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
 		{
 			if (value == null)
