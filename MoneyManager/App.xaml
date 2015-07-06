@@ -13,8 +13,7 @@
 			 mc:Ignorable="d">
 	<Application.Resources>
 		<Converter:LowerZeroConverter x:Key="LowerZeroConverter" />
-		<Converter:FloatToStringConverter x:Key="FloatConverter"/>
-		
+		<Converter:FloatToStringConverter x:Key="FloatConverter" />
 		<DataTemplate x:Name="aboutViewTemplate"
 					  DataType="{x:Type vm:AboutViewModel}">
 			<v:AboutView />
@@ -29,7 +28,7 @@
 		</DataTemplate>
 		<DataTemplate x:Name="storeLoadViewTemplate"
 					  DataType="{x:Type vm:StoreLoadViewModel}">
-			<v:StoreLoadView/>
+			<v:StoreLoadView />
 		</DataTemplate>
 		<DataTemplate x:Name="storeBaseViewTemplate"
 					  DataType="{x:Type vm:StoreViewModel}">
@@ -42,6 +41,10 @@
 		<DataTemplate x:Name="storeAccountEditTemplate"
 					  DataType="{x:Type vm:AccountEditViewModel}">
 			<v:AccountEditView />
+		</DataTemplate>
+		<DataTemplate x:Name="tagOverviewViewTemplate"
+					  DataType="{x:Type vm:TagOverviewViewModel}">
+			<v:TagOverviewView />
 		</DataTemplate>
 	</Application.Resources>
 </Application>

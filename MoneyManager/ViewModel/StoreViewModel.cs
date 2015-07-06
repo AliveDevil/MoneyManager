@@ -15,14 +15,13 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System.Data.Entity;
 using System.Diagnostics;
 using MoneyManager.Model;
 using ReactiveUI;
 
 namespace MoneyManager.ViewModel
 {
-	public enum StoreMode { Overview, Budget, Report }
+	public enum StoreMode { Overview, Budget, Report, Tags }
 
 	public class StoreViewModel : ViewModelBase
 	{
@@ -96,6 +95,10 @@ namespace MoneyManager.ViewModel
 							break;
 
 						case StoreMode.Report:
+							break;
+
+						case StoreMode.Tags:
+							ViewState.Set(new TagOverviewViewModel(this));
 							break;
 
 						default:

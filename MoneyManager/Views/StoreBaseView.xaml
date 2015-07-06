@@ -22,6 +22,7 @@
 				<RowDefinition Height="Auto" />
 				<RowDefinition Height="Auto" />
 				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
 			</Grid.RowDefinitions>
 
 			<RadioButton Content="Overview"
@@ -39,9 +40,14 @@
 						 GroupName="Views"
 						 Command="{Binding SelectViewMode}"
 						 CommandParameter="{x:Static vm:StoreMode.Report}" />
+			<RadioButton Content="Tags"
+						 Grid.Row="3"
+						 GroupName="Views"
+						 Command="{Binding SelectViewMode}"
+						 CommandParameter="{x:Static vm:StoreMode.Tags}" />
 
 			<Expander Header="Accounts"
-					  Grid.Row="3">
+					  Grid.Row="4">
 				<ListView ItemsSource="{Binding Accounts}">
 					<ListView.ItemContainerStyle>
 						<Style TargetType="ListViewItem">
@@ -61,7 +67,7 @@
 			</Expander>
 
 			<Button Content="Add Account"
-					Grid.Row="4"
+					Grid.Row="5"
 					Command="{Binding AddAccountCommand}" />
 		</Grid>
 
