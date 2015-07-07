@@ -23,6 +23,45 @@ namespace MoneyManager.ViewModel
 	{
 		public IReactiveDerivedList<TagInfoViewModel> Tags { get; set; }
 
+		private TagInfoViewModel selectedTag;
+
+		public TagInfoViewModel SelectedTag
+		{
+			get { return selectedTag; }
+			set
+			{
+				if (selectedTag == value) return;
+				selectedTag = value;
+				OnPropertyChanged(nameof(SelectedTag));
+			}
+		}
+
+		private RelayCommand<TagInfoViewModel> deleteTagCommand;
+
+		public RelayCommand<TagInfoViewModel> DeleteTagCommand
+		{
+			get
+			{
+				return deleteTagCommand ?? (deleteTagCommand = new RelayCommand<TagInfoViewModel>(tag =>
+				{
+
+				}));
+			}
+		}
+
+		private RelayCommand addTagCommand;
+
+		public RelayCommand AddTagCommand
+		{
+			get
+			{
+				return addTagCommand ?? (addTagCommand = new RelayCommand(() =>
+				{
+					StoreView.ViewState.Push(new TagAddViewModel(StoreView));
+				}));
+			}
+		}
+
 		public TagOverviewViewModel(StoreViewModel viewModel) : base(viewModel)
 		{
 			if (InDesignMode) return;

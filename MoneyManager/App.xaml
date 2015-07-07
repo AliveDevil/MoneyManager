@@ -46,5 +46,9 @@
 					  DataType="{x:Type vm:TagOverviewViewModel}">
 			<v:TagOverviewView />
 		</DataTemplate>
+		<DataTemplate x:Name="tagAddViewTemplate"
+					  DataType="{x:Type vm:TagAddViewModel}">
+			<v:TagAddView />
+		</DataTemplate>
 	</Application.Resources>
 </Application>
