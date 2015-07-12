@@ -3,11 +3,11 @@
 namespace MoneyManager.Views
 {
 	/// <summary>
-	/// Interaction logic for StoreLoadView.xaml
+	/// Interaction logic for TagDeleteView.xaml
 	/// </summary>
-	public partial class StoreLoadView : UserControl
+	public partial class TagEditView : UserControl
 	{
-		public StoreLoadView()
+		public TagEditView()
 		{
 			InitializeComponent();
 		}

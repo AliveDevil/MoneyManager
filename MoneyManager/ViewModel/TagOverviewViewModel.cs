@@ -15,41 +15,16 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+using MoneyManager.Model;
 using ReactiveUI;
 
 namespace MoneyManager.ViewModel
 {
 	public class TagOverviewViewModel : StoreViewModelBase
 	{
-		public IReactiveDerivedList<TagInfoViewModel> Tags { get; set; }
-
-		private TagInfoViewModel selectedTag;
-
-		public TagInfoViewModel SelectedTag
-		{
-			get { return selectedTag; }
-			set
-			{
-				if (selectedTag == value) return;
-				selectedTag = value;
-				OnPropertyChanged(nameof(SelectedTag));
-			}
-		}
-
-		private RelayCommand<TagInfoViewModel> deleteTagCommand;
-
-		public RelayCommand<TagInfoViewModel> DeleteTagCommand
-		{
-			get
-			{
-				return deleteTagCommand ?? (deleteTagCommand = new RelayCommand<TagInfoViewModel>(tag =>
-				{
-
-				}));
-			}
-		}
-
 		private RelayCommand addTagCommand;
+		private RelayCommand<TagInfoViewModel> deleteTagCommand;
+		private RelayCommand<TagInfoViewModel> editTagCommand;
 
 		public RelayCommand AddTagCommand
 		{
@@ -61,6 +36,29 @@ namespace MoneyManager.ViewModel
 				}));
 			}
 		}
+
+		public RelayCommand<TagInfoViewModel> DeleteTagCommand
+		{
+			get
+			{
+				return deleteTagCommand ?? (deleteTagCommand = new RelayCommand<TagInfoViewModel>(tag =>
+				{
+				}));
+			}
+		}
+
+		public RelayCommand<TagInfoViewModel> EditTagCommand
+		{
+			get
+			{
+				return editTagCommand ?? (editTagCommand = new RelayCommand<TagInfoViewModel>(tag =>
+				{
+					StoreView.ViewState.Push(new TagEditViewModel((Tag)tag, StoreView));
+				}));
+			}
+		}
+
+		public IReactiveDerivedList<TagInfoViewModel> Tags { get; set; }
 
 		public TagOverviewViewModel(StoreViewModel viewModel) : base(viewModel)
 		{

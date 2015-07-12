@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows;
+using nUpdate.Core;
 
 [assembly: AssemblyTitle("MoneyManager")]
 [assembly: AssemblyDescription("")]
@@ -21,3 +22,4 @@ using System.Windows;
 )]
 [assembly: AssemblyVersion("0.1")]
 [assembly: AssemblyInformationalVersion("0.1")]
+[assembly: nUpdateVersion("0.1")]

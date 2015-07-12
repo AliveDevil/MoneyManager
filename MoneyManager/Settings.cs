@@ -44,18 +44,14 @@ namespace MoneyManager
 			TypeNameHandling = TypeNameHandling.Auto
 		};
 
+		public bool CheckBetaVersions { get; set; }
+
 		public ObservableCollection<SettingsDatabaseEntry> Databases { get; set; }
 
 		public Settings()
 		{
+			CheckBetaVersions = true;
 			Databases = new ObservableCollection<SettingsDatabaseEntry>();
-		}
-
-		public SettingsDatabaseEntry NewEntry(string name, string path)
-		{
-			SettingsDatabaseEntry newEntry = new SettingsDatabaseEntry() { Name = name, Path = path };
-			Databases.Add(newEntry);
-			return newEntry;
 		}
 
 		public static Settings Load(FileInfo file)
@@ -78,6 +74,13 @@ namespace MoneyManager
 				JsonSerializer serializer = JsonSerializer.Create(serializerSettings);
 				serializer.Serialize(writer, settings, typeof(Settings));
 			}
+		}
+
+		public SettingsDatabaseEntry NewEntry(string name, string path)
+		{
+			SettingsDatabaseEntry newEntry = new SettingsDatabaseEntry() { Name = name, Path = path };
+			Databases.Add(newEntry);
+			return newEntry;
 		}
 	}
 

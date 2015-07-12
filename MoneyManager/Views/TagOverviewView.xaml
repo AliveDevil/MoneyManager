@@ -18,8 +18,6 @@
 			   HorizontalContentAlignment="Center"
 			   VerticalContentAlignment="Center" />
 		<ListView Grid.Row="1"
-				  IsSynchronizedWithCurrentItem="True"
-				  SelectedItem="{Binding SelectedTag}"
 				  ItemsSource="{Binding Tags}"
 				  HorizontalContentAlignment="Stretch">
 			<ListView.InputBindings>
@@ -28,6 +26,17 @@
 				<KeyBinding Key="Delete"
 							Command="{Binding DeleteTagCommand}" />
 			</ListView.InputBindings>
+			<ListView.ItemContainerStyle>
+				<Style TargetType="ListViewItem">
+					<Setter Property="local:AddToInputBinding.Binding">
+						<Setter.Value>
+							<MouseBinding MouseAction="LeftDoubleClick"
+										  Command="{Binding DataContext.EditTagCommand, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
+										  CommandParameter="{Binding}" />
+						</Setter.Value>
+					</Setter>
+				</Style>
+			</ListView.ItemContainerStyle>
 			<ListView.ItemTemplate>
 				<DataTemplate>
 					<Label Content="{Binding Key.Value}" />

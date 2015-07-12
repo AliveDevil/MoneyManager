@@ -26,8 +26,8 @@ namespace MoneyManager.ViewModel
 	{
 		private RelayCommand aboutCommand;
 		private RelayCommand backCommand;
-		private RelayCommand loadStoreCommand;
 		private RelayCommand donateCommand;
+		private RelayCommand loadStoreCommand;
 		private string name;
 		private string path;
 		private RelayCommand selectStoreLocationCommand;
@@ -54,6 +54,17 @@ namespace MoneyManager.ViewModel
 			}
 		}
 
+		public RelayCommand DonateCommand
+		{
+			get
+			{
+				return donateCommand ?? (donateCommand = new RelayCommand(() =>
+				{
+					Process.Start("http://donation-tracker.com/u/alivedevil");
+				}));
+			}
+		}
+
 		public RelayCommand LoadStoreCommand
 		{
 			get
@@ -64,17 +75,6 @@ namespace MoneyManager.ViewModel
 					DatabaseContext context = new DatabaseContext(databaseEntry.Path, false);
 					StoreViewModel store = App.ViewState.Set<StoreViewModel>();
 					store.Store = context;
-				}));
-			}
-		}
-
-		public RelayCommand DonateCommand
-		{
-			get
-			{
-				return donateCommand ?? (donateCommand = new RelayCommand(() =>
-				{
-					Process.Start("http://donation-tracker.com/u/alivedevil");
 				}));
 			}
 		}

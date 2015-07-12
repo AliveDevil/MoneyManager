@@ -24,7 +24,7 @@ namespace MoneyManager.ViewModel
 	public class TagInfoViewModel : StoreViewModelBase
 	{
 		private Tag tag;
-		
+
 		public ReactiveProperty<string> Key { get; set; }
 
 		public TagInfoViewModel(Tag tag, StoreViewModel viewModel) : base(viewModel)
@@ -32,6 +32,11 @@ namespace MoneyManager.ViewModel
 			if (InDesignMode) return;
 			this.tag = tag;
 			Key = this.tag.ToReactivePropertyAsSynchronized(t => t.Key);
+		}
+
+		public static explicit operator Tag(TagInfoViewModel tagInfo)
+		{
+			return tagInfo.tag;
 		}
 	}
 }

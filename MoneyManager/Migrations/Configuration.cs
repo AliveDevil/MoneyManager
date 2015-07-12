@@ -15,9 +15,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-using MoneyManager.Model;
 using System.Data.Entity.Migrations;
-using System.Linq;
+using MoneyManager.Model;
+
 namespace MoneyManager.Migrations
 {
 	internal sealed class Configuration : DbMigrationsConfiguration<DatabaseContext>

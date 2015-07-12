@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
@@ -83,7 +82,9 @@ namespace MoneyManager.Model
 
 		public virtual DbSet<Tag> TagSet { get; set; }
 
-		public DatabaseContext() : base() { }
+		public DatabaseContext() : base()
+		{
+		}
 
 		public DatabaseContext(string filename, bool createDatabase)
 			: base($"Data Source={filename}")

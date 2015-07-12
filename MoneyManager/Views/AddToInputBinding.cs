@@ -15,11 +15,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -27,6 +22,12 @@ namespace MoneyManager.Views
 {
 	public class AddToInputBinding
 	{
+		public static readonly DependencyProperty BindingProperty =
+			DependencyProperty.RegisterAttached("Binding", typeof(InputBinding), typeof(AddToInputBinding), new PropertyMetadata((s, e) =>
+			{
+				((UIElement)s).InputBindings.Add((InputBinding)e.NewValue);
+			}));
+
 		public static InputBinding GetBinding(DependencyObject obj)
 		{
 			return (InputBinding)obj.GetValue(BindingProperty);
@@ -36,11 +37,5 @@ namespace MoneyManager.Views
 		{
 			obj.SetValue(BindingProperty, value);
 		}
-
-		public static readonly DependencyProperty BindingProperty =
-			DependencyProperty.RegisterAttached("Binding", typeof(InputBinding), typeof(AddToInputBinding), new PropertyMetadata((s, e) =>
-			{
-				((UIElement)s).InputBindings.Add((InputBinding)e.NewValue);
-			}));
 	}
 }

@@ -50,5 +50,9 @@
 					  DataType="{x:Type vm:TagAddViewModel}">
 			<v:TagAddView />
 		</DataTemplate>
+		<DataTemplate x:Name="tagEditViewTemplate"
+					  DataType="{x:Type vm:TagEditViewModel}">
+			<v:TagEditView />
+		</DataTemplate>
 	</Application.Resources>
 </Application>
