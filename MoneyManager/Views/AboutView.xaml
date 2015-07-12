@@ -39,6 +39,7 @@
 						  HorizontalScrollBarVisibility="Disabled"
 						  VerticalScrollBarVisibility="Auto">
 				<TextBlock TextAlignment="Justify"
+						   IsHyphenationEnabled="True"
 						   TextWrapping="Wrap">
 					Thank you for using <Hyperlink NavigateUri="https://github.com/alivedevil/moneymanager"
 												   Click="Hyperlink_Click">MoneyManager</Hyperlink>

@@ -17,7 +17,7 @@ using nUpdate.Core;
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
 [assembly: ThemeInfo(
-	ResourceDictionaryLocation.None,
+	ResourceDictionaryLocation.SourceAssembly,
 	ResourceDictionaryLocation.SourceAssembly
 )]
 [assembly: AssemblyVersion("0.1")]

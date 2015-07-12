@@ -38,6 +38,10 @@
 				<ColumnDefinition Width="*" />
 				<ColumnDefinition Width="Auto"
 								  SharedSizeGroup="ValueSize" />
+				<ColumnDefinition Width="Auto"
+								  SharedSizeGroup="EditSize" />
+				<ColumnDefinition Width="Auto"
+								  SharedSizeGroup="DeleteSize" />
 			</Grid.ColumnDefinitions>
 			<Grid.RowDefinitions>
 				<RowDefinition Height="Auto" />
@@ -71,7 +75,7 @@
 									  AllowTextInput="True"
 									  Value="{Binding SelectedRecord.Value.Value, UpdateSourceTrigger=PropertyChanged}" />
 			</Grid>
-			<ListView Grid.ColumnSpan="4"
+			<ListView Grid.ColumnSpan="6"
 					  Grid.Row="1"
 					  IsSynchronizedWithCurrentItem="True"
 					  SelectedItem="{Binding SelectedRecord}"
@@ -92,6 +96,10 @@
 								<ColumnDefinition Width="*" />
 								<ColumnDefinition Width="Auto"
 												  SharedSizeGroup="ValueSize" />
+								<ColumnDefinition Width="Auto"
+												  SharedSizeGroup="EditSize" />
+								<ColumnDefinition Width="Auto"
+												  SharedSizeGroup="DeleteSize" />
 							</Grid.ColumnDefinitions>
 							<Label Content="{Binding Timestamp.Value}"
 								   Grid.Column="0" />
@@ -101,6 +109,16 @@
 								   Grid.Column="2" />
 							<Label Content="{Binding Value.Value}"
 								   Grid.Column="3" />
+							<Button Grid.Column="4">
+								<Path Data="{StaticResource EditIcon}"
+									  Fill="Black"
+									  Stretch="Uniform" />
+							</Button>
+							<Button Grid.Column="5">
+								<Path Data="{StaticResource ClearIcon}"
+									  Fill="Black"
+									  Stretch="Uniform" />
+							</Button>
 						</Grid>
 					</DataTemplate>
 				</ListView.ItemTemplate>
