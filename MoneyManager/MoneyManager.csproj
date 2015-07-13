@@ -147,6 +147,7 @@
     <Compile Include="ViewModel\AccountDetailViewModel.cs" />
     <Compile Include="ViewModel\AccountEditViewModel.cs" />
     <Compile Include="ViewModel\AccountInfoViewModel.cs" />
+    <Compile Include="ViewModel\RecordEditViewModel.cs" />
     <Compile Include="ViewModel\RecordInfoViewModel.cs" />
     <Compile Include="ViewModel\Converter\FloatConverter.cs" />
     <Compile Include="ViewModel\Converter\LowerZeroConverter.cs" />

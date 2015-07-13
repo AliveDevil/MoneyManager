@@ -113,6 +113,19 @@ namespace MoneyManager.ViewModel
 			}
 		}
 
+		private RelayCommand<RecordInfoViewModel> editRecordCommand;
+
+		public RelayCommand<RecordInfoViewModel> EditRecordCommand
+		{
+			get
+			{
+				return editRecordCommand ?? (editRecordCommand = new RelayCommand<RecordInfoViewModel>(record =>
+				{
+					ViewState.Push(new RecordEditViewModel((Record)record, StoreView));
+				}));
+			}
+		}
+
 		public ReactiveProperty<string> Name { get; }
 
 		public IReactiveDerivedList<RecordInfoViewModel> Records { get; }
