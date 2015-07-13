@@ -28,6 +28,7 @@ namespace MoneyManager.ViewModel
 		private RelayCommand donateCommand;
 		private RelayCommand openExistingStoreCommand;
 		private RelayCommand<SettingsDatabaseEntryViewModel> openStoreCommand;
+		private SettingsDatabaseEntryViewModel selectedStore;
 
 		public RelayCommand AboutCommand
 		{
@@ -84,6 +85,20 @@ namespace MoneyManager.ViewModel
 					StoreViewModel storeViewModel = App.ViewState.Set<StoreViewModel>();
 					storeViewModel.Store = new DatabaseContext(databaseEntry.Path, false);
 				}));
+			}
+		}
+
+		public SettingsDatabaseEntryViewModel SelectedStore
+		{
+			get
+			{
+				return selectedStore;
+			}
+			set
+			{
+				if (selectedStore == value) return;
+				selectedStore = value;
+				OnPropertyChanged(nameof(SelectedStore));
 			}
 		}
 

@@ -17,112 +17,77 @@
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*" />
+			<ColumnDefinition Width="Auto" />
+			<ColumnDefinition Width="Auto" />
+		</Grid.ColumnDefinitions>
 		<Label Content="{Binding Name.Value}"
 			   FontSize="18"
 			   FontWeight="Light"
 			   HorizontalContentAlignment="Center"
-			   VerticalContentAlignment="Center">
-			<Label.InputBindings>
-				<MouseBinding Gesture="LeftDoubleClick"
-							  Command="{Binding EditCommand}"
-							  CommandParameter="{Binding}" />
-			</Label.InputBindings>
-		</Label>
-		<Grid Grid.IsSharedSizeScope="True"
-			  Grid.Row="1">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="Auto"
-								  SharedSizeGroup="TimestampSize" />
-				<ColumnDefinition Width="Auto"
-								  SharedSizeGroup="TagSize" />
-				<ColumnDefinition Width="*" />
-				<ColumnDefinition Width="Auto"
-								  SharedSizeGroup="ValueSize" />
-				<ColumnDefinition Width="Auto"
-								  SharedSizeGroup="EditSize" />
-				<ColumnDefinition Width="Auto"
-								  SharedSizeGroup="DeleteSize" />
-			</Grid.ColumnDefinitions>
-			<Grid.RowDefinitions>
-				<RowDefinition Height="Auto" />
-				<RowDefinition Height="*" />
-			</Grid.RowDefinitions>
-			<Grid Grid.ColumnSpan="4">
-				<Grid.InputBindings>
-					<KeyBinding Key="Esc"
-								Command="{Binding DiscardRecordCommand}" />
-					<KeyBinding Key="Return"
-								Command="{Binding ApplyRecordCommand}" />
-				</Grid.InputBindings>
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="Auto"
-									  SharedSizeGroup="TimestampSize" />
-					<ColumnDefinition Width="Auto"
-									  SharedSizeGroup="TagSize" />
-					<ColumnDefinition Width="*" />
-					<ColumnDefinition Width="Auto"
-									  SharedSizeGroup="ValueSize" />
-				</Grid.ColumnDefinitions>
-				<DatePicker Grid.Column="0"
-							SelectedDate="{Binding SelectedRecord.Timestamp.Value, UpdateSourceTrigger=PropertyChanged}" />
-				<TextBox Grid.Column="1"
-						 VerticalContentAlignment="Center" />
-				<TextBox Grid.Column="2"
-						 VerticalContentAlignment="Center"
-						 Text="{Binding SelectedRecord.Description.Value, UpdateSourceTrigger=PropertyChanged}" />
-				<toolkit:SingleUpDown Grid.Column="3"
-									  AllowSpin="True"
-									  AllowTextInput="True"
-									  Value="{Binding SelectedRecord.Value.Value, UpdateSourceTrigger=PropertyChanged}" />
-			</Grid>
-			<ListView Grid.ColumnSpan="6"
-					  Grid.Row="1"
-					  IsSynchronizedWithCurrentItem="True"
-					  SelectedItem="{Binding SelectedRecord}"
-					  ItemsSource="{Binding Records}"
-					  HorizontalContentAlignment="Stretch">
-				<ListView.InputBindings>
-					<KeyBinding Key="Delete"
-								Command="{Binding DeleteRecordCommand}" />
-				</ListView.InputBindings>
-				<ListView.ItemTemplate>
-					<DataTemplate>
-						<Grid>
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="Auto"
-												  SharedSizeGroup="TimestampSize" />
-								<ColumnDefinition Width="Auto"
-												  SharedSizeGroup="TagSize" />
-								<ColumnDefinition Width="*" />
-								<ColumnDefinition Width="Auto"
-												  SharedSizeGroup="ValueSize" />
-								<ColumnDefinition Width="Auto"
-												  SharedSizeGroup="EditSize" />
-								<ColumnDefinition Width="Auto"
-												  SharedSizeGroup="DeleteSize" />
-							</Grid.ColumnDefinitions>
-							<Label Content="{Binding Timestamp.Value}"
-								   Grid.Column="0" />
-							<Label Content="{Binding Tag.Value}"
-								   Grid.Column="1" />
-							<Label Content="{Binding Description.Value}"
-								   Grid.Column="2" />
-							<Label Content="{Binding Value.Value}"
-								   Grid.Column="3" />
-							<Button Grid.Column="4">
-								<Path Data="{StaticResource EditIcon}"
-									  Fill="Black"
-									  Stretch="Uniform" />
-							</Button>
-							<Button Grid.Column="5">
-								<Path Data="{StaticResource ClearIcon}"
-									  Fill="Black"
-									  Stretch="Uniform" />
-							</Button>
-						</Grid>
-					</DataTemplate>
-				</ListView.ItemTemplate>
-			</ListView>
-		</Grid>
+			   VerticalContentAlignment="Center" />
+		<Button Grid.Column="1"
+				Command="{Binding EditCommand}"
+				CommandParameter="{Binding}">
+			<Path Data="{StaticResource EditIcon}"
+				  Fill="Black"
+				  Stretch="Uniform" />
+		</Button>
+		<Button Grid.Column="2"
+				Command="{Binding AddRecordCommand}">
+			<Path Data="{StaticResource AddIcon}"
+				  Fill="Black"
+				  Stretch="Uniform" />
+		</Button>
+		<ListView Grid.ColumnSpan="6"
+				  Grid.Row="1"
+				  IsSynchronizedWithCurrentItem="True"
+				  SelectedItem="{Binding SelectedRecord}"
+				  ItemsSource="{Binding Records}"
+				  HorizontalContentAlignment="Stretch"
+				  Grid.IsSharedSizeScope="True">
+			<ListView.InputBindings>
+				<KeyBinding Key="Delete"
+							Command="{Binding DeleteRecordCommand}" />
+			</ListView.InputBindings>
+			<ListView.ItemTemplate>
+				<DataTemplate>
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto"
+											  SharedSizeGroup="TimestampSize" />
+							<ColumnDefinition Width="Auto"
+											  SharedSizeGroup="TagSize" />
+							<ColumnDefinition Width="*" />
+							<ColumnDefinition Width="Auto"
+											  SharedSizeGroup="ValueSize" />
+							<ColumnDefinition Width="Auto"
+											  SharedSizeGroup="EditSize" />
+							<ColumnDefinition Width="Auto"
+											  SharedSizeGroup="DeleteSize" />
+						</Grid.ColumnDefinitions>
+						<Label Content="{Binding Timestamp.Value}"
+							   Grid.Column="0" />
+						<Label Content="{Binding Tag.Value}"
+							   Grid.Column="1" />
+						<Label Content="{Binding Description.Value}"
+							   Grid.Column="2" />
+						<Label Content="{Binding Value.Value}"
+							   Grid.Column="3" />
+						<Button Grid.Column="4">
+							<Path Data="{StaticResource EditIcon}"
+								  Fill="Black"
+								  Stretch="Uniform" />
+						</Button>
+						<Button Grid.Column="5">
+							<Path Data="{StaticResource ClearIcon}"
+								  Fill="Black"
+								  Stretch="Uniform" />
+						</Button>
+					</Grid>
+				</DataTemplate>
+			</ListView.ItemTemplate>
+		</ListView>
 	</Grid>
 </UserControl>

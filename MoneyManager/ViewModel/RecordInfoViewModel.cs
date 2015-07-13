@@ -22,7 +22,7 @@ using Reactive.Bindings.Extensions;
 
 namespace MoneyManager.ViewModel
 {
-	public class AccountRecordViewModel : ViewModelBase
+	public class RecordInfoViewModel : ViewModelBase
 	{
 		private Record record;
 
@@ -32,7 +32,7 @@ namespace MoneyManager.ViewModel
 
 		public ReactiveProperty<float> Value { get; }
 
-		public AccountRecordViewModel(Record record)
+		public RecordInfoViewModel(Record record)
 		{
 			if (InDesignMode) return;
 			this.record = record;
@@ -41,7 +41,7 @@ namespace MoneyManager.ViewModel
 			Value = this.record.ToReactivePropertyAsSynchronized(r => r.Value);
 		}
 
-		public static explicit operator Record(AccountRecordViewModel recordView)
+		public static explicit operator Record(RecordInfoViewModel recordView)
 		{
 			return recordView.record;
 		}

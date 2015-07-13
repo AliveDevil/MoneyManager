@@ -32,7 +32,7 @@ namespace MoneyManager.ViewModel
 		private RelayCommand deleteRecordCommand;
 		private RelayCommand discardRecordCommand;
 		private RelayCommand editCommand;
-		private AccountRecordViewModel selectedRecord;
+		private RecordInfoViewModel selectedRecord;
 
 		public RelayCommand ApplyRecordCommand
 		{
@@ -52,6 +52,20 @@ namespace MoneyManager.ViewModel
 				}));
 			}
 		}
+
+		private RelayCommand addRecordCommand;
+
+		public RelayCommand AddRecordCommand
+		{
+			get
+			{
+				return addRecordCommand ?? (addRecordCommand = new RelayCommand(() =>
+				{
+					ViewState.Push(new RecordAddViewModel(account, StoreView));
+				}));
+			}
+		}
+
 
 		public RelayCommand DeleteRecordCommand
 		{
@@ -101,9 +115,9 @@ namespace MoneyManager.ViewModel
 
 		public ReactiveProperty<string> Name { get; }
 
-		public IReactiveDerivedList<AccountRecordViewModel> Records { get; }
+		public IReactiveDerivedList<RecordInfoViewModel> Records { get; }
 
-		public AccountRecordViewModel SelectedRecord
+		public RecordInfoViewModel SelectedRecord
 		{
 			get
 			{
@@ -122,13 +136,13 @@ namespace MoneyManager.ViewModel
 			if (InDesignMode) return;
 			this.account = account;
 			Name = this.account.ToReactivePropertyAsSynchronized(a => a.Name);
-			Records = this.account.Records.CreateDerivedCollection(r => new AccountRecordViewModel(r), null, (l, r) => DateTime.Compare(l.Timestamp.Value, r.Timestamp.Value));
+			Records = this.account.Records.CreateDerivedCollection(r => new RecordInfoViewModel(r), null, (l, r) => DateTime.Compare(l.Timestamp.Value, r.Timestamp.Value));
 			AssignNewRecord();
 		}
 
 		private void AssignNewRecord()
 		{
-			SelectedRecord = new AccountRecordViewModel(Store.RecordSet.Create());
+			SelectedRecord = new RecordInfoViewModel(Store.RecordSet.Create());
 			SelectedRecord.Timestamp.Value = DateTime.Today;
 		}
 	}

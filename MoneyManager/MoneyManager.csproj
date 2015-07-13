@@ -143,10 +143,11 @@
     <Compile Include="Model\Validators\UniqueKeyValidator.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="ViewModel\AboutViewModel.cs" />
+    <Compile Include="ViewModel\RecordAddViewModel.cs" />
     <Compile Include="ViewModel\AccountDetailViewModel.cs" />
     <Compile Include="ViewModel\AccountEditViewModel.cs" />
     <Compile Include="ViewModel\AccountInfoViewModel.cs" />
-    <Compile Include="ViewModel\AccountRecordViewModel.cs" />
+    <Compile Include="ViewModel\RecordInfoViewModel.cs" />
     <Compile Include="ViewModel\Converter\FloatConverter.cs" />
     <Compile Include="ViewModel\Converter\LowerZeroConverter.cs" />
     <Compile Include="ViewModel\LoadDatabaseViewModel.cs" />
@@ -176,6 +177,9 @@
     <Compile Include="Views\AddToInputBinding.cs" />
     <Compile Include="Views\LoadDatabaseView.xaml.cs">
       <DependentUpon>LoadDatabaseView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RecordAddView.xaml.cs">
+      <DependentUpon>RecordAddView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StoreBaseView.xaml.cs">
       <DependentUpon>StoreBaseView.xaml</DependentUpon>
@@ -220,6 +224,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\LoadDatabaseView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RecordAddView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -275,7 +283,6 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>
