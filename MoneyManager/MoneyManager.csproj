@@ -164,6 +164,7 @@
     <Compile Include="ViewModel\TagEditViewModel.cs" />
     <Compile Include="ViewModel\TagInfoViewModel.cs" />
     <Compile Include="ViewModel\TagOverviewViewModel.cs" />
+    <Compile Include="ViewModel\UpdaterViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="ViewModel\ViewStateManager.cs" />
     <Compile Include="Views\AboutView.xaml.cs">
@@ -202,6 +203,9 @@
     </Compile>
     <Compile Include="Views\TagOverviewView.xaml.cs">
       <DependentUpon>TagOverviewView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UpdaterView.xaml.cs">
+      <DependentUpon>UpdaterView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -260,6 +264,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\TagOverviewView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UpdaterView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

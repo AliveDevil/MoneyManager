@@ -38,6 +38,10 @@
 					  DataType="{x:Type vm:AboutViewModel}">
 			<v:AboutView />
 		</DataTemplate>
+		<DataTemplate x:Name="updaterViewTmplate"
+					  DataType="{x:Type vm:UpdaterViewModel}">
+			<v:UpdaterView />
+		</DataTemplate>
 		<DataTemplate x:Name="loadDatabaseViewTemplate"
 					  DataType="{x:Type vm:LoadDatabaseViewModel}">
 			<v:LoadDatabaseView />
