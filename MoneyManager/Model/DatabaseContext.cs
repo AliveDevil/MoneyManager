@@ -1,17 +1,62 @@
+/*
+Copyright (C) 2015  Jöran Malek
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
+using ReactiveUI;
 
 namespace MoneyManager.Model
 {
-	public class Account
+	public class Account : INotifyPropertyChanged
 	{
-		public int Id { get; set; }
+		public event PropertyChangedEventHandler PropertyChanged;
 
-		public string Name { get; set; }
+		private int id;
+		private string name;
+
+		public int Id
+		{
+			get
+			{
+				return id;
+			}
+			set
+			{
+				id = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Id)));
+			}
+		}
+
+		public string Name
+		{
+			get
+			{
+				return name;
+			}
+			set
+			{
+				name = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Name)));
+			}
+		}
 
 		public virtual ObservableCollection<Record> Records { get; set; }
 
@@ -23,73 +68,198 @@ namespace MoneyManager.Model
 
 	public class DatabaseContext : DbContext
 	{
-		private static Lazy<DatabaseContext> instance = new Lazy<DatabaseContext>();
+		public virtual DbSet<Account> AccountSet { get; set; }
 
-		public static DatabaseContext Instance
+		public Tag DefaultTag
 		{
 			get
 			{
-				instance.Value.Initialize();
-				return instance.Value;
+				return TagSet.Where(tag => tag.Default).Single();
 			}
 		}
-
-		public static bool IsCreated
-		{
-			get { return instance.IsValueCreated; }
-		}
-
-		public Tag DefaultTag { get { return TagSet.Where(tag => tag.Default).Single(); } }
-
-		public virtual DbSet<Account> AccountSet { get; set; }
 
 		public virtual DbSet<Record> RecordSet { get; set; }
 
 		public virtual DbSet<Tag> TagSet { get; set; }
 
-		public DatabaseContext()
-			: base("name=Money")
+		public DatabaseContext() : base()
 		{
-			Database.Initialize(false);
 		}
 
-		private void Initialize()
+		public DatabaseContext(string filename, bool createDatabase)
+			: base($"Data Source={filename}")
 		{
-			AccountSet.Load();
-			TagSet.Load();
-			RecordSet.Load();
+			if (!(Database.Exists() || createDatabase)) throw new FileNotFoundException();
+			if (Database.Exists() && createDatabase) File.Delete(filename);
+			if (!Database.Exists())
+			{
+				Database.Initialize(true);
+				Database.Create();
+				AccountSet.Add(new Account() { Name = "Default" });
+				TagSet.Add(new Tag() { Default = true, Key = "Default" });
+				SaveChanges();
+			}
+			else
+			{
+				Database.Initialize(true);
+				AccountSet.Load();
+				RecordSet.Load();
+				TagSet.Load();
+			}
 		}
 	}
 
-	public class Record
+	public class Record : INotifyPropertyChanged
 	{
-		public virtual Account Account { get; set; }
+		public event PropertyChangedEventHandler PropertyChanged;
 
-		public string Description { get; set; }
+		private Account account;
+		private string description = "New Description";
+		private int id;
+		private Tag tag;
+		private DateTime timestamp = DateTime.Today;
+		private float value;
 
-		public int Id { get; set; }
+		public virtual Account Account
+		{
+			get
+			{
+				return account;
+			}
+			set
+			{
+				if (account == value) return;
+				account = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Account)));
+			}
+		}
 
-		public Tag Tag { get; set; }
+		public string Description
+		{
+			get
+			{
+				return description;
+			}
+			set
+			{
+				if (description == value) return;
+				description = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Description)));
+			}
+		}
 
-		public DateTime Timestamp { get; set; }
+		public int Id
+		{
+			get
+			{
+				return id;
+			}
+			set
+			{
+				if (id == value) return;
+				id = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Id)));
+			}
+		}
 
-		public float Value { get; set; }
+		public Tag Tag
+		{
+			get
+			{
+				return tag;
+			}
+			set
+			{
+				if (tag == value) return;
+				tag = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Tag)));
+			}
+		}
+
+		public DateTime Timestamp
+		{
+			get
+			{
+				return timestamp;
+			}
+			set
+			{
+				if (timestamp == value) return;
+				timestamp = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Timestamp)));
+			}
+		}
+
+		public float Value
+		{
+			get
+			{
+				return value;
+			}
+			set
+			{
+				if (this.value == value) return;
+				this.value = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Value)));
+			}
+		}
 	}
 
-	public class Tag
+	public class Tag : INotifyPropertyChanged
 	{
-		public int Id { get; set; }
+		public event PropertyChangedEventHandler PropertyChanged;
 
-		[Index(IsUnique = true)]
-		public string Key { get; set; }
+		private bool @default;
+		private int id;
+		private string key;
 
-		public bool Default { get; set; }
+		public bool Default
+		{
+			get
+			{
+				return @default;
+			}
+			set
+			{
+				if (@default == value) return;
+				@default = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Default)));
+			}
+		}
 
-		public virtual ObservableCollection<Record> Records { get; set; }
+		public int Id
+		{
+			get
+			{
+				return id;
+			}
+			set
+			{
+				if (id == value) return;
+				id = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Id)));
+			}
+		}
+
+		public string Key
+		{
+			get
+			{
+				return key;
+			}
+			set
+			{
+				if (key == value) return;
+				key = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Key)));
+			}
+		}
+
+		public virtual ReactiveList<Record> Records { get; set; }
 
 		public Tag()
 		{
-			Records = new ObservableCollection<Record>();
+			Records = new ReactiveList<Record>() { ChangeTrackingEnabled = true };
 		}
 	}
 }

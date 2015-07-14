@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows;
+using nUpdate.Core;
 
 [assembly: AssemblyTitle("MoneyManager")]
 [assembly: AssemblyDescription("")]
@@ -11,13 +12,14 @@ using System.Windows;
 #endif
 [assembly: AssemblyCompany("AliveDevil")]
 [assembly: AssemblyProduct("MoneyManager")]
-[assembly: AssemblyCopyright("Copyright © AliveDevil 2014")]
+[assembly: AssemblyCopyright("Copyright © AliveDevil 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
 [assembly: ThemeInfo(
-	ResourceDictionaryLocation.None,
+	ResourceDictionaryLocation.SourceAssembly,
 	ResourceDictionaryLocation.SourceAssembly
 )]
-[assembly: AssemblyVersion("0.0.0.4")]
-[assembly: AssemblyInformationalVersion("0.0 Alpha 4")]
+[assembly: AssemblyVersion("0.1")]
+[assembly: AssemblyInformationalVersion("0.1")]
+[assembly: nUpdateVersion("0.1")]

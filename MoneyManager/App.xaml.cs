@@ -1,104 +1,108 @@
-﻿using FUpdate;
-using MoneyManager.Migrations;
-using MoneyManager.Model;
+﻿/*
+Copyright (C) 2015  Jöran Malek
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 using System;
-using System.Configuration;
+using System.ComponentModel;
 using System.Data.Entity;
-using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
+using MoneyManager.Model;
+using MoneyManager.ViewModel;
+using nUpdate.Updating;
 
 namespace MoneyManager
 {
-	public partial class App : Application
+	public partial class App : Application, INotifyPropertyChanged
 	{
-		private static readonly System.Configuration.Configuration Configuration;
-		private static readonly KeyValueConfigurationElement PathElement;
+		public event PropertyChangedEventHandler PropertyChanged;
 
-		private string initialPath;
-		private static bool restart = false;
+		private FileInfo settingsFile;
+		public UpdateManager Updater { get; private set; }
+		private bool updatesAvailable;
 
-		public string InitialPath { get { return initialPath; } }
+		public Settings AppSettings { get; private set; }
 
-		static App()
+		public bool UpdatesAvailable
 		{
-			Configuration = ConfigurationManager.OpenExeConfiguration(Application.ResourceAssembly.Location);
-			if (!Configuration.AppSettings.Settings.AllKeys.Contains("Path"))
+			get
 			{
-				Configuration.AppSettings.Settings.Add("Path", "");
+				return updatesAvailable;
 			}
-			PathElement = Configuration.AppSettings.Settings["Path"];
-			if (string.IsNullOrEmpty(PathElement.Value))
+			set
 			{
-#if DEBUG
-				SetPath(Path.GetFullPath("MoneyManager"));
-#else
-				SetPath(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "MoneyManager"));
-#endif
+				if (updatesAvailable == value) return;
+				updatesAvailable = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(UpdatesAvailable)));
 			}
 		}
 
-		public static void SetPath(string path)
+		public ViewStateManager ViewState { get; private set; }
+
+		public void SaveSettings()
 		{
-			PathElement.Value = path;
-			Configuration.Save();
-			restart = true;
+			Settings.Save(AppSettings, settingsFile);
 		}
 
 		protected override void OnExit(ExitEventArgs e)
 		{
-			if (DatabaseContext.IsCreated)
-			{
-				DatabaseContext.Instance.SaveChanges();
-			}
-
-			if (!initialPath.Equals(PathElement.Value))
-			{
-				File.Move(Path.Combine(initialPath, "MoneyManager.sdf"), Path.Combine(PathElement.Value, "MoneyManager.sdf"));
-				if (restart)
-				{
-					Process.Start(ResourceAssembly.Location);
-				}
-			}
-
+			Settings.Save(AppSettings, settingsFile);
+			ViewState.Clear();
 			base.OnExit(e);
 		}
 
 		protected override void OnStartup(StartupEventArgs e)
 		{
-			string path = PathElement.Value;
-			if (!Directory.Exists(path))
-			{
-				Directory.CreateDirectory(path);
-			}
-			initialPath = path;
-			AppDomain.CurrentDomain.SetData("DataDirectory", path);
-			Database.SetInitializer<DatabaseContext>(new MigrateDatabaseToLatestVersion<DatabaseContext, MoneyManager.Migrations.Configuration>());
+			Database.SetInitializer(new MigrateDatabaseToLatestVersion<DatabaseContext, Migrations.Configuration>());
 
-#if !DEBUG
-			Task.Factory.StartNew(SearchUpdate);
-#endif
+			ViewState = new ViewStateManager();
+			DirectoryInfo directory = new DirectoryInfo(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "MoneyManager"));
+			if (!directory.Exists) directory.Create();
+			settingsFile = new FileInfo(Path.Combine(directory.FullName, "settings.json"));
+			if (settingsFile.Exists)
+			{
+				AppSettings = Settings.Load(settingsFile);
+			}
+			else
+			{
+				AppSettings = new Settings();
+				Settings.Save(AppSettings, settingsFile);
+			}
+
+			Updater = new UpdateManager(new Uri("http://dl.alivedevil.de/update/moneymanager/updates.json"), "<RSAKeyValue><Modulus>3a88jyS9mfHONnEOu8KVtOCcIUYC8rJGT88HIhr/tBWHc0V3oeuKPqnYA7RB097HlcrywKt8mm4/LTD3endINhlC5hhpqAMgGeajImmm7OKTfHNnOVd6iQKpEBq1yr9CK5XnBrviyW3kZiSVIIid0+U0ubSXvEIaNfg6LouUI/ndNtNwHfP0zAKyr5m7IXIJYitnhtH4c63fjVLFsdO8K5WiFRoJ29npfCrpc2rdm1uwP/xnfmT5O4GwYQeJm32PZ6zX78GIQ6MaadS88lwai1L+NuFapAx7aHy4P+2CsLeysBmmpAxbyNxmzqXG/m4hF8tN7lwdcmY9zI6HPmIhOL8H3ISTbHOrlIZIM58alo704WT68p9vWzTKKscHFHj7IeJHR9VEVauZ2BGZxpnwxVbmkVwT9aHt+v1ZxvuHtReW0sgP815dN8Dwb5jZO7esYirkt89k9jOAjh+ZRjnjuVoEpCKXChKKLhHjZmAD6e9kz5E0igwzJ/HQjPqXNhFf9H5NfgJY95FFL3cBjH9ON27auC2l4Pb5mhRl2IhnAciRWcOhICkDq44O/6G+01PWQC9fazRFCwNvz6PSm2zLKLPoAyPmH9vz1Q+pCeIYk2nRvRDIe8pUMMSeheHZuK4g1QIIQmuD47VZdZNBVPDafe7jQ4XHpnk4gNiLYKonRYvgYAIWMnFeJwSpX1uPf1zxzRNhFsx6FUFC2AWw/3mcJJUlp0NYGaIolgj9ednDen7ol8oeaFi8uajzXFBcPBlTekM89ACoMqzv7G915DWzimL8V7keIab75Mwc1MvqP0lgXD73YbwtXLykq2uZGpyk8L/10xdwk0RHftxn8g/k5GAO7aEJvO6MSDvKZ0GUeUyIN6nT4uOuFegIUPE+XLKGoUOkE3t3EWQKs7IlVUByiURuqz+llZh2bkQy/XHaybdJ6HiArckXGAJxDIlu27xld/luGHWduIdyPPvIx+QgBt93v2N1ASkPSlNrmtV7HO/1OvQX4dOFiPMUDJgOiecFUMlSeaejOoeJcsKrZV9zuz6K1PBXNDLL+YbF+0ER57SS8fT1w2uHwx1bVC/9pF6B4EXNcv7zNNNAs0x0iGsSoPTV4lUK+E0xdujxEKjYBpPiLM3ISyYfheD0A3tC4yZEjKaXNfk4rb59IFg2hDYoURsoYJnvJgsEu6kRI7SDlVW+Lmh++BICprLf3K3OdXrmEavjqvcp3xrSbDgKj3ubzHdWLS2JvuCcQMdvFlmqQn0yW+skq/AfgefviVQ7Wy0tLrN8jNCEGlOh0ujgxliWmex5zVschjvfNbfp5+lOxi4SbnUV9iNG5wi7qtxbTdIXBiknBdMnZ50KSf/4Ymc9UQ==</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>", new CultureInfo("en"));
+			Updater.CloseHostApplication = true;
+			Updater.UseCustomInstallerUserInterface = true;
+			Updater.IncludeBeta = AppSettings.CheckBetaVersions;
+
+			ViewState.Set<LoadDatabaseViewModel>();
+
+			CheckForUpdates();
 
 			base.OnStartup(e);
 		}
 
-#if !DEBUG
-		private void SearchUpdate()
+		private async Task CheckForUpdates()
 		{
-			Update update = new Update(
-				@"<RSAKeyValue><Modulus>lY/rdgOvgn+IJwuobE0LvCTg3dzL3dLHCuoTY7oxi6ny7XqPMOWW83Vda/rA15LKJGL3Sf3TSFM5x+y4X/97To5rmY8DKsanhc/ta36jhbgURfjHdyJtz0wFvsS5d9RbkFujN6NTZf/KYTIOg30XfJwwq1MOZZrRbOQoG7RnOemaBV9ccdXgVrArn+SMB76McBcDhrtha4gixSz7+EnBkErBek5sWindoUurQU+pzxhRlx/qM70KuwtO9jEuQ1AE0VC8MpJTMLSbCJNj3JtQGS6Gff5ezJF979lG1TWVBKkWXNpp4QOBMs49nQwEAiN/QWtn85L7z399kisMh3m1CjuUuJ8KcU1hd1yYAui2Xa4def4LUVWePu++71vvwz58fVVQ5WPb63d3a5/z8FRC7anSSQMkEdyKrEiumvswqluXoNB4ujbEvCm9e2jrSEuu58/To4+8YZq0DXwQBQw0BqhjR3J8bsVerX2aAlhG+z+ht3qdUPDgSMaMrej/9F9sl4dIz5sZPrKvKGOPc+rnChcQyZrO/UJ2Jl7m/MFzjV5naAtVkIKBt9m7s6Z1qFm6HK4KtS2OyJysHFbnorcsbcGYQnAi/CfKG8iWxBn3kcmCfYe+WeG1iqvvZ3sU8EXvolue1Rs+kdkwPOA8VleD42IbtMzSA8I1FsXcFZp1mlc=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>",
-				new Uri("http://alivedevil.de/update/MoneyManager/update.info"),
-				true);
-			if (update.Check())
+			if (await Updater.SearchForUpdatesAsync())
 			{
-				update.Apply(false, true);
-				Application.Current.Dispatcher.Invoke(Application.Current.Shutdown);
+				updatesAvailable = true;
+				ViewState.Push<UpdaterViewModel>();
 			}
 		}
-#endif
 	}
 }

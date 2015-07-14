@@ -1,0 +1,98 @@
+﻿<UserControl x:Class="MoneyManager.Views.AccountDetailView"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vm="clr-namespace:MoneyManager.ViewModel"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:validators="clr-namespace:MoneyManager.Model.Validators"
+			 xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
+			 xmlns:base="clr-namespace:MoneyManager"
+			 xmlns:local="clr-namespace:MoneyManager.Views"
+			 mc:Ignorable="d"
+			 d:DataContext="{d:DesignInstance Type=vm:AccountDetailViewModel}"
+			 d:DesignHeight="300"
+			 d:DesignWidth="300">
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*" />
+			<ColumnDefinition Width="Auto" />
+			<ColumnDefinition Width="Auto" />
+		</Grid.ColumnDefinitions>
+		<Label Content="{Binding Name.Value}"
+			   FontSize="18"
+			   FontWeight="Light"
+			   HorizontalContentAlignment="Center"
+			   VerticalContentAlignment="Center" />
+		<Button Grid.Column="1"
+				Command="{Binding EditAccountCommand}"
+				CommandParameter="{Binding}">
+			<Path Data="{StaticResource EditIcon}"
+				  Fill="Black"
+				  Stretch="Uniform" />
+		</Button>
+		<Button Grid.Column="2"
+				Command="{Binding AddRecordCommand}">
+			<Path Data="{StaticResource AddIcon}"
+				  Fill="Black"
+				  Stretch="Uniform" />
+		</Button>
+		<ListView Grid.ColumnSpan="6"
+				  Grid.Row="1"
+				  IsSynchronizedWithCurrentItem="True"
+				  SelectedItem="{Binding SelectedRecord}"
+				  ItemsSource="{Binding Records}"
+				  HorizontalContentAlignment="Stretch"
+				  Grid.IsSharedSizeScope="True">
+			<ListView.InputBindings>
+				<KeyBinding Key="Delete"
+							Command="{Binding DeleteRecordCommand}"
+							CommandParameter="{Binding SelectedRecord}" />
+			</ListView.InputBindings>
+			<ListView.ItemTemplate>
+				<DataTemplate>
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto"
+											  SharedSizeGroup="TimestampSize" />
+							<ColumnDefinition Width="Auto"
+											  SharedSizeGroup="TagSize" />
+							<ColumnDefinition Width="*" />
+							<ColumnDefinition Width="Auto"
+											  SharedSizeGroup="ValueSize" />
+							<ColumnDefinition Width="Auto"
+											  SharedSizeGroup="EditSize" />
+							<ColumnDefinition Width="Auto"
+											  SharedSizeGroup="DeleteSize" />
+						</Grid.ColumnDefinitions>
+						<Label Content="{Binding Timestamp.Value}"
+							   Grid.Column="0" />
+						<Label Content="{Binding Tag.Value.Key.Value}"
+							   Grid.Column="1" />
+						<Label Content="{Binding Description.Value}"
+							   Grid.Column="2" />
+						<Label Content="{Binding Value.Value}"
+							   Grid.Column="3" />
+						<Button Grid.Column="4"
+								Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Path=DataContext.EditRecordCommand}"
+								CommandParameter="{Binding}">
+							<Path Data="{StaticResource EditIcon}"
+								  Fill="Black"
+								  Stretch="Uniform" />
+						</Button>
+						<Button Grid.Column="5"
+								Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Path=DataContext.DeleteRecordCommand}"
+								CommandParameter="{Binding}">
+							<Path Data="{StaticResource ClearIcon}"
+								  Fill="Black"
+								  Stretch="Uniform" />
+						</Button>
+					</Grid>
+				</DataTemplate>
+			</ListView.ItemTemplate>
+		</ListView>
+	</Grid>
+</UserControl>

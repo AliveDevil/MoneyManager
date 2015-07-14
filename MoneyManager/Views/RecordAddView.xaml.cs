@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MoneyManager
+namespace MoneyManager.Views
 {
 	/// <summary>
-	/// Interaktionslogik für AboutWindow.xaml
+	/// Interaction logic for RecordAddView.xaml
 	/// </summary>
-	public partial class AboutWindow : Window
+	public partial class RecordAddView : UserControl
 	{
-		public AboutWindow()
+		public RecordAddView()
 		{
 			InitializeComponent();
 		}
