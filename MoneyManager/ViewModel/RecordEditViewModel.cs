@@ -11,15 +11,9 @@ namespace MoneyManager.ViewModel
 {
 	public class RecordEditViewModel : StoreViewModelBase
 	{
-		private Record record;
-
-		public ReactiveProperty<DateTime> Timestamp { get; set; }
-		public ReactiveProperty<string> Description { get; set; }
-		public ReactiveProperty<float> Value { get; set; }
-		public ReactiveProperty<TagInfoViewModel> Tag { get; set; }
-		public IReactiveDerivedList<TagInfoViewModel> Tags { get; set; }
-
 		private RelayCommand applyCommand;
+		private RelayCommand cancelCommand;
+		private Record record;
 
 		public RelayCommand ApplyCommand
 		{
@@ -32,8 +26,6 @@ namespace MoneyManager.ViewModel
 				}));
 			}
 		}
-
-		private RelayCommand cancelCommand;
 
 		public RelayCommand CancelCommand
 		{
@@ -49,7 +41,15 @@ namespace MoneyManager.ViewModel
 			}
 		}
 
+		public ReactiveProperty<string> Description { get; set; }
 
+		public ReactiveProperty<TagInfoViewModel> Tag { get; set; }
+
+		public IReactiveDerivedList<TagInfoViewModel> Tags { get; set; }
+
+		public ReactiveProperty<DateTime> Timestamp { get; set; }
+
+		public ReactiveProperty<float> Value { get; set; }
 
 		public RecordEditViewModel(Record record, StoreViewModel viewModel) : base(viewModel)
 		{
@@ -58,6 +58,7 @@ namespace MoneyManager.ViewModel
 			Description = this.record.ToReactivePropertyAsSynchronized(r => r.Description);
 			Value = this.record.ToReactivePropertyAsSynchronized(r => r.Value);
 			Tags = Store.TagSet.CreateDerivedCollection(t => new TagInfoViewModel(t, StoreView));
+			if (record.Tag == null) record.Tag = (Tag)Tags.Single(t => t.Default.Value);
 			Tag = this.record.ToReactivePropertyAsSynchronized(t => t.Tag, t => Tags.Single(tag => (Tag)tag == t), t => (Tag)t);
 		}
 	}

@@ -22,9 +22,11 @@ using Reactive.Bindings.Extensions;
 
 namespace MoneyManager.ViewModel
 {
-	public class RecordInfoViewModel : ViewModelBase
+	public class RecordInfoViewModel : StoreViewModelBase
 	{
 		private Record record;
+
+		public ReactiveProperty<TagInfoViewModel> Tag { get; set; }
 
 		public ReactiveProperty<string> Description { get; }
 
@@ -32,11 +34,12 @@ namespace MoneyManager.ViewModel
 
 		public ReactiveProperty<float> Value { get; }
 
-		public RecordInfoViewModel(Record record)
+		public RecordInfoViewModel(Record record, StoreViewModel viewModel) : base(viewModel)
 		{
 			if (InDesignMode) return;
 			this.record = record;
 			Description = this.record.ToReactivePropertyAsSynchronized(r => r.Description);
+			Tag = this.record.ToReactivePropertyAsSynchronized(r => r.Tag, r => new TagInfoViewModel(r, StoreView), t => (Tag)t);
 			Timestamp = this.record.ToReactivePropertyAsSynchronized(r => r.Timestamp);
 			Value = this.record.ToReactivePropertyAsSynchronized(r => r.Value);
 		}

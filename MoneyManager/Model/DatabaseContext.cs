@@ -128,6 +128,7 @@ namespace MoneyManager.Model
 			}
 			set
 			{
+				if (account == value) return;
 				account = value;
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Account)));
 			}
@@ -141,6 +142,7 @@ namespace MoneyManager.Model
 			}
 			set
 			{
+				if (description == value) return;
 				description = value;
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Description)));
 			}
@@ -154,6 +156,7 @@ namespace MoneyManager.Model
 			}
 			set
 			{
+				if (id == value) return;
 				id = value;
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Id)));
 			}
@@ -167,6 +170,7 @@ namespace MoneyManager.Model
 			}
 			set
 			{
+				if (tag == value) return;
 				tag = value;
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Tag)));
 			}
@@ -180,6 +184,7 @@ namespace MoneyManager.Model
 			}
 			set
 			{
+				if (timestamp == value) return;
 				timestamp = value;
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Timestamp)));
 			}
@@ -193,6 +198,7 @@ namespace MoneyManager.Model
 			}
 			set
 			{
+				if (this.value == value) return;
 				this.value = value;
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Value)));
 			}
@@ -215,6 +221,7 @@ namespace MoneyManager.Model
 			}
 			set
 			{
+				if (@default == value) return;
 				@default = value;
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Default)));
 			}
@@ -228,6 +235,7 @@ namespace MoneyManager.Model
 			}
 			set
 			{
+				if (id == value) return;
 				id = value;
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Id)));
 			}
@@ -241,6 +249,7 @@ namespace MoneyManager.Model
 			}
 			set
 			{
+				if (key == value) return;
 				key = value;
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Key)));
 			}

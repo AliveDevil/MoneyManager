@@ -28,32 +28,11 @@ namespace MoneyManager.ViewModel
 	public class AccountDetailViewModel : StoreViewModelBase
 	{
 		private Account account;
-		private RelayCommand applyRecordCommand;
-		private RelayCommand deleteRecordCommand;
-		private RelayCommand discardRecordCommand;
-		private RelayCommand editCommand;
-		private RecordInfoViewModel selectedRecord;
-
-		public RelayCommand ApplyRecordCommand
-		{
-			get
-			{
-				return applyRecordCommand ?? (applyRecordCommand = new RelayCommand(() =>
-				{
-					Record record = (Record)selectedRecord;
-					DbEntityEntry<Record> recordEntry = Store.Entry(record);
-					if (recordEntry.State == EntityState.Detached)
-					{
-						recordEntry.Entity.Account = account;
-						Store.RecordSet.Local.Add(record);
-					}
-					Store.SaveChanges();
-					AssignNewRecord();
-				}));
-			}
-		}
-
 		private RelayCommand addRecordCommand;
+		private RelayCommand<RecordInfoViewModel> deleteRecordCommand;
+		private RelayCommand editAccountCommand;
+		private RelayCommand<RecordInfoViewModel> editRecordCommand;
+		private RecordInfoViewModel selectedRecord;
 
 		public RelayCommand AddRecordCommand
 		{
@@ -66,54 +45,30 @@ namespace MoneyManager.ViewModel
 			}
 		}
 
-
-		public RelayCommand DeleteRecordCommand
+		public RelayCommand<RecordInfoViewModel> DeleteRecordCommand
 		{
 			get
 			{
-				return deleteRecordCommand ?? (deleteRecordCommand = new RelayCommand(() =>
+				return deleteRecordCommand ?? (deleteRecordCommand = new RelayCommand<RecordInfoViewModel>(r =>
 				{
-					Record record = (Record)selectedRecord;
+					Record record = (Record)r;
 					DbEntityEntry<Record> recordEntry = Store.Entry(record);
-					if (recordEntry.State != EntityState.Detached)
-					{
-						Store.RecordSet.Local.Remove(record);
-					}
+					if (recordEntry.State != EntityState.Detached) Store.RecordSet.Local.Remove(record);
 					Store.SaveChanges();
-					AssignNewRecord();
 				}));
 			}
 		}
 
-		public RelayCommand DiscardRecordCommand
+		public RelayCommand EditAccountCommand
 		{
 			get
 			{
-				return discardRecordCommand ?? (discardRecordCommand = new RelayCommand(() =>
-				{
-					DbEntityEntry<Record> recordEntry = Store.Entry((Record)selectedRecord);
-					if (recordEntry.State == EntityState.Modified)
-					{
-						recordEntry.Reload();
-					}
-					Store.SaveChanges();
-					AssignNewRecord();
-				}));
-			}
-		}
-
-		public RelayCommand EditCommand
-		{
-			get
-			{
-				return editCommand ?? (editCommand = new RelayCommand(() =>
+				return editAccountCommand ?? (editAccountCommand = new RelayCommand(() =>
 				{
 					ViewState.Push(new AccountEditViewModel(account, StoreView));
 				}));
 			}
 		}
-
-		private RelayCommand<RecordInfoViewModel> editRecordCommand;
 
 		public RelayCommand<RecordInfoViewModel> EditRecordCommand
 		{
@@ -149,14 +104,7 @@ namespace MoneyManager.ViewModel
 			if (InDesignMode) return;
 			this.account = account;
 			Name = this.account.ToReactivePropertyAsSynchronized(a => a.Name);
-			Records = this.account.Records.CreateDerivedCollection(r => new RecordInfoViewModel(r), null, (l, r) => DateTime.Compare(l.Timestamp.Value, r.Timestamp.Value));
-			AssignNewRecord();
-		}
-
-		private void AssignNewRecord()
-		{
-			SelectedRecord = new RecordInfoViewModel(Store.RecordSet.Create());
-			SelectedRecord.Timestamp.Value = DateTime.Today;
+			Records = this.account.Records.CreateDerivedCollection(r => new RecordInfoViewModel(r, StoreView), null, (l, r) => DateTime.Compare(l.Timestamp.Value, r.Timestamp.Value));
 		}
 	}
 }

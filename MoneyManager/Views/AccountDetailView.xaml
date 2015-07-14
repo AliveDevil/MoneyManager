@@ -28,7 +28,7 @@
 			   HorizontalContentAlignment="Center"
 			   VerticalContentAlignment="Center" />
 		<Button Grid.Column="1"
-				Command="{Binding EditCommand}"
+				Command="{Binding EditAccountCommand}"
 				CommandParameter="{Binding}">
 			<Path Data="{StaticResource EditIcon}"
 				  Fill="Black"
@@ -49,7 +49,8 @@
 				  Grid.IsSharedSizeScope="True">
 			<ListView.InputBindings>
 				<KeyBinding Key="Delete"
-							Command="{Binding DeleteRecordCommand}" />
+							Command="{Binding DeleteRecordCommand}"
+							CommandParameter="{Binding SelectedRecord}" />
 			</ListView.InputBindings>
 			<ListView.ItemTemplate>
 				<DataTemplate>
@@ -69,7 +70,7 @@
 						</Grid.ColumnDefinitions>
 						<Label Content="{Binding Timestamp.Value}"
 							   Grid.Column="0" />
-						<Label Content="{Binding Tag.Value}"
+						<Label Content="{Binding Tag.Value.Key.Value}"
 							   Grid.Column="1" />
 						<Label Content="{Binding Description.Value}"
 							   Grid.Column="2" />
@@ -82,7 +83,9 @@
 								  Fill="Black"
 								  Stretch="Uniform" />
 						</Button>
-						<Button Grid.Column="5">
+						<Button Grid.Column="5"
+								Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Path=DataContext.DeleteRecordCommand}"
+								CommandParameter="{Binding}">
 							<Path Data="{StaticResource ClearIcon}"
 								  Fill="Black"
 								  Stretch="Uniform" />

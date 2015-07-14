@@ -182,6 +182,9 @@
     <Compile Include="Views\RecordAddView.xaml.cs">
       <DependentUpon>RecordAddView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\RecordEditView.xaml.cs">
+      <DependentUpon>RecordEditView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\StoreBaseView.xaml.cs">
       <DependentUpon>StoreBaseView.xaml</DependentUpon>
     </Compile>
@@ -229,6 +232,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\RecordAddView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RecordEditView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

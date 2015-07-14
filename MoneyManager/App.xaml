@@ -78,5 +78,9 @@
 					  DataType="{x:Type vm:RecordAddViewModel}">
 			<v:RecordAddView />
 		</DataTemplate>
+		<DataTemplate x:Name="recordEditViewModel"
+					  DataType="{x:Type vm:RecordEditViewModel}">
+			<v:RecordEditView />
+		</DataTemplate>
 	</Application.Resources>
 </Application>
