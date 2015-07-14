@@ -98,17 +98,10 @@ namespace MoneyManager
 
 		private async Task CheckForUpdates()
 		{
-			try
+			if (await Updater.SearchForUpdatesAsync())
 			{
-				if (await Updater.SearchForUpdatesAsync())
-				{
-					updatesAvailable = true;
-					ViewState.Push<UpdaterViewModel>();
-				}
-			}
-			catch (Exception e)
-			{
-				;
+				updatesAvailable = true;
+				ViewState.Push<UpdaterViewModel>();
 			}
 		}
 	}
