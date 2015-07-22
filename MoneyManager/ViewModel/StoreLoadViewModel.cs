@@ -16,7 +16,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Data.SqlTypes;
 using System.Diagnostics;
+using System.IO;
+using System.IO.Compression;
+using System.Linq;
+using System.Xml.Serialization;
 using Microsoft.Win32;
 using MoneyManager.Model;
 
@@ -24,6 +29,19 @@ namespace MoneyManager.ViewModel
 {
 	public class StoreLoadViewModel : ViewModelBase
 	{
+		public class MoneyData
+		{
+			public Decimal StartAmount { get; set; }
+			public MoneyRecord[] Records { get; set; }
+		}
+		public class MoneyRecord
+		{
+			public Guid Id { get; set; }
+			public DateTime Date { get; set; }
+			public string Description { get; set; }
+			public Decimal Amount { get; set; }
+		}
+
 		private RelayCommand aboutCommand;
 		private RelayCommand backCommand;
 		private RelayCommand donateCommand;
@@ -72,7 +90,37 @@ namespace MoneyManager.ViewModel
 				return loadStoreCommand ?? (loadStoreCommand = new RelayCommand(() =>
 				{
 					SettingsDatabaseEntry databaseEntry = App.AppSettings.NewEntry(name, path);
-					DatabaseContext context = new DatabaseContext(databaseEntry.Path, false);
+					DatabaseContext context;
+					if (System.IO.Path.GetExtension(databaseEntry.Path) == ".mmgr")
+					{
+						MoneyData data;
+						using (FileStream fileStream = new FileStream(databaseEntry.Path, FileMode.Open))
+						using (GZipStream gzipStream = new GZipStream(fileStream, CompressionMode.Decompress))
+						{
+							XmlSerializer serializer = new XmlSerializer(typeof(MoneyData));
+							data = (MoneyData)serializer.Deserialize(gzipStream);
+						}
+						databaseEntry.Path = System.IO.Path.ChangeExtension(databaseEntry.Path, ".store");
+						context = new DatabaseContext(databaseEntry.Path, true);
+						foreach (var item in data.Records)
+						{
+							Record record = context.RecordSet.Create();
+							record.Account = context.AccountSet.First();
+							record.Timestamp = item.Date;
+							if (record.Timestamp < SqlDateTime.MinValue.Value)
+							{
+								record.Timestamp = SqlDateTime.MinValue.Value.Date;
+							}
+							record.Tag = context.TagSet.First();
+							record.Description = item.Description;
+							record.Value = (float)item.Amount;
+							context.RecordSet.Add(record);
+						}
+					}
+					else
+					{
+						context = new DatabaseContext(databaseEntry.Path, false);
+					}
 					StoreViewModel store = App.ViewState.Set<StoreViewModel>();
 					store.Store = context;
 				}));
@@ -119,7 +167,7 @@ namespace MoneyManager.ViewModel
 						CheckPathExists = true,
 						DereferenceLinks = true,
 						FileName = "New Store.store",
-						Filter = "MoneyManager Store|*.store|MoneyManager File|*.sdf",
+						Filter = "MoneyManager Store|*.mmstore;*.store;*.sdf",
 						InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
 						RestoreDirectory = true,
 						Title = "Select Store location"
