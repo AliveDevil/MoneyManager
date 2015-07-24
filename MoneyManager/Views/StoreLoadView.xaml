@@ -45,7 +45,7 @@
 				</TextBox.InputBindings>
 			</TextBox>
 
-			<Button Grid.Row="5" Grid.ColumnSpan="2" Command="{Binding LoadStoreCommand}" Content="Load" />
+			<Button Grid.Row="5" Grid.ColumnSpan="2" Command="{Binding LoadStoreCommand}" Content="{StaticResource DoneIcon}" />
 		</Grid>
 
 		<Label Grid.Row="2" Grid.Column="0" VerticalContentAlignment="Bottom" HorizontalAlignment="Left">

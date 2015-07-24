@@ -46,7 +46,7 @@
 				</TextBox.InputBindings>
 			</TextBox>
 			
-			<Button Grid.Row="5" Grid.ColumnSpan="2" Command="{Binding CreateStoreCommand}" Content="Create" />
+			<Button Grid.Row="5" Grid.ColumnSpan="2" Command="{Binding CreateStoreCommand}" Content="{StaticResource DoneIcon}" />
 		</Grid>
 
 		<Label Grid.Row="2" Grid.Column="0" VerticalContentAlignment="Bottom" HorizontalAlignment="Left">

@@ -22,23 +22,22 @@
 			<ColumnDefinition Width="Auto" />
 			<ColumnDefinition Width="Auto" />
 		</Grid.ColumnDefinitions>
-		<Label Content="{Binding Name.Value}"
-			   FontSize="18"
-			   FontWeight="Light"
-			   HorizontalContentAlignment="Center"
-			   VerticalContentAlignment="Center" />
+        <Label Content="{Binding Name.Value}"
+               FontSize="18"
+               FontWeight="Light"
+               HorizontalContentAlignment="Center"
+               VerticalContentAlignment="Center">
+            <Label.InputBindings>
+				<MouseBinding MouseAction="LeftDoubleClick" Command="{Binding EditAccountCommand}" />
+			</Label.InputBindings>
+		</Label>
 		<Button Grid.Column="1"
-				Command="{Binding EditAccountCommand}"
-				CommandParameter="{Binding}">
-			<Path Data="{StaticResource EditIcon}"
-				  Fill="Black"
-				  Stretch="Uniform" />
+				Content="{StaticResource EditIcon}"
+				Command="{Binding EditAccountCommand}">
 		</Button>
 		<Button Grid.Column="2"
+				Content="{StaticResource AddIcon}"
 				Command="{Binding AddRecordCommand}">
-			<Path Data="{StaticResource AddIcon}"
-				  Fill="Black"
-				  Stretch="Uniform" />
 		</Button>
 		<ListView Grid.ColumnSpan="6"
 				  Grid.Row="1"
@@ -77,18 +76,14 @@
 						<Label Content="{Binding Value.Value}"
 							   Grid.Column="3" />
 						<Button Grid.Column="4"
+                                Content="{StaticResource EditIcon}"
 								Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Path=DataContext.EditRecordCommand}"
 								CommandParameter="{Binding}">
-							<Path Data="{StaticResource EditIcon}"
-								  Fill="Black"
-								  Stretch="Uniform" />
 						</Button>
 						<Button Grid.Column="5"
+                                Content="{StaticResource ClearIcon}"
 								Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Path=DataContext.DeleteRecordCommand}"
 								CommandParameter="{Binding}">
-							<Path Data="{StaticResource ClearIcon}"
-								  Fill="Black"
-								  Stretch="Uniform" />
 						</Button>
 					</Grid>
 				</DataTemplate>

@@ -52,7 +52,7 @@
 			<Button Grid.Row="5"
 					Grid.ColumnSpan="2"
 					Command="{Binding ApplyCommand}"
-					Content="Apply" />
+					Content="{StaticResource DoneIcon}" />
 		</Grid>
 
 		<Label Grid.Row="2"

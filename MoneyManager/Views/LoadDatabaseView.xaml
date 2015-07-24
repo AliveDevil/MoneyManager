@@ -1,85 +1,136 @@
 ﻿<UserControl x:Class="MoneyManager.Views.LoadDatabaseView"
-			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-			 xmlns:vm="clr-namespace:MoneyManager.ViewModel"
-			 xmlns:local="clr-namespace:MoneyManager.Views"
-			 mc:Ignorable="d"
-			 d:DataContext="{d:DesignInstance Type=vm:LoadDatabaseViewModel}"
-			 d:DesignHeight="300"
-			 d:DesignWidth="300">
-	<Grid>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="*" />
-			<ColumnDefinition Width="3*" />
-			<ColumnDefinition Width="*" />
-		</Grid.ColumnDefinitions>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="*" />
-			<RowDefinition Height="10*" />
-			<RowDefinition Height="*" />
-		</Grid.RowDefinitions>
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vm="clr-namespace:MoneyManager.ViewModel"
+             xmlns:local="clr-namespace:MoneyManager.Views"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance Type=vm:LoadDatabaseViewModel}"
+             d:DesignHeight="300"
+             d:DesignWidth="300">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="10*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-		<Grid Grid.Row="1"
-			  Grid.Column="1">
-			<Grid.RowDefinitions>
-				<RowDefinition Height="Auto" />
-				<RowDefinition Height="*" />
-				<RowDefinition Height="Auto" />
-				<RowDefinition Height="Auto" />
-				<RowDefinition Height="Auto" />
-			</Grid.RowDefinitions>
+        <Grid Grid.Row="1"
+              Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-			<Label Grid.Row="0"
-				   HorizontalContentAlignment="Center"
-				   Content="Available Stores"
-				   FontSize="18" />
+            <Label Grid.Row="0"
+                   Grid.ColumnSpan="6"
+                   HorizontalContentAlignment="Center"
+                   Content="Available Stores"
+                   FontSize="18" />
 
-			<ListView Grid.Row="1"
-					  SelectedItem="{Binding SelectedStore}"
-					  IsSynchronizedWithCurrentItem="True"
-					  ItemsSource="{Binding Entries}"
-					  DisplayMemberPath="Name">
-				<ListView.ItemContainerStyle>
-					<Style TargetType="ListViewItem">
-						<Setter Property="local:AddToInputBinding.Binding">
-							<Setter.Value>
-								<MouseBinding Gesture="LeftDoubleClick"
-											  Command="{Binding DataContext.OpenStoreCommand, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
-											  CommandParameter="{Binding}" />
-							</Setter.Value>
-						</Setter>
-					</Style>
-				</ListView.ItemContainerStyle>
-			</ListView>
+            <ListView Grid.Row="1"
+                      Grid.ColumnSpan="6"
+                      SelectedItem="{Binding SelectedStore}"
+                      IsSynchronizedWithCurrentItem="True"
+                      ItemsSource="{Binding Entries}"
+                      Grid.IsSharedSizeScope="True"
+                      HorizontalContentAlignment="Stretch">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto"
+                                                  SharedSizeGroup="ButtonWidth" />
+                                <ColumnDefinition Width="Auto"
+                                                  SharedSizeGroup="ButtonWidth" />
+                            </Grid.ColumnDefinitions>
+                            <Label Content="{Binding Name}"
+                                   Grid.Column="0" />
+                            <Button Grid.Column="1"
+                                    Content="{StaticResource EditIcon}">
+                            </Button>
+                            <Button Grid.Column="2"
+                                    Content="{StaticResource DeleteIcon}">
+                            </Button>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="local:AddToInputBinding.Binding">
+                            <Setter.Value>
+                                <MouseBinding Gesture="LeftDoubleClick"
+                                              Command="{Binding DataContext.OpenStoreCommand, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
+                                              CommandParameter="{Binding}" />
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
 
-			<Button Grid.Row="2"
-					Content="Open Store"
-					Command="{Binding OpenStoreCommand}"
-					CommandParameter="{Binding SelectedStore}" />
-			<Button Grid.Row="3"
-					Content="Load Store"
-					Command="{Binding OpenExistingStoreCommand}" />
-			<Button Grid.Row="4"
-					Content="Add Store"
-					Command="{Binding CreateNewStoreCommand}" />
-		</Grid>
+            <Button Grid.Row="2"
+                    Grid.Column="0"
+                    Content="{StaticResource AddIcon}"
+                    Command="{Binding CreateNewStoreCommand}">
+            </Button>
+            <Button Grid.Row="2"
+                    Grid.Column="1"
+                    Content="{StaticResource OpenIcon}"
+                    Command="{Binding OpenExistingStoreCommand}">
+            </Button>
 
-		<Label Grid.Row="2"
-			   Grid.Column="2"
-			   VerticalContentAlignment="Bottom"
-			   HorizontalAlignment="Right">
-			<Hyperlink Foreground="DarkGray"
-					   Command="{Binding AboutCommand}">About</Hyperlink>
-		</Label>
+            <Button Grid.Row="2"
+                    Grid.Column="3"
+                    Content="{StaticResource EditIcon}"
+                    Command="{Binding EditStoreCommand}"
+                    CommandParameter="{Binding SelectedStore}">
+            </Button>
 
-		<Label Grid.Row="2"
-			   Grid.Column="1"
-			   VerticalContentAlignment="Bottom"
-			   HorizontalAlignment="Center">
-			<Hyperlink Foreground="DarkGreen"
-					   Command="{Binding DonateCommand}">Support me!</Hyperlink>
-		</Label>
-	</Grid>
+            <Button Grid.Row="2"
+                    Grid.Column="4"
+                    Content="{StaticResource DeleteIcon}"
+                    Command="{Binding DeleteStoreCommand}"
+                    CommandParameter="{Binding SelectedStore}">
+            </Button>
+
+            <Button Grid.Row="2"
+                    Grid.Column="5"
+                    Content="{StaticResource SubmitIcon}"
+                    Command="{Binding OpenStoreCommand}"
+                    CommandParameter="{Binding SelectedStore}">
+            </Button>
+        </Grid>
+
+        <Label Grid.Row="2"
+               Grid.Column="2"
+               VerticalContentAlignment="Bottom"
+               HorizontalAlignment="Right">
+            <Hyperlink Foreground="DarkGray"
+                       Command="{Binding AboutCommand}">About</Hyperlink>
+        </Label>
+
+        <Label Grid.Row="2"
+               Grid.Column="1"
+               VerticalContentAlignment="Bottom"
+               HorizontalAlignment="Center">
+            <Hyperlink Foreground="DarkGreen"
+                       Command="{Binding DonateCommand}">Support me!</Hyperlink>
+        </Label>
+    </Grid>
 </UserControl>

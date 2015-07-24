@@ -51,7 +51,7 @@
 			<Button Grid.Row="5"
 					Grid.ColumnSpan="2"
 					Command="{Binding ApplyCommand}"
-					Content="Create" />
+					Content="{StaticResource DoneIcon}" />
 		</Grid>
 
 		<Label Grid.Row="2"

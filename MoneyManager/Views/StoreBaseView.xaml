@@ -1,73 +1,80 @@
 ﻿<UserControl x:Class="MoneyManager.Views.StoreBaseView"
-			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			 xmlns:vm="clr-namespace:MoneyManager.ViewModel"
-			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-			 xmlns:local="clr-namespace:MoneyManager.Views"
-			 mc:Ignorable="d"
-			 d:DataContext="{d:DesignInstance Type=vm:StoreViewModel}"
-			 d:DesignHeight="300"
-			 d:DesignWidth="300">
-	<Grid>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="Auto" />
-			<ColumnDefinition Width="*" />
-		</Grid.ColumnDefinitions>
-		<Grid Grid.Column="0">
-			<Grid.RowDefinitions>
-				<RowDefinition Height="Auto" />
-				<RowDefinition Height="Auto" />
-				<RowDefinition Height="Auto" />
-				<RowDefinition Height="Auto" />
-				<RowDefinition Height="Auto" />
-				<RowDefinition Height="Auto" />
-			</Grid.RowDefinitions>
-			<RadioButton Content="Overview"
-						 Grid.Row="0"
-						 GroupName="Views"
-						 Command="{Binding SelectViewMode}"
-						 CommandParameter="{x:Static vm:StoreMode.Overview}" />
-			<RadioButton Content="Budgets"
-						 Grid.Row="1"
-						 GroupName="Views"
-						 Command="{Binding SelectViewMode}"
-						 CommandParameter="{x:Static vm:StoreMode.Budget}" />
-			<RadioButton Content="Reports"
-						 Grid.Row="2"
-						 GroupName="Views"
-						 Command="{Binding SelectViewMode}"
-						 CommandParameter="{x:Static vm:StoreMode.Report}" />
-			<RadioButton Content="Tags"
-						 Grid.Row="3"
-						 GroupName="Views"
-						 Command="{Binding SelectViewMode}"
-						 CommandParameter="{x:Static vm:StoreMode.Tags}" />
-			<Expander Header="Accounts"
-					  Grid.Row="4"
-					  IsExpanded="True">
-				<ListView ItemsSource="{Binding Accounts}">
-					<ListView.ItemContainerStyle>
-						<Style TargetType="ListViewItem">
-							<Setter Property="Template">
-								<Setter.Value>
-									<ControlTemplate>
-										<RadioButton Content="{Binding Name.Value}"
-													 Command="{Binding DataContext.SelectAccountCommand, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
-													 CommandParameter="{Binding}"
-													 GroupName="Views" />
-									</ControlTemplate>
-								</Setter.Value>
-							</Setter>
-						</Style>
-					</ListView.ItemContainerStyle>
-				</ListView>
-			</Expander>
-			<Button Content="Add Account"
-					Grid.Row="5"
-					Command="{Binding AddAccountCommand}" />
-		</Grid>
-		<ContentControl Grid.Column="1"
-						Content="{Binding ViewState.View}" />
-	</Grid>
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:MoneyManager.ViewModel"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:MoneyManager.Views"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance Type=vm:StoreViewModel}"
+             d:DesignHeight="300"
+             d:DesignWidth="300">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <RadioButton Content="Overview"
+                         Grid.Row="0"
+                         GroupName="Views"
+                         Command="{Binding SelectViewMode}"
+                         CommandParameter="{x:Static vm:StoreMode.Overview}" />
+            <RadioButton Content="Budgets"
+                         Grid.Row="1"
+                         GroupName="Views"
+                         Command="{Binding SelectViewMode}"
+                         CommandParameter="{x:Static vm:StoreMode.Budget}" />
+            <RadioButton Content="Reports"
+                         Grid.Row="2"
+                         GroupName="Views"
+                         Command="{Binding SelectViewMode}"
+                         CommandParameter="{x:Static vm:StoreMode.Report}" />
+            <RadioButton Content="Tags"
+                         Grid.Row="3"
+                         GroupName="Views"
+                         Command="{Binding SelectViewMode}"
+                         CommandParameter="{x:Static vm:StoreMode.Tags}" />
+            <Expander Header="Accounts"
+                      Grid.Row="4"
+                      IsExpanded="True">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <ListView Grid.Row="0"
+                              ItemsSource="{Binding Accounts}">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate>
+                                            <RadioButton Content="{Binding Name.Value}"
+                                                         Command="{Binding DataContext.SelectAccountCommand, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
+                                                         CommandParameter="{Binding}"
+                                                         GroupName="Views" />
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                    </ListView>
+                    <Button Grid.Row="1"
+                            Content="{StaticResource AddIcon}"
+                            Command="{Binding AddAccountCommand}" />
+                </Grid>
+            </Expander>
+        </Grid>
+        <ContentControl Grid.Column="1"
+                        Content="{Binding ViewState.View}" />
+    </Grid>
 </UserControl>

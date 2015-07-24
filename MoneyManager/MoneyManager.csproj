@@ -65,23 +65,24 @@
       <HintPath>..\packages\EntityFramework.SqlServerCompact.6.1.3\lib\net45\EntityFramework.SqlServerCompact.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="nUpdate">
-      <HintPath>..\..\..\nUpdate\Provide TAP\nUpdate.dll</HintPath>
+    <Reference Include="nUpdate, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\nUpdate.ProvideTAP.3.0.0-beta3-build2\lib\nUpdate.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="ReactiveProperty, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ReactiveProperty.2.2.1\lib\net45\ReactiveProperty.dll</HintPath>
+      <HintPath>..\packages\ReactiveProperty.2.2.2\lib\net45\ReactiveProperty.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ReactiveProperty.DataAnnotations, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ReactiveProperty.2.2.1\lib\net45\ReactiveProperty.DataAnnotations.dll</HintPath>
+      <HintPath>..\packages\ReactiveProperty.2.2.2\lib\net45\ReactiveProperty.DataAnnotations.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ReactiveProperty.NET45, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ReactiveProperty.2.2.1\lib\net45\ReactiveProperty.NET45.dll</HintPath>
+      <HintPath>..\packages\ReactiveProperty.2.2.2\lib\net45\ReactiveProperty.NET45.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ReactiveUI, Version=6.5.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -210,6 +211,9 @@
     <Compile Include="Views\StoreCreationView.xaml.cs">
       <DependentUpon>StoreCreationView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\StoreEditView.xaml.cs">
+      <DependentUpon>StoreEditView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\StoreLoadView.xaml.cs">
       <DependentUpon>StoreLoadView.xaml</DependentUpon>
     </Compile>
@@ -227,6 +231,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="nUpdate.dll.config" />
     <None Include="packages.config" />
     <AppDesigner Include="Properties\" />
   </ItemGroup>
@@ -246,6 +251,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Icons\Icons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -282,6 +291,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\StoreEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\StoreLoadView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -317,6 +330,20 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Icons\ic_add_circle_outline_black_24px.svg" />
+    <Content Include="Icons\ic_attach_file_black_24px.svg" />
+    <Content Include="Icons\ic_cancel_black_24px.svg" />
+    <Content Include="Icons\ic_create_black_24px.svg" />
+    <Content Include="Icons\ic_delete_black_24px.svg" />
+    <Content Include="Icons\ic_explore_black_24px.svg" />
+    <Content Include="Icons\ic_flag_black_24px.svg" />
+    <Content Include="Icons\ic_get_app_black_24px.svg" />
+    <Content Include="Icons\ic_inbox_black_24px.svg" />
+    <Content Include="Icons\ic_open_in_browser_black_24px.svg" />
+    <Content Include="Icons\ic_remove_circle_outline_black_24px.svg" />
+    <Content Include="Icons\ic_send_black_24px.svg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
