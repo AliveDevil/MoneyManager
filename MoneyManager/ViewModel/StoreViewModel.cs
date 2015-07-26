@@ -127,6 +127,19 @@ namespace MoneyManager.ViewModel
 
 		public ViewStateManager ViewState { get; } = new ViewStateManager();
 
+		private RelayCommand closeAccount;
+
+		public RelayCommand CloseAccount
+		{
+			get
+			{
+				return closeAccount ?? (closeAccount = new RelayCommand(() =>
+				{
+					App.ViewState.Set<LoadDatabaseViewModel>();
+				}));
+			}
+		}
+
 		protected override void Dispose(bool disposing)
 		{
 			if (!disposedValue && disposing)

@@ -21,5 +21,5 @@ using nUpdate.Core;
 	ResourceDictionaryLocation.SourceAssembly
 )]
 [assembly: AssemblyVersion("0.1")]
-[assembly: AssemblyInformationalVersion("0.1-a2")]
-[assembly: nUpdateVersion("0.1-a2")]
+[assembly: AssemblyInformationalVersion("0.1-a1")]
+[assembly: nUpdateVersion("0.1-a1")]
