@@ -1,0 +1,60 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:MoneyManager.Controls">
+    <ResourceDictionary.MergedDictionaries>
+		<ResourceDictionary Source="/MoneyManager;component/Icons/Icons.xaml" />
+	</ResourceDictionary.MergedDictionaries>
+	
+    <Style TargetType="controls:PropertyEditor">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:PropertyEditor">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="5*" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0"
+                               Grid.Column="1"
+                               FontSize="18"
+                               FontWeight="Light"
+                               Content="{TemplateBinding Header}"
+                               ContentStringFormat="{TemplateBinding HeaderStringFormat}"
+                               ContentTemplate="{TemplateBinding HeaderTemplate}"
+                               HorizontalContentAlignment="Center"
+                               VerticalContentAlignment="Center" />
+
+                        <ItemsPresenter Grid.Column="1"
+                                        Grid.Row="1"
+                                        HorizontalAlignment="Stretch"
+                                        Grid.IsSharedSizeScope="{TemplateBinding SharedSize}" />
+
+                        <Grid Grid.Column="1"
+                              Grid.Row="3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0"
+                                    Style="{StaticResource IconButton}"
+                                    Content="{StaticResource CancelIcon}"
+                                    Command="{TemplateBinding DiscardCommand}" />
+                            <Button Grid.Column="2"
+                                    Style="{StaticResource IconButton}"
+                                    Content="{StaticResource SubmitIcon}"
+                                    Command="{TemplateBinding ApplyCommand}" />
+                        </Grid>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

@@ -146,6 +146,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\PropertyEditor.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -259,6 +260,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Themes\Generic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AboutView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -335,6 +340,7 @@
     <Content Include="Icons\ic_add_circle_outline_black_24px.svg" />
     <Content Include="Icons\ic_attach_file_black_24px.svg" />
     <Content Include="Icons\ic_cancel_black_24px.svg" />
+    <Content Include="Icons\ic_clear_black_24px.svg" />
     <Content Include="Icons\ic_create_black_24px.svg" />
     <Content Include="Icons\ic_delete_black_24px.svg" />
     <Content Include="Icons\ic_explore_black_24px.svg" />
@@ -345,6 +351,7 @@
     <Content Include="Icons\ic_remove_circle_outline_black_24px.svg" />
     <Content Include="Icons\ic_send_black_24px.svg" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

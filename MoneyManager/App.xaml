@@ -8,6 +8,7 @@
              xmlns:Converter="clr-namespace:MoneyManager.ViewModel.Converter"
              xmlns:vm="clr-namespace:MoneyManager.ViewModel"
              xmlns:v="clr-namespace:MoneyManager.Views"
+             xmlns:controls="clr-namespace:MoneyManager.Controls"
              StartupUri="MainWindow.xaml"
              ShutdownMode="OnMainWindowClose"
              mc:Ignorable="d">
@@ -49,7 +50,25 @@
             </DataTemplate>
             <DataTemplate x:Name="storeAccountEditTemplate"
                           DataType="{x:Type vm:AccountEditViewModel}">
-                <v:AccountEditView />
+                <controls:PropertyEditor Header="{Binding Name.Value, FallbackValue=Account}"
+                                         HeaderStringFormat="Update {0}"
+                                         SharedSize="True"
+										 ApplyCommand="{Binding FinishCommand}"
+										 DiscardCommand="{Binding FinishCommand}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"
+                                              SharedSizeGroup="LabelWidth" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Accountname"
+                               Grid.Column="0"
+                               VerticalContentAlignment="Center" />
+                        <TextBox Text="{Binding Name.Value, UpdateSourceTrigger=PropertyChanged}"
+                                 Grid.Column="1"
+                                 VerticalContentAlignment="Center" />
+                    </Grid>
+                </controls:PropertyEditor>
             </DataTemplate>
             <DataTemplate x:Name="tagOverviewViewTemplate"
                           DataType="{x:Type vm:TagOverviewViewModel}">
