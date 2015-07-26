@@ -30,6 +30,7 @@
                VerticalContentAlignment="Center" />
         <Button VerticalAlignment="Top"
                 HorizontalAlignment="Left"
+                Style="{StaticResource IconButton}"
                 Content="{StaticResource DoneIcon}"
                 Command="{Binding FinishCommand}" />
         <Label Content="Accountname"

@@ -63,9 +63,11 @@
                             <Label Content="{Binding Name}"
                                    Grid.Column="0" />
                             <Button Grid.Column="1"
+                                    Style="{StaticResource IconButton}"
                                     Content="{StaticResource EditIcon}">
                             </Button>
                             <Button Grid.Column="2"
+                                    Style="{StaticResource IconButton}"
                                     Content="{StaticResource DeleteIcon}">
                             </Button>
                         </Grid>
@@ -86,17 +88,20 @@
 
             <Button Grid.Row="2"
                     Grid.Column="0"
+                    Style="{StaticResource IconButton}"
                     Content="{StaticResource AddIcon}"
                     Command="{Binding CreateNewStoreCommand}">
             </Button>
             <Button Grid.Row="2"
                     Grid.Column="1"
+                    Style="{StaticResource IconButton}"
                     Content="{StaticResource OpenIcon}"
                     Command="{Binding OpenExistingStoreCommand}">
             </Button>
 
             <Button Grid.Row="2"
                     Grid.Column="3"
+                    Style="{StaticResource IconButton}"
                     Content="{StaticResource EditIcon}"
                     Command="{Binding EditStoreCommand}"
                     CommandParameter="{Binding SelectedStore}">
@@ -104,6 +109,7 @@
 
             <Button Grid.Row="2"
                     Grid.Column="4"
+                    Style="{StaticResource IconButton}"
                     Content="{StaticResource DeleteIcon}"
                     Command="{Binding DeleteStoreCommand}"
                     CommandParameter="{Binding SelectedStore}">
@@ -111,6 +117,7 @@
 
             <Button Grid.Row="2"
                     Grid.Column="5"
+                    Style="{StaticResource IconButton}"
                     Content="{StaticResource SubmitIcon}"
                     Command="{Binding OpenStoreCommand}"
                     CommandParameter="{Binding SelectedStore}">

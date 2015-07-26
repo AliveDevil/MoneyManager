@@ -51,6 +51,7 @@
                         <Label Content="{Binding Key.Value}"
                                Grid.Column="0" />
                         <Button Grid.Column="1"
+                                Style="{StaticResource IconButton}"
                                 Content="{StaticResource EditIcon}"
                                 Command="{Binding DataContext.EditTagCommand, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
                                 CommandParameter="{Binding}" />

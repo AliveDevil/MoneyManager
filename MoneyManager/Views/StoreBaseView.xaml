@@ -70,12 +70,14 @@
                         </ListView.ItemContainerStyle>
                     </ListView>
                     <Button Grid.Row="1"
+                            Style="{StaticResource IconButton}"
                             Content="{StaticResource AddIcon}"
                             Command="{Binding AddAccountCommand}" />
                 </Grid>
             </Expander>
-            <Button Content="{StaticResource ExitToAppIcon}"
-                    Grid.Row="6"
+            <Button Grid.Row="6"
+                    Style="{StaticResource IconButton}"
+                    Content="{StaticResource ExitToAppIcon}"
                     Command="{Binding CloseAccount}" />
         </Grid>
         <ContentControl Grid.Column="1"

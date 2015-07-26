@@ -27,6 +27,7 @@ namespace MoneyManager.ViewModel
 	{
 		private IReactiveDerivedList<AccountInfoViewModel> accounts;
 		private RelayCommand addAccountCommand;
+		private RelayCommand closeAccount;
 		private RelayCommand donateCommand;
 		private RelayCommand<AccountInfoViewModel> selectAccountCommand;
 		private RelayCommand<StoreMode> selectViewMode;
@@ -54,6 +55,17 @@ namespace MoneyManager.ViewModel
 				{
 					store.AccountSet.Add(store.AccountSet.Create());
 					store.SaveChanges();
+				}));
+			}
+		}
+
+		public RelayCommand CloseAccount
+		{
+			get
+			{
+				return closeAccount ?? (closeAccount = new RelayCommand(() =>
+				{
+					App.ViewState.Set<LoadDatabaseViewModel>();
 				}));
 			}
 		}
@@ -126,19 +138,6 @@ namespace MoneyManager.ViewModel
 		}
 
 		public ViewStateManager ViewState { get; } = new ViewStateManager();
-
-		private RelayCommand closeAccount;
-
-		public RelayCommand CloseAccount
-		{
-			get
-			{
-				return closeAccount ?? (closeAccount = new RelayCommand(() =>
-				{
-					App.ViewState.Set<LoadDatabaseViewModel>();
-				}));
-			}
-		}
 
 		protected override void Dispose(bool disposing)
 		{

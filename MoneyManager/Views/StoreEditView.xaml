@@ -71,17 +71,15 @@
             </TextBox>
 
             <Button Grid.Row="5"
-                    Command="{Binding LoadStoreCommand}">
-                <Path Data="{StaticResource DoneIcon}"
-                      Fill="Black"
-                      Stretch="Uniform" />
-            </Button>
+                    Style="{StaticResource IconButton}"
+                    Content="{StaticResource DoneIcon}"
+                    Command="{Binding LoadStoreCommand}" />
 
             <Button Grid.Row="5"
                     Grid.Column="4"
+                    Style="{StaticResource IconButton}"
                     Content="{StaticResource ClearIcon}"
-                    Command="{Binding LoadStoreCommand}">
-            </Button>
+                    Command="{Binding LoadStoreCommand}" />
         </Grid>
 
         <Label Grid.Row="2"
