@@ -9,6 +9,7 @@
              xmlns:vm="clr-namespace:MoneyManager.ViewModel"
              xmlns:v="clr-namespace:MoneyManager.Views"
              xmlns:controls="clr-namespace:MoneyManager.Controls"
+			 xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
              StartupUri="MainWindow.xaml"
              ShutdownMode="OnMainWindowClose"
              mc:Ignorable="d">
@@ -34,11 +35,66 @@
             </DataTemplate>
             <DataTemplate x:Name="storeCreationViewTemplate"
                           DataType="{x:Type vm:StoreCreationViewModel}">
-                <v:StoreCreationView />
+                <controls:PropertyEditor Header="{Binding Name.Value, FallbackValue=Account}"
+                                         HeaderStringFormat="Update {0}"
+                                         Grid.IsSharedSizeScope="True"
+                                         ApplyCommand="{Binding FinishCommand}"
+                                         DiscardCommand="{Binding FinishCommand}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"
+                                              SharedSizeGroup="LabelWidth" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Accountname"
+                               Grid.Column="0"
+                               VerticalContentAlignment="Center" />
+                        <TextBox Text="{Binding Name.Value, UpdateSourceTrigger=PropertyChanged}"
+                                 Grid.Column="1"
+                                 VerticalContentAlignment="Center" />
+                    </Grid>
+                </controls:PropertyEditor>
             </DataTemplate>
             <DataTemplate x:Name="storeLoadViewTemplate"
                           DataType="{x:Type vm:StoreLoadViewModel}">
-                <v:StoreLoadView />
+                <controls:PropertyEditor Header="Add existing Store"
+                                         Grid.IsSharedSizeScope="True"
+                                         ApplyCommand="{Binding LoadStoreCommand}"
+                                         DiscardCommand="{Binding BackCommand}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"
+                                              SharedSizeGroup="LabelWidth" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0"
+                               VerticalContentAlignment="Center"
+                               Content="Name" />
+                        <TextBox Grid.Column="1"
+                                 Text="{Binding Name}"
+                                 VerticalContentAlignment="Center" />
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"
+                                              SharedSizeGroup="LabelWidth" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0"
+                               VerticalContentAlignment="Center"
+                               Content="Path" />
+                        <TextBox Grid.Column="1"
+                                 Text="{Binding Path}"
+                                 VerticalContentAlignment="Center"
+                                 IsReadOnly="True"
+                                 Cursor="Arrow">
+                            <TextBox.InputBindings>
+                                <MouseBinding MouseAction="LeftClick"
+                                              Command="{Binding SelectStoreLocationCommand}" />
+                            </TextBox.InputBindings>
+                        </TextBox>
+                    </Grid>
+                </controls:PropertyEditor>
             </DataTemplate>
             <DataTemplate x:Name="storeBaseViewTemplate"
                           DataType="{x:Type vm:StoreViewModel}">
@@ -52,9 +108,9 @@
                           DataType="{x:Type vm:AccountEditViewModel}">
                 <controls:PropertyEditor Header="{Binding Name.Value, FallbackValue=Account}"
                                          HeaderStringFormat="Update {0}"
-                                         SharedSize="True"
-										 ApplyCommand="{Binding FinishCommand}"
-										 DiscardCommand="{Binding FinishCommand}">
+                                         Grid.IsSharedSizeScope="True"
+                                         ApplyCommand="{Binding FinishCommand}"
+                                         DiscardCommand="{Binding FinishCommand}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"
@@ -84,11 +140,129 @@
             </DataTemplate>
             <DataTemplate x:Name="recordAddViewTemplate"
                           DataType="{x:Type vm:RecordAddViewModel}">
-                <v:RecordAddView />
+                <controls:PropertyEditor Header="Create new Record"
+                                         Grid.IsSharedSizeScope="True"
+                                         ApplyCommand="{Binding ApplyCommand}"
+                                         DiscardCommand="{Binding CancelCommand}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"
+                                              SharedSizeGroup="LabelWidth" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0"
+                               VerticalContentAlignment="Center"
+                               Content="Date" />
+                        <DatePicker Grid.Column="1"
+                                    SelectedDate="{Binding Timestamp}" />
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"
+                                              SharedSizeGroup="LabelWidth" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0"
+                               VerticalContentAlignment="Center"
+                               Content="Tag" />
+                        <ComboBox Grid.Column="1"
+                                  ItemsSource="{Binding Tags}"
+                                  SelectedItem="{Binding Tag}"
+                                  VerticalContentAlignment="Center"
+                                  DisplayMemberPath="Key.Value"
+                                  IsSynchronizedWithCurrentItem="True" />
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"
+                                              SharedSizeGroup="LabelWidth" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0"
+                               VerticalContentAlignment="Center"
+                               Content="Description" />
+                        <TextBox Grid.Column="1"
+                                 VerticalContentAlignment="Center"
+                                 Text="{Binding Description}" />
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"
+                                              SharedSizeGroup="LabelWidth" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0"
+                               VerticalContentAlignment="Center"
+                               Content="Amount" />
+                        <toolkit:SingleUpDown Grid.Column="1"
+                                              AllowSpin="True"
+                                              AllowTextInput="True"
+                                              Value="{Binding Value}" />
+                    </Grid>
+                </controls:PropertyEditor>
             </DataTemplate>
             <DataTemplate x:Name="recordEditViewModel"
                           DataType="{x:Type vm:RecordEditViewModel}">
-                <v:RecordEditView />
+                <controls:PropertyEditor Header="Edit Record"
+                                         Grid.IsSharedSizeScope="True"
+                                         ApplyCommand="{Binding ApplyCommand}"
+                                         DiscardCommand="{Binding CancelCommand}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"
+                                              SharedSizeGroup="LabelWidth" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0"
+                               VerticalContentAlignment="Center"
+                               Content="Date" />
+                        <DatePicker Grid.Column="1"
+                                    SelectedDate="{Binding Timestamp.Value}" />
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"
+                                              SharedSizeGroup="LabelWidth" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0"
+                               VerticalContentAlignment="Center"
+                               Content="Tag" />
+                        <ComboBox Grid.Column="1"
+                                  ItemsSource="{Binding Tags}"
+                                  SelectedItem="{Binding Tag}"
+                                  VerticalContentAlignment="Center"
+                                  DisplayMemberPath="Key.Value"
+                                  IsSynchronizedWithCurrentItem="True" />
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"
+                                              SharedSizeGroup="LabelWidth" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0"
+                               VerticalContentAlignment="Center"
+                               Content="Description" />
+                        <TextBox Grid.Column="1"
+                                 VerticalContentAlignment="Center"
+                                 Text="{Binding Description.Value}" />
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"
+                                              SharedSizeGroup="LabelWidth" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0"
+                               VerticalContentAlignment="Center"
+                               Content="Amount" />
+                        <toolkit:SingleUpDown Grid.Column="1"
+                                              AllowSpin="True"
+                                              AllowTextInput="True"
+                                              Value="{Binding Value.Value}" />
+                    </Grid>
+                </controls:PropertyEditor>
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>

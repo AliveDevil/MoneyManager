@@ -8,7 +8,6 @@ namespace MoneyManager.Controls
 	{
 		public static readonly DependencyProperty ApplyCommandProperty = DependencyProperty.Register("ApplyCommand", typeof(ICommand), typeof(PropertyEditor), new PropertyMetadata(null));
 		public static readonly DependencyProperty DiscardCommandProperty = DependencyProperty.Register("DiscardCommand", typeof(ICommand), typeof(PropertyEditor), new PropertyMetadata(null));
-		public static readonly DependencyProperty SharedSizeProperty = DependencyProperty.Register("SharedSize", typeof(bool), typeof(PropertyEditor), new PropertyMetadata(true));
 
 		public ICommand ApplyCommand
 		{
@@ -20,12 +19,6 @@ namespace MoneyManager.Controls
 		{
 			get { return (ICommand)GetValue(DiscardCommandProperty); }
 			set { SetValue(DiscardCommandProperty, value); }
-		}
-
-		public bool SharedSize
-		{
-			get { return (bool)GetValue(SharedSizeProperty); }
-			set { SetValue(SharedSizeProperty, value); }
 		}
 
 		static PropertyEditor()
