@@ -21,25 +21,25 @@ using Reactive.Bindings.Extensions;
 
 namespace MoneyManager.ViewModel
 {
-	public class TagInfoViewModel : StoreViewModelBase
-	{
-		private Tag tag;
+    public class TagInfoViewModel : StoreViewModelBase
+    {
+        private Tag tag;
 
-		public ReactiveProperty<string> Key { get; set; }
+        public ReactiveProperty<string> Key { get; set; }
 
-		public ReactiveProperty<bool> Default { get; set; }
+        public ReactiveProperty<bool> Default { get; set; }
 
-		public TagInfoViewModel(Tag tag, StoreViewModel viewModel) : base(viewModel)
-		{
-			if (InDesignMode) return;
-			this.tag = tag;
-			Key = this.tag.ToReactivePropertyAsSynchronized(t => t.Key);
-			Default = this.tag.ToReactivePropertyAsSynchronized(t => t.Default);
-		}
+        public TagInfoViewModel(Tag tag, StoreViewModel viewModel) : base(viewModel)
+        {
+            if (InDesignMode) return;
+            this.tag = tag;
+            Key = this.tag?.ToReactivePropertyAsSynchronized(t => t.Key) ?? null;
+            Default = this.tag?.ToReactivePropertyAsSynchronized(t => t.Default) ?? null;
+        }
 
-		public static explicit operator Tag(TagInfoViewModel tagInfo)
-		{
-			return tagInfo.tag;
-		}
-	}
+        public static explicit operator Tag(TagInfoViewModel tagInfo)
+        {
+            return tagInfo.tag;
+        }
+    }
 }

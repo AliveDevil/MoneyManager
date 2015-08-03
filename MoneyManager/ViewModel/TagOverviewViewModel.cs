@@ -32,7 +32,7 @@ namespace MoneyManager.ViewModel
 			{
 				return addTagCommand ?? (addTagCommand = new RelayCommand(() =>
 				{
-					StoreView.ViewState.Push(new TagAddViewModel(StoreView));
+                    ViewStack.Push(new TagAddViewModel(StoreView));
 				}));
 			}
 		}
@@ -53,7 +53,7 @@ namespace MoneyManager.ViewModel
 			{
 				return editTagCommand ?? (editTagCommand = new RelayCommand<TagInfoViewModel>(tag =>
 				{
-					StoreView.ViewState.Push(new TagEditViewModel((Tag)tag, StoreView));
+                    ViewStack.Push(new TagEditViewModel((Tag)tag, StoreView));
 				}));
 			}
 		}

@@ -204,7 +204,7 @@ namespace MoneyManager.Model
 			}
 		}
 	}
-
+	
 	public class Tag : INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;

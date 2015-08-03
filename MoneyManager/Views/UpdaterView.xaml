@@ -53,8 +53,9 @@
 			</Label>
 
 			<Button Grid.Row="4"
-					Command="{Binding ApplyCommand}"
-					Content="Update" />
+                    Style="{StaticResource IconButton}"
+                    Command="{Binding ApplyCommand}"
+					Content="{StaticResource UpdateIcon}" />
 		</Grid>
 
 		<Label Grid.Row="2"

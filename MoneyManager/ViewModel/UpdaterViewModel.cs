@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using nUpdate.UpdateEventArgs;
 
 namespace MoneyManager.ViewModel
@@ -30,6 +31,7 @@ namespace MoneyManager.ViewModel
 			{
 				return applyCommand ?? (applyCommand = new RelayCommand(async () =>
 				{
+					await Task.Yield();
 					if (App.UpdatesAvailable)
 					{
 						await App.Updater.DownloadPackagesAsync(Reporter);

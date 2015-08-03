@@ -120,7 +120,7 @@ namespace MoneyManager.ViewModel
 						CreatePrompt = false,
 						DereferenceLinks = true,
 						FileName = "New Store.store",
-						Filter = "MoneyManager Store|*.store",
+						Filter = "MoneyManager Store|*.mmstore",
 						InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
 						OverwritePrompt = true,
 						RestoreDirectory = true,
