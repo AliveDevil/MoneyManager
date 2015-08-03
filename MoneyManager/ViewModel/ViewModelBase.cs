@@ -18,37 +18,40 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.ComponentModel;
 using System.Windows;
+using libUIStack;
 
 namespace MoneyManager.ViewModel
 {
-	public abstract class ViewModelBase : INotifyPropertyChanged, IDisposable
-	{
-		public event PropertyChangedEventHandler PropertyChanged;
+    public abstract class ViewModelBase : IView, INotifyPropertyChanged
+    {
+        public event PropertyChangedEventHandler PropertyChanged;
 
-		protected bool disposedValue = false;
+        protected bool disposedValue = false;
 
-		private static DependencyObject designModeObject;
+        private static DependencyObject designModeObject;
 
-		protected App App => (App)App.Current;
+        protected App App => (App)App.Current;
 
-		protected static bool InDesignMode => DesignerProperties.GetIsInDesignMode(designModeObject ?? (designModeObject = new DependencyObject()));
+        protected static bool InDesignMode => DesignerProperties.GetIsInDesignMode(designModeObject ?? (designModeObject = new DependencyObject()));
 
-		public void Dispose()
-		{
-			Dispose(true);
-		}
+        public IViewStack ViewStack { get; set; }
 
-		protected virtual void Dispose(bool disposing)
-		{
-			if (!disposedValue)
-			{
-				disposedValue = true;
-			}
-		}
+        public void Dispose()
+        {
+            Dispose(true);
+        }
 
-		protected void OnPropertyChanged(string propertyName)
-		{
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-		}
-	}
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                disposedValue = true;
+            }
+        }
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
 }

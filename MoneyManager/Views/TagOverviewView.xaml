@@ -1,47 +1,63 @@
 ﻿<UserControl x:Class="MoneyManager.Views.TagOverviewView"
-			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-			 xmlns:local="clr-namespace:MoneyManager.Views"
-			 mc:Ignorable="d"
-			 d:DesignHeight="300"
-			 d:DesignWidth="300">
-	<Grid>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="Auto" />
-			<RowDefinition Height="*" />
-		</Grid.RowDefinitions>
-		<Label Content="Tags"
-			   FontSize="18"
-			   FontWeight="Light"
-			   HorizontalContentAlignment="Center"
-			   VerticalContentAlignment="Center" />
-		<ListView Grid.Row="1"
-				  ItemsSource="{Binding Tags}"
-				  HorizontalContentAlignment="Stretch">
-			<ListView.InputBindings>
-				<KeyBinding Key="Insert"
-							Command="{Binding AddTagCommand}" />
-				<KeyBinding Key="Delete"
-							Command="{Binding DeleteTagCommand}" />
-			</ListView.InputBindings>
-			<ListView.ItemContainerStyle>
-				<Style TargetType="ListViewItem">
-					<Setter Property="local:AddToInputBinding.Binding">
-						<Setter.Value>
-							<MouseBinding MouseAction="LeftDoubleClick"
-										  Command="{Binding DataContext.EditTagCommand, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
-										  CommandParameter="{Binding}" />
-						</Setter.Value>
-					</Setter>
-				</Style>
-			</ListView.ItemContainerStyle>
-			<ListView.ItemTemplate>
-				<DataTemplate>
-					<Label Content="{Binding Key.Value}" />
-				</DataTemplate>
-			</ListView.ItemTemplate>
-		</ListView>
-	</Grid>
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:MoneyManager.Views"
+             mc:Ignorable="d"
+             d:DesignHeight="300"
+             d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Label Content="Tags"
+               FontSize="18"
+               FontWeight="Light"
+               HorizontalContentAlignment="Center"
+               VerticalContentAlignment="Center" />
+        <ListView Grid.Row="1"
+                  Grid.IsSharedSizeScope="True"
+                  ItemsSource="{Binding Tags}"
+                  HorizontalContentAlignment="Stretch">
+            <ListView.InputBindings>
+                <KeyBinding Key="Insert"
+                            Command="{Binding AddTagCommand}" />
+                <KeyBinding Key="Delete"
+                            Command="{Binding DeleteTagCommand}" />
+            </ListView.InputBindings>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="local:AddToInputBinding.Binding">
+                        <Setter.Value>
+                            <MouseBinding MouseAction="LeftDoubleClick"
+                                          Command="{Binding DataContext.EditTagCommand, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
+                                          CommandParameter="{Binding}" />
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto"
+                                              SharedSizeGroup="Button" />
+                            <ColumnDefinition Width="Auto"
+                                              SharedSizeGroup="Button" />
+                        </Grid.ColumnDefinitions>
+                        <Label Content="{Binding Key.Value}"
+                               Grid.Column="0" />
+                        <Button Grid.Column="1"
+                                Style="{StaticResource IconButton}"
+                                Content="{StaticResource EditIcon}"
+                                Command="{Binding DataContext.EditTagCommand, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
+                                CommandParameter="{Binding}" />
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
 </UserControl>

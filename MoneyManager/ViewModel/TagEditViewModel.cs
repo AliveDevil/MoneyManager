@@ -19,7 +19,7 @@ namespace MoneyManager.ViewModel
 				return applyCommand ?? (applyCommand = new RelayCommand(() =>
 				{
 					Store.SaveChanges();
-					StoreView.ViewState.Pop();
+                    ViewStack.Pop();
 				}));
 			}
 		}
@@ -33,7 +33,7 @@ namespace MoneyManager.ViewModel
 					DbEntityEntry<Tag> entry = Store.Entry(tag);
 					if (entry.State == EntityState.Modified) entry.Reload();
 					Store.SaveChanges();
-					StoreView.ViewState.Pop();
+                    ViewStack.Pop();
 				}));
 			}
 		}

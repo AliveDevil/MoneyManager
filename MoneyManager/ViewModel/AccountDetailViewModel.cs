@@ -40,7 +40,7 @@ namespace MoneyManager.ViewModel
 			{
 				return addRecordCommand ?? (addRecordCommand = new RelayCommand(() =>
 				{
-					ViewState.Push(new RecordAddViewModel(account, StoreView));
+                    ViewStack.Push(new RecordAddViewModel(account, StoreView));
 				}));
 			}
 		}
@@ -53,7 +53,7 @@ namespace MoneyManager.ViewModel
 				{
 					Record record = (Record)r;
 					DbEntityEntry<Record> recordEntry = Store.Entry(record);
-					if (recordEntry.State != EntityState.Detached) Store.RecordSet.Local.Remove(record);
+					if (recordEntry.State != EntityState.Detached) Store.RecordSet.Remove(record);
 					Store.SaveChanges();
 				}));
 			}
@@ -65,7 +65,7 @@ namespace MoneyManager.ViewModel
 			{
 				return editAccountCommand ?? (editAccountCommand = new RelayCommand(() =>
 				{
-					ViewState.Push(new AccountEditViewModel(account, StoreView));
+                    ViewStack.Push(new AccountEditViewModel(account, StoreView));
 				}));
 			}
 		}
@@ -76,7 +76,7 @@ namespace MoneyManager.ViewModel
 			{
 				return editRecordCommand ?? (editRecordCommand = new RelayCommand<RecordInfoViewModel>(record =>
 				{
-					ViewState.Push(new RecordEditViewModel((Record)record, StoreView));
+                    ViewStack.Push(new RecordEditViewModel((Record)record, StoreView));
 				}));
 			}
 		}
