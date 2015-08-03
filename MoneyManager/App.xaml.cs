@@ -89,6 +89,7 @@ namespace MoneyManager
 			Updater.CloseHostApplication = true;
 			Updater.UseCustomInstallerUserInterface = true;
 			Updater.IncludeBeta = AppSettings.CheckBetaVersions;
+            Updater.IncludeAlpha = AppSettings.CheckBetaVersions;
 
 			ViewState.Set<LoadDatabaseViewModel>();
 
