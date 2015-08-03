@@ -53,7 +53,7 @@ namespace MoneyManager.ViewModel
 				{
 					Record record = (Record)r;
 					DbEntityEntry<Record> recordEntry = Store.Entry(record);
-					if (recordEntry.State != EntityState.Detached) Store.RecordSet.Local.Remove(record);
+					if (recordEntry.State != EntityState.Detached) Store.RecordSet.Remove(record);
 					Store.SaveChanges();
 				}));
 			}

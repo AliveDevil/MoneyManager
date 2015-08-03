@@ -9,7 +9,7 @@
              xmlns:vm="clr-namespace:MoneyManager.ViewModel"
              xmlns:v="clr-namespace:MoneyManager.Views"
              xmlns:controls="clr-namespace:MoneyManager.Controls"
-			 xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
              StartupUri="MainWindow.xaml"
              ShutdownMode="OnMainWindowClose"
              mc:Ignorable="d">
@@ -132,11 +132,46 @@
             </DataTemplate>
             <DataTemplate x:Name="tagAddViewTemplate"
                           DataType="{x:Type vm:TagAddViewModel}">
-                <v:TagAddView />
+                <controls:PropertyEditor Header="Create new Tag"
+                                         Grid.IsSharedSizeScope="True"
+                                         ApplyCommand="{Binding ApplyCommand}"
+                                         DiscardCommand="{Binding CancelCommand}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"
+                                              SharedSizeGroup="LabelWidth" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0"
+                               VerticalContentAlignment="Center"
+                               Content="Name" />
+                        <TextBox Grid.Column="1"
+                                 Text="{Binding Name}"
+                                 VerticalContentAlignment="Center" />
+                    </Grid>
+                </controls:PropertyEditor>
             </DataTemplate>
             <DataTemplate x:Name="tagEditViewTemplate"
                           DataType="{x:Type vm:TagEditViewModel}">
-                <v:TagEditView />
+                <controls:PropertyEditor  Header="{Binding Name.Value}"
+                                          HeaderStringFormat="Update Tag {0}"
+                                          Grid.IsSharedSizeScope="True"
+                                          ApplyCommand="{Binding ApplyCommand}"
+                                          DiscardCommand="{Binding CancelCommand}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"
+                                              SharedSizeGroup="LabelWidth" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0"
+                               VerticalContentAlignment="Center"
+                               Content="Name" />
+                        <TextBox Grid.Column="1"
+                                 Text="{Binding Name.Value}"
+                                 VerticalContentAlignment="Center" />
+                    </Grid>
+                </controls:PropertyEditor>
             </DataTemplate>
             <DataTemplate x:Name="recordAddViewTemplate"
                           DataType="{x:Type vm:RecordAddViewModel}">
@@ -230,7 +265,7 @@
                                Content="Tag" />
                         <ComboBox Grid.Column="1"
                                   ItemsSource="{Binding Tags}"
-                                  SelectedItem="{Binding Tag}"
+                                  SelectedItem="{Binding Tag.Value}"
                                   VerticalContentAlignment="Center"
                                   DisplayMemberPath="Key.Value"
                                   IsSynchronizedWithCurrentItem="True" />

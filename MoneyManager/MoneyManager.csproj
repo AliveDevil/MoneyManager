@@ -195,18 +195,9 @@
     <Compile Include="Views\AccountDetailView.xaml.cs">
       <DependentUpon>AccountDetailView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\AccountEditView.xaml.cs">
-      <DependentUpon>AccountEditView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\AddToInputBinding.cs" />
     <Compile Include="Views\LoadDatabaseView.xaml.cs">
       <DependentUpon>LoadDatabaseView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\RecordAddView.xaml.cs">
-      <DependentUpon>RecordAddView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\RecordEditView.xaml.cs">
-      <DependentUpon>RecordEditView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StoreBaseView.xaml.cs">
       <DependentUpon>StoreBaseView.xaml</DependentUpon>
@@ -219,12 +210,6 @@
     </Compile>
     <Compile Include="Views\StoreLoadView.xaml.cs">
       <DependentUpon>StoreLoadView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\TagAddView.xaml.cs">
-      <DependentUpon>TagAddView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\TagEditView.xaml.cs">
-      <DependentUpon>TagEditView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TagOverviewView.xaml.cs">
       <DependentUpon>TagOverviewView.xaml</DependentUpon>
@@ -274,19 +259,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\AccountEditView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\LoadDatabaseView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\RecordAddView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\RecordEditView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -303,14 +276,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\StoreLoadView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\TagAddView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\TagEditView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
