@@ -29,7 +29,7 @@ namespace MoneyManager.ViewModel
 					record.Value = Value;
 					Store.RecordSet.Add(record);
 					Store.SaveChanges();
-					ViewState.Pop();
+                    ViewStack.Pop();
 				}));
 			}
 		}
@@ -40,7 +40,7 @@ namespace MoneyManager.ViewModel
 			{
 				return cancelCommand ?? (cancelCommand = new RelayCommand(() =>
 				{
-					ViewState.Pop();
+                    ViewStack.Pop();
 				}));
 			}
 		}

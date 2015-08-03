@@ -22,6 +22,7 @@ using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
+using libUIStack;
 using MoneyManager.Model;
 using MoneyManager.ViewModel;
 using nUpdate.Updating;
@@ -52,7 +53,7 @@ namespace MoneyManager
 			}
 		}
 
-		public ViewStateManager ViewState { get; private set; }
+        public DefaultViewStack ViewState { get; private set; }
 
 		public void SaveSettings()
 		{
@@ -70,7 +71,7 @@ namespace MoneyManager
 		{
 			Database.SetInitializer(new MigrateDatabaseToLatestVersion<DatabaseContext, Migrations.Configuration>());
 
-			ViewState = new ViewStateManager();
+			ViewState = new DefaultViewStack();
 			DirectoryInfo directory = new DirectoryInfo(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "MoneyManager"));
 			if (!directory.Exists) directory.Create();
 			settingsFile = new FileInfo(Path.Combine(directory.FullName, "settings.json"));

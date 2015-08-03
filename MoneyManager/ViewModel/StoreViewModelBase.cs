@@ -2,15 +2,15 @@
 
 namespace MoneyManager.ViewModel
 {
-	public class StoreViewModelBase : StateViewModelBase
-	{
-		protected DatabaseContext Store => StoreView.Store;
+    public class StoreViewModelBase : ViewModelBase
+    {
+        protected DatabaseContext Store => StoreView.Store;
 
-		protected StoreViewModel StoreView { get; }
+        protected StoreViewModel StoreView { get; }
 
-		public StoreViewModelBase(StoreViewModel viewModel) : base(viewModel.ViewState)
-		{
-			StoreView = viewModel;
-		}
-	}
+        public StoreViewModelBase(StoreViewModel viewModel)
+        {
+            StoreView = viewModel;
+        }
+    }
 }

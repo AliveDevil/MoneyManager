@@ -16,6 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System.Diagnostics;
+using libUIStack;
 using MoneyManager.Model;
 using ReactiveUI;
 
@@ -87,7 +88,7 @@ namespace MoneyManager.ViewModel
 			{
 				return selectAccountCommand ?? (selectAccountCommand = new RelayCommand<AccountInfoViewModel>(accountInfo =>
 				{
-					ViewState.Set(new AccountDetailViewModel((Account)accountInfo, this));
+					ViewStack.Set(new AccountDetailViewModel((Account)accountInfo, this));
 				}));
 			}
 		}
@@ -110,7 +111,7 @@ namespace MoneyManager.ViewModel
 							break;
 
 						case StoreMode.Tags:
-							ViewState.Set(new TagOverviewViewModel(this));
+							ViewStack.Set(new TagOverviewViewModel(this));
 							break;
 
 						default:
@@ -119,8 +120,8 @@ namespace MoneyManager.ViewModel
 				}));
 			}
 		}
-
-		public DatabaseContext Store
+        
+        public DatabaseContext Store
 		{
 			get
 			{
@@ -137,13 +138,13 @@ namespace MoneyManager.ViewModel
 			}
 		}
 
-		public ViewStateManager ViewState { get; } = new ViewStateManager();
+        public new DefaultViewStack ViewStack { get; } = new DefaultViewStack();
 
 		protected override void Dispose(bool disposing)
 		{
 			if (!disposedValue && disposing)
 			{
-				ViewState.Clear();
+				ViewStack.Clear();
 				store?.SaveChanges();
 				store?.Dispose();
 				store = null;

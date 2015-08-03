@@ -16,7 +16,7 @@ namespace MoneyManager.ViewModel
 			{
 				return finishCommand ?? (finishCommand = new RelayCommand(() =>
 				{
-					ViewState.Pop();
+                    ViewStack.Pop();
 				}));
 			}
 		}

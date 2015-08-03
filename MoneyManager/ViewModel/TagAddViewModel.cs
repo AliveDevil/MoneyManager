@@ -18,7 +18,7 @@ namespace MoneyManager.ViewModel
 					tag.Key = Name;
 					Store.TagSet.Add(tag);
 					Store.SaveChanges();
-					StoreView.ViewState.Pop();
+					ViewStack.Pop();
 				}));
 			}
 		}
@@ -29,7 +29,7 @@ namespace MoneyManager.ViewModel
 			{
 				return cancelCommand ?? (cancelCommand = new RelayCommand(() =>
 				{
-					StoreView.ViewState.Pop();
+                    ViewStack.Pop();
 				}));
 			}
 		}

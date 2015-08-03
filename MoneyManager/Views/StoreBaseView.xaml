@@ -81,6 +81,6 @@
                     Command="{Binding CloseAccount}" />
         </Grid>
         <ContentControl Grid.Column="1"
-                        Content="{Binding ViewState.View}" />
+                        Content="{Binding ViewStack.View}" />
     </Grid>
 </UserControl>

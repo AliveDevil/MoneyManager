@@ -66,6 +66,9 @@
       <HintPath>..\packages\EntityFramework.SqlServerCompact.6.1.3\lib\net45\EntityFramework.SqlServerCompact.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="libUIStack">
+      <HintPath>..\lib\libUIStack\libUIStack.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -176,7 +179,6 @@
     <Compile Include="ViewModel\RelayCommand.cs" />
     <Compile Include="ViewModel\RelayCommand`1.cs" />
     <Compile Include="ViewModel\SettingsDatabaseEntryViewModel.cs" />
-    <Compile Include="ViewModel\StateViewModelBase.cs" />
     <Compile Include="ViewModel\StoreCreationViewModel.cs" />
     <Compile Include="ViewModel\StoreLoadViewModel.cs" />
     <Compile Include="ViewModel\StoreViewModel.cs" />
@@ -187,7 +189,6 @@
     <Compile Include="ViewModel\TagOverviewViewModel.cs" />
     <Compile Include="ViewModel\UpdaterViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
-    <Compile Include="ViewModel\ViewStateManager.cs" />
     <Compile Include="Views\AboutView.xaml.cs">
       <DependentUpon>AboutView.xaml</DependentUpon>
     </Compile>
